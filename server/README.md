@@ -1,18 +1,18 @@
-# SmartPlace Mock Backend
+# SmartPlace Mock 后端
 
-This is the phase-0 cloud inference mock service.
+本目录是阶段 0 的云端推理 mock 服务。
 
-It returns fixed Top-3 placement recommendations with the same response shape planned for the real OPA/libcom model.
+当前服务返回固定 Top 3 放置推荐结果，响应结构与后续真实 OPA/libcom 模型计划保持一致。
 
-## Run Without Extra Dependencies
+## 无额外依赖运行
 
-Use this for the phase-0 Android connectivity demo:
+用于阶段 0 的 Android 连通性 Demo：
 
 ```bash
 python mock_stdlib.py --host 0.0.0.0 --port 8000
 ```
 
-## Run FastAPI Version
+## FastAPI 版本运行
 
 ```bash
 cd server
@@ -20,14 +20,14 @@ python -m pip install -r requirements.txt
 python -m uvicorn app:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Endpoints
+## 接口
 
 - `GET /api/health`
 - `POST /api/place/recommend`
 
-See `../docs/API.md` for request and response details.
+请求和响应字段详见 `../docs/API.md`。
 
-## Android URLs
+## Android 访问地址
 
-- Emulator: `http://10.0.2.2:8000`
-- Physical phone: `http://<computer-lan-ip>:8000`
+- 模拟器：`http://10.0.2.2:8000`
+- 真机：`http://<电脑局域网IP>:8000`

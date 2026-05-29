@@ -1,39 +1,44 @@
 # SmartPlace
 
-SmartPlace is the course project for direction A: intelligent object placement and composition quality assessment.
+SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量评价。
 
-The planned product is an Android app that lets a user choose a background image and a foreground object, sends them to a cloud inference service, and receives ranked placement recommendations with scores and visual evidence.
+项目目标是做一个 Android 物体放置助手。用户在 App 中选择背景图和前景物体后，系统把图片发送给云端推理服务，由后端生成候选位置、调用模型评分，并把推荐位置、合理性分数和可视化证据返回给 App 展示。
 
-## Current Phase
+## 当前阶段
 
-Phase 0 is the collaboration and mock-demo phase:
+目前处于阶段 0：协作环境和 mock Demo 搭建阶段。
 
-- Keep `OPAAndroidDemoSimp/` as the course Android reference skeleton.
-- Use `server/` for the cloud inference service.
-- Use `docs/API.md` as the front-end/back-end contract.
-- Use mock recommendation data first, then replace it with real OPA/libcom inference.
+- `OPAAndroidDemoSimp/`：课程提供的 Android 前端参考骨架。
+- `server/`：云端推理服务，阶段 0 先返回 mock 推荐结果。
+- `docs/API.md`：Android 与后端之间的接口约定。
+- `docs/WORKFLOW.md`：小组协作、分支和合并规则。
+- `docs/model_plan.md`：模型选择、模型改造和验证计划。
+- `计划.md`：从阶段 0 到答辩准备的完整推进计划。
 
-## Repository Layout
+阶段 0 的核心原则是：先用 mock 数据打通 Android 到后端的链路，再逐步替换为真实 OPA/libcom 模型推理。
+
+## 目录结构
 
 ```text
 SmartPlace/
-├── OPAAndroidDemoSimp/      # Course Android demo skeleton
-├── server/                  # FastAPI cloud inference service
-├── docs/                    # API, workflow, model plan, test records
-├── assets/                  # Shared test images and materials
-├── report/                  # Report, slides, screenshots, videos
-└── README.md
+|-- OPAAndroidDemoSimp/      # 课程 Android Demo 骨架
+|-- server/                  # FastAPI / mock 云端推理服务
+|-- docs/                    # 接口、协作流程、模型计划、测试记录
+|-- assets/                  # 测试图片和共享素材
+|-- report/                  # 报告、PPT、截图、录屏材料
+|-- 计划.md                  # 项目推进计划
+`-- README.md
 ```
 
-## Phase 0 Quick Start
+## 阶段 0 快速运行
 
-Run the dependency-free mock backend first:
+优先运行无额外依赖的 mock 后端：
 
 ```bash
 python server/mock_stdlib.py --host 0.0.0.0 --port 8000
 ```
 
-Or run the FastAPI mock backend after installing dependencies:
+如果已经安装 FastAPI 依赖，也可以运行正式后端入口：
 
 ```bash
 cd server
@@ -41,24 +46,24 @@ python -m pip install -r requirements.txt
 python -m uvicorn app:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Check the mock API:
+检查后端状态：
 
 ```bash
 curl http://127.0.0.1:8000/api/health
 ```
 
-The Android app should call:
+Android 端后续调用：
 
 ```text
 POST http://<server-ip>:8000/api/place/recommend
 ```
 
-For an Android emulator, use `http://10.0.2.2:8000`. For a physical phone, use the computer's LAN IP.
+模拟器使用 `http://10.0.2.2:8000`。真机使用电脑的局域网 IP。
 
-## Team Roles
+## 小组分工
 
-- Member A: model adaptation and model experiments.
-- Member B: cloud inference service and recommendation pipeline.
-- Member C: Android app, interaction, demo video, and final material integration.
+- 成员 A：模型改造与模型实验。
+- 成员 B：云端推理服务与候选推荐管线。
+- 成员 C：Android App、交互展示、演示视频和最终材料整合。
 
-Each member owns both implementation and the corresponding report/PPT section.
+每个成员不仅负责实现，也负责自己模块对应的报告和 PPT 内容。

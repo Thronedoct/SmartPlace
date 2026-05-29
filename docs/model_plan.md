@@ -1,48 +1,48 @@
-# Model Plan
+# 模型计划
 
-## Direction
+## 方向选择
 
-Use direction A: intelligent object placement and composition quality assessment.
+项目选择方向 A：智能物体放置与合成图质量评价。
 
-Primary model candidates:
+主模型候选：
 
-- OPA/Object Placement Assessment model.
-- libcom object placement quality assessment components.
-- TopNet as optional reference for candidate placement.
+- OPA/Object Placement Assessment 模型。
+- libcom 中的物体放置质量评价相关组件。
+- TopNet 作为候选位置生成或排序的参考。
 
-## Phase-0 Mock Output
+## 阶段 0 Mock 输出
 
-Before real model integration, the backend returns fixed candidates with the same structure as the future model response.
+在真实模型接入前，后端先返回固定候选结果，但响应结构要与最终模型接口一致。
 
-The mock response is intentionally shaped like the final API:
+mock 响应包含：
 
-- Top-3 placement boxes.
-- 0-1 score.
-- Three-tier label.
-- Runtime and model version.
+- Top 3 候选位置框。
+- 0 到 1 的合理性分数。
+- 推荐、可接受、不推荐三档标签。
+- 推理耗时和模型版本。
 
-## Required Model Work
+## 必做模型工作
 
-The standard three-person team needs at least two model-related works, including at least one body-level model modification.
+标准三人组至少需要完成两项模型相关工作，其中至少一项必须是本体类改动。
 
-Planned body-level modification:
+计划中的本体类改动：
 
-- Change scoring input from RGB composite image to RGB + foreground mask.
-- Compare the original RGB model and the RGB+mask model on at least 6 candidate groups.
+- 将评分模型输入从 RGB 合成图改为 `RGB + foreground mask`。
+- 在至少 6 组候选位置上比较原 RGB 模型和 `RGB+mask` 改造模型。
 
-Planned functional modification:
+计划中的功能类改动：
 
-- Generate multiple placement candidates.
-- Score each candidate.
-- Sort candidates and return Top 3 recommendations.
+- 生成多个候选位置。
+- 对每个候选位置调用模型评分。
+- 按分数排序并返回 Top 3 推荐结果。
 
-## Evidence to Collect
+## 需要收集的证据
 
-- Reference model run screenshot.
-- Weight loading code path.
-- Input tensor shape before and after modification.
-- Inference log for a fresh image.
-- Ranking comparison table.
-- Runtime comparison table.
-- Success and failure cases.
-- Grad-CAM, occlusion, or other explanation output.
+- 参考模型运行截图。
+- 权重加载代码位置。
+- 改造前后的输入张量形状。
+- 一张全新图片的实时推理日志。
+- 候选排序对比表。
+- 推理时间对比表。
+- 成功案例和失败案例。
+- Grad-CAM、遮挡实验或其他模型解释结果。

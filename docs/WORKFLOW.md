@@ -1,43 +1,43 @@
-# Development Workflow
+# 开发协作流程
 
-## Branches
+## 分支约定
 
-- `main`: stable deliverable branch.
-- `dev`: integration branch.
-- `feature/model-*`: model code and experiments.
-- `feature/backend-*`: cloud service and API work.
-- `feature/android-*`: Android app work.
-- `feature/docs-*`: report, slides, and documentation.
+- `main`：稳定交付分支。
+- `dev`：日常集成分支。
+- `feature/model-*`：模型代码、模型改造和实验。
+- `feature/backend-*`：云端服务、接口和部署。
+- `feature/android-*`：Android App 功能。
+- `feature/docs-*`：报告、PPT、截图和文档。
 
-## Daily Collaboration Rule
+## 同步规则
 
-Each sync should answer four questions:
+每次小组同步需要回答四个问题：
 
-1. What changed since last sync?
-2. What can another member run or review?
-3. What is blocked?
-4. Does the API contract need to change?
+1. 上次同步后改了什么？
+2. 现在有什么内容可以让其他成员运行或 review？
+3. 当前卡点是什么？
+4. 接口约定是否需要变化？
 
-If the API changes, update `docs/API.md` before changing Android or backend code.
+如果接口字段发生变化，必须先更新 `docs/API.md`，再改 Android 或后端代码。
 
-## Merge Rule
+## 合并规则
 
-Before merging into `dev`:
+合并到 `dev` 前：
 
-- The code builds or the script starts locally.
-- The changed behavior is documented.
-- At least one other member has reviewed the affected interface.
+- 代码能构建，或脚本能在本地启动。
+- 行为变化已经写入对应文档。
+- 至少一名其他成员看过受影响的接口或使用方式。
 
-Before merging into `main`:
+合并到 `main` 前：
 
-- Android can complete the main flow.
-- Backend logs show the request and response.
-- The README contains the current run steps.
+- Android 能完成主流程。
+- 后端日志能显示请求和响应。
+- `README.md` 中的运行步骤与当前代码一致。
 
-## Report Ownership
+## 报告分工
 
-- Member A owns model sections.
-- Member B owns architecture, API, deployment, and model-call evidence.
-- Member C owns app interaction, screenshots, demo video, and final integration.
+- 成员 A 负责模型相关章节。
+- 成员 B 负责系统架构、接口、部署和模型调用证据。
+- 成员 C 负责 App 交互、截图、演示视频和最终材料整合。
 
-Each member writes the first draft for their own part. Member C can do final formatting, but content accuracy remains with the owner.
+每个成员先写自己负责部分的初稿。成员 C 可以统一排版，但内容准确性仍由对应负责人保证。

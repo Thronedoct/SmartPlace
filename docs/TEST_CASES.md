@@ -1,32 +1,30 @@
-# Test Case Log
+# 测试案例记录
 
-Use this table for all validation cases. Keep screenshots or source images under `assets/` or `report/`.
+所有验证案例统一记录在本文档中。截图、原始图片或生成结果建议放在 `assets/` 或 `report/` 目录下。
 
-| ID | Background type | Foreground object | Candidate type | Model version | Score | System rank | Human judgment | Result | Notes |
+| ID | 背景类型 | 前景物体 | 候选类型 | 模型版本 | 分数 | 系统排序 | 人工判断 | 结果 | 备注 |
 |---|---|---|---|---|---:|---:|---|---|---|
-| T001 | desktop | cup | reasonable support | mock-v0 | 0.86 | 1 | reasonable | pass | Phase-0 placeholder. |
-| T002 | floor | chair | scale too large | mock-v0 | 0.61 | 2 | acceptable | review | Phase-0 placeholder. |
-| T003 | wall | plant | floating / unsupported | mock-v0 | 0.28 | 3 | unreasonable | fail | Phase-0 placeholder. |
+| T001 | 桌面 | 杯子 | 合理支撑位置 | mock-v0 | 0.86 | 1 | 合理 | 通过 | 阶段 0 占位案例。 |
+| T002 | 地面 | 椅子 | 尺度偏大 | mock-v0 | 0.61 | 2 | 勉强可接受 | 待复查 | 阶段 0 占位案例。 |
+| T003 | 墙面 | 植物 | 悬空或缺少支撑 | mock-v0 | 0.28 | 3 | 不合理 | 失败 | 阶段 0 占位案例。 |
 
-## Required Coverage
+## 最终覆盖要求
 
-Final project should include at least 18 cases:
+最终项目至少准备 18 组案例，覆盖：
 
-- Desktop/tabletop scenes.
-- Floor scenes.
-- Wall/shelf scenes.
-- Outdoor scenes.
-- Clearly reasonable positions.
-- Clearly wrong positions.
-- Boundary overflow or unreasonable scale cases.
+- 桌面或台面场景。
+- 地面场景。
+- 墙面、架子或柜体场景。
+- 户外场景。
+- 明显合理的位置。
+- 明显错误的位置。
+- 边界越界或尺度不合理的位置。
 
-## Per-case Evidence
+## 每个重点案例建议保存的证据
 
-For important cases, save:
-
-- Original background.
-- Foreground object.
-- Top-3 candidate screenshot.
-- Model score table.
-- Human judgment.
-- Failure reason if the model result is poor.
+- 原始背景图。
+- 前景物体图。
+- Top 3 候选展示截图。
+- 模型评分表。
+- 人工判断。
+- 如果结果不好，需要写清失败原因。
