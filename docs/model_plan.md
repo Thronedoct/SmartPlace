@@ -10,7 +10,7 @@
 - libcom 中的物体放置质量评价相关组件。
 - TopNet 作为候选位置生成或排序的参考。
 
-模型路线决策详见 `docs/MODEL_DECISION.md`。当前明确不从零训练全新模型，而是在 OPA/libcom 参考源码基础上做模型输入、输出、候选排序和服务化改造。
+模型路线决策详见 `docs/MODEL_DECISION.md`，高分扩展方案详见 `docs/HIGH_SCORE_MODEL_PLAN.md`。当前明确不从零训练全新模型，而是在 OPA/libcom 参考源码基础上做模型输入、输出、候选排序、轻量微调和服务化改造。
 
 课程项目 PDF 中给出的方向 A 参考源码已记录在 `docs/SOURCE_REVIEW.md`。当前优先级为：
 
