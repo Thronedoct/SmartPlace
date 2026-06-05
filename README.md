@@ -12,8 +12,9 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 - `server/`：云端推理服务，阶段 0 先返回 mock 推荐结果。
 - `docs/API.md`：Android 与后端之间的接口约定。
 - `docs/WORKFLOW.md`：小组协作、分支和合并规则。
-- `docs/model_plan.md`：模型选择、模型改造和验证计划。
-- `docs/SOURCE_REVIEW.md`：课程 PDF 中参考 GitHub 源码的审阅记录和落地路线。
+- `docs/model_plan.md`：模型路线、参考源码、高分方案、训练和端侧推理计划。
+- `docs/PHASE0_STATUS.md`：当前阶段状态和下一步行动。
+- `docs/TEST_CASES.md`：测试案例和工程验证记录。
 - `计划.md`：从阶段 0 到答辩准备的完整推进计划。
 
 阶段 0 的核心原则是：先用 mock 数据打通 Android 到后端的链路，再逐步替换为真实 OPA/libcom 模型推理。
