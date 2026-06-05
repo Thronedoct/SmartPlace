@@ -64,8 +64,8 @@ Content-Type: multipart/form-data
   "model_version": "mock-v0",
   "coord_type": "normalized_xywh",
   "runtime_ms": 42,
-  "image_width": 1,
-  "image_height": 1,
+  "image_width": 1024,
+  "image_height": 768,
   "best_index": 0,
   "candidates": [
     {
@@ -91,6 +91,9 @@ Content-Type: multipart/form-data
 - `x` 和 `y` 表示前景框左上角坐标。
 - `w` 和 `h` 表示前景框宽度和高度。
 - 所有坐标均相对于背景图显示区域归一化，范围为 `0.0` 到 `1.0`。
+- `image_width` 和 `image_height` 表示后端识别到的背景图原始尺寸。阶段 0 的 FastAPI mock 会从 PNG/JPEG/GIF 上传内容中解析真实尺寸；无法识别时退回 `1`。
+
+Android 或其他前端展示候选框时应优先使用归一化坐标，不要依赖服务端返回的固定像素尺寸。像素尺寸主要用于调试、日志和最终报告证据。
 
 ## 分数与标签
 
@@ -108,3 +111,12 @@ Content-Type: multipart/form-data
 - `heatmap_url`：Grad-CAM、遮挡实验或其他解释图。
 - `model_version`：例如 `opa-rgb-v1` 或 `opa-rgb-mask-v1`。
 - `runtime_ms`：云端实际推理耗时。
+
+## 前端实现要求
+
+Android 端可以基于 `OPAAndroidDemoSimp/` 继续改，也可以重新搭建项目。无论采用哪种前端，接口层必须保持：
+
+- 使用 `multipart/form-data` 上传背景图和前景图。
+- 请求成功后解析 `candidates` 数组，而不是只读取单个分数。
+- 按 `best_index` 默认展示最佳候选。
+- 支持展示或记录 `model_version`、`runtime_ms` 和 `request_id`，便于报告证明真实调用链路。

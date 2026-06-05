@@ -6,16 +6,19 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 
 ## 当前阶段
 
-目前处于阶段 0：协作环境和 mock Demo 搭建阶段。
+目前处于阶段 0 到阶段 1 的衔接：协作环境和 mock Demo 已搭建，下一步是 Android 联调与真实 OPA/libcom 评分模型验证。
 
 - `OPAAndroidDemoSimp/`：课程提供的 Android 前端参考骨架。
 - `server/`：云端推理服务，阶段 0 先返回 mock 推荐结果。
 - `docs/API.md`：Android 与后端之间的接口约定。
 - `docs/WORKFLOW.md`：小组协作、分支和合并规则。
 - `docs/model_plan.md`：模型选择、模型改造和验证计划。
+- `docs/SOURCE_REVIEW.md`：课程 PDF 中参考 GitHub 源码的审阅记录和落地路线。
 - `计划.md`：从阶段 0 到答辩准备的完整推进计划。
 
 阶段 0 的核心原则是：先用 mock 数据打通 Android 到后端的链路，再逐步替换为真实 OPA/libcom 模型推理。
+
+Android 端可以继续使用课程 Demo，也可以重新搭建；项目边界以 `docs/API.md` 为准。
 
 ## 目录结构
 
@@ -50,6 +53,13 @@ python -m uvicorn app:app --reload --host 0.0.0.0 --port 8000
 
 ```bash
 curl http://127.0.0.1:8000/api/health
+```
+
+运行后端单元检查：
+
+```bash
+python -m unittest server.test_recommender
+python -m py_compile server/app.py server/mock_stdlib.py server/recommender.py
 ```
 
 Android 端后续调用：

@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import time
-import uuid
 from typing import Annotated
 
 from fastapi import FastAPI, File, Form, UploadFile
 from pydantic import BaseModel, Field
 
+try:
+    from server.recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
+except ModuleNotFoundError:
+    from recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
 
-MODEL_VERSION = "mock-v0"
+MODEL_VERSION = DEFAULT_MODEL_VERSION
 
 app = FastAPI(
     title="SmartPlace Mock Inference Service",
@@ -82,51 +85,12 @@ async def recommend_place(
         },
     )
 
-    base_candidates = [
-        Candidate(
-            rank=1,
-            x=0.38,
-            y=0.58,
-            w=min(0.32, foreground_scale),
-            h=min(0.32, foreground_scale),
-            score=0.86,
-            tier="recommended",
-            label="推荐",
-            reason="Mock: object is inside a stable support region.",
-        ),
-        Candidate(
-            rank=2,
-            x=0.15,
-            y=0.55,
-            w=min(0.30, foreground_scale),
-            h=min(0.30, foreground_scale),
-            score=0.61,
-            tier="acceptable",
-            label="可接受",
-            reason="Mock: position is plausible but less centered.",
-        ),
-        Candidate(
-            rank=3,
-            x=0.72,
-            y=0.12,
-            w=min(0.28, foreground_scale),
-            h=min(0.28, foreground_scale),
-            score=0.28,
-            tier="rejected",
-            label="不推荐",
-            reason="Mock: object appears unsupported or visually floating.",
-        ),
-    ]
-    candidates = base_candidates[:candidate_count]
-
-    runtime_ms = max(1, round((time.perf_counter() - started) * 1000))
     return RecommendResponse(
-        request_id=f"mock-{uuid.uuid4().hex[:12]}",
-        model_version=MODEL_VERSION,
-        coord_type="normalized_xywh",
-        runtime_ms=runtime_ms,
-        image_width=1,
-        image_height=1,
-        best_index=0,
-        candidates=candidates,
+        **build_mock_recommendation(
+            candidate_count=candidate_count,
+            foreground_scale=foreground_scale,
+            background_bytes=background_bytes,
+            model_version=MODEL_VERSION,
+            started_at=started,
+        )
     )

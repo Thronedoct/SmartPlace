@@ -28,3 +28,10 @@
 - 模型评分表。
 - 人工判断。
 - 如果结果不好，需要写清失败原因。
+
+## 阶段 0 工程验证
+
+| ID | 验证内容 | 命令或方式 | 结果 | 备注 |
+|---|---|---|---|---|
+| V001 | mock 推荐模块单元测试 | `python -m unittest server.test_recommender` | 通过 | 验证 PNG 尺寸解析、候选数量和尺度字段。 |
+| V002 | 后端 Python 语法检查 | `python -m py_compile server/app.py server/mock_stdlib.py server/recommender.py server/test_recommender.py` | 通过 | 验证 FastAPI 入口、标准库入口和推荐模块可编译。 |

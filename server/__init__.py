@@ -1,0 +1,1 @@
+"""SmartPlace backend package."""

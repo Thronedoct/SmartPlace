@@ -2,67 +2,18 @@ from __future__ import annotations
 
 import argparse
 import json
-import time
-import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+try:
+    from server.recommender import build_mock_recommendation
+except ModuleNotFoundError:
+    from recommender import build_mock_recommendation
 
 MODEL_VERSION = "mock-stdlib-v0"
 
 
 def build_recommendation() -> dict:
-    started = time.perf_counter()
-    runtime_ms = max(1, round((time.perf_counter() - started) * 1000))
-    return {
-        "request_id": f"mock-{uuid.uuid4().hex[:12]}",
-        "model_version": MODEL_VERSION,
-        "coord_type": "normalized_xywh",
-        "runtime_ms": runtime_ms,
-        "image_width": 1,
-        "image_height": 1,
-        "best_index": 0,
-        "candidates": [
-            {
-                "rank": 1,
-                "x": 0.38,
-                "y": 0.58,
-                "w": 0.25,
-                "h": 0.25,
-                "score": 0.86,
-                "tier": "recommended",
-                "label": "推荐",
-                "reason": "Mock: object is inside a stable support region.",
-                "preview_url": None,
-                "heatmap_url": None,
-            },
-            {
-                "rank": 2,
-                "x": 0.15,
-                "y": 0.55,
-                "w": 0.25,
-                "h": 0.25,
-                "score": 0.61,
-                "tier": "acceptable",
-                "label": "可接受",
-                "reason": "Mock: position is plausible but less centered.",
-                "preview_url": None,
-                "heatmap_url": None,
-            },
-            {
-                "rank": 3,
-                "x": 0.72,
-                "y": 0.12,
-                "w": 0.25,
-                "h": 0.25,
-                "score": 0.28,
-                "tier": "rejected",
-                "label": "不推荐",
-                "reason": "Mock: object appears unsupported or visually floating.",
-                "preview_url": None,
-                "heatmap_url": None,
-            },
-        ],
-    }
+    return build_mock_recommendation(model_version=MODEL_VERSION)
 
 
 class MockHandler(BaseHTTPRequestHandler):
