@@ -36,6 +36,13 @@ class RecommenderTest(unittest.TestCase):
         self.assertEqual(payload["candidates"][0]["w"], 0.22)
         self.assertEqual(payload["candidates"][0]["tier"], "recommended")
 
+    def test_build_recommendation_can_return_more_candidates(self) -> None:
+        payload = build_mock_recommendation(candidate_count=8, foreground_scale=0.4)
+
+        self.assertEqual(len(payload["candidates"]), 8)
+        self.assertEqual(payload["candidates"][7]["rank"], 8)
+        self.assertLessEqual(payload["candidates"][7]["w"], 0.4)
+
 
 if __name__ == "__main__":
     unittest.main()

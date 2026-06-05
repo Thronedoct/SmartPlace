@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from pathlib import Path
 import time
 from typing import Annotated
 
 from fastapi import FastAPI, File, Form, UploadFile
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 try:
@@ -12,12 +15,21 @@ except ModuleNotFoundError:
     from recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
 
 MODEL_VERSION = DEFAULT_MODEL_VERSION
+ROOT_DIR = Path(__file__).resolve().parents[1]
+WEB_DIR = ROOT_DIR / "web"
+SAMPLES_DIR = ROOT_DIR / "OPAAndroidDemoSimp" / "app" / "src" / "main" / "assets" / "samples"
 
 app = FastAPI(
     title="SmartPlace Mock Inference Service",
     version="0.1.0",
-    description="Phase-0 mock service for Android/backend integration.",
+    description="Local inference service and web workspace for SmartPlace.",
 )
+
+if WEB_DIR.exists():
+    app.mount("/web", StaticFiles(directory=WEB_DIR), name="web")
+
+if SAMPLES_DIR.exists():
+    app.mount("/samples", StaticFiles(directory=SAMPLES_DIR), name="samples")
 
 
 class Candidate(BaseModel):
@@ -43,6 +55,16 @@ class RecommendResponse(BaseModel):
     image_height: int
     best_index: int
     candidates: list[Candidate]
+
+
+@app.get("/")
+def web_workspace() -> FileResponse:
+    return FileResponse(WEB_DIR / "index.html")
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon() -> FileResponse:
+    return FileResponse(WEB_DIR / "favicon.svg", media_type="image/svg+xml")
 
 
 @app.get("/api/health")

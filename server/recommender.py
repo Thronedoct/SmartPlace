@@ -38,46 +38,34 @@ def build_mock_recommendation(
     scale = min(max(foreground_scale, 0.05), 0.8)
     limit = min(max(candidate_count, 1), 10)
 
+    candidate_templates = [
+        (0.38, 0.58, 0.32, 0.86, "recommended", "推荐", "Mock: object is inside a stable support region."),
+        (0.15, 0.55, 0.30, 0.61, "acceptable", "可接受", "Mock: position is plausible but less centered."),
+        (0.72, 0.12, 0.28, 0.28, "rejected", "不推荐", "Mock: object appears unsupported or visually floating."),
+        (0.52, 0.46, 0.26, 0.74, "acceptable", "可接受", "Mock: balanced placement with mild overlap risk."),
+        (0.08, 0.18, 0.24, 0.52, "acceptable", "可接受", "Mock: composition is usable but visually peripheral."),
+        (0.62, 0.66, 0.24, 0.43, "rejected", "不推荐", "Mock: placement competes with background structure."),
+        (0.30, 0.20, 0.22, 0.39, "rejected", "不推荐", "Mock: object lacks a convincing support plane."),
+        (0.47, 0.10, 0.20, 0.33, "rejected", "不推荐", "Mock: upper image region is unlikely for this object."),
+        (0.04, 0.68, 0.18, 0.31, "rejected", "不推荐", "Mock: edge placement leaves weak visual context."),
+        (0.78, 0.52, 0.18, 0.26, "rejected", "不推荐", "Mock: object would feel cramped near the boundary."),
+    ]
+
     base_candidates = [
         {
-            "rank": 1,
-            "x": 0.38,
-            "y": 0.58,
-            "w": min(0.32, scale),
-            "h": min(0.32, scale),
-            "score": 0.86,
-            "tier": "recommended",
-            "label": "推荐",
-            "reason": "Mock: object is inside a stable support region.",
+            "rank": rank,
+            "x": x,
+            "y": y,
+            "w": min(max_size, scale),
+            "h": min(max_size, scale),
+            "score": score,
+            "tier": tier,
+            "label": label,
+            "reason": reason,
             "preview_url": None,
             "heatmap_url": None,
-        },
-        {
-            "rank": 2,
-            "x": 0.15,
-            "y": 0.55,
-            "w": min(0.30, scale),
-            "h": min(0.30, scale),
-            "score": 0.61,
-            "tier": "acceptable",
-            "label": "可接受",
-            "reason": "Mock: position is plausible but less centered.",
-            "preview_url": None,
-            "heatmap_url": None,
-        },
-        {
-            "rank": 3,
-            "x": 0.72,
-            "y": 0.12,
-            "w": min(0.28, scale),
-            "h": min(0.28, scale),
-            "score": 0.28,
-            "tier": "rejected",
-            "label": "不推荐",
-            "reason": "Mock: object appears unsupported or visually floating.",
-            "preview_url": None,
-            "heatmap_url": None,
-        },
+        }
+        for rank, (x, y, max_size, score, tier, label, reason) in enumerate(candidate_templates, start=1)
     ]
 
     runtime_ms = max(1, round((time.perf_counter() - started) * 1000))

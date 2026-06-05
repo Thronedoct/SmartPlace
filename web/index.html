@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SmartPlace Local</title>
+    <link rel="icon" href="/web/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="control-pane">
+        <div class="brand-row">
+          <span class="mark">SP</span>
+          <div>
+            <h1>SmartPlace</h1>
+            <p>本地物体放置推理工作台</p>
+          </div>
+        </div>
+
+        <form id="recommend-form" class="control-form">
+          <label class="file-field">
+            <span>背景图</span>
+            <input id="background-input" name="background" type="file" accept="image/*" required />
+          </label>
+
+          <label class="file-field">
+            <span>前景物体</span>
+            <input id="foreground-input" name="foreground" type="file" accept="image/*" required />
+          </label>
+
+          <label class="file-field">
+            <span>Mask</span>
+            <input id="mask-input" name="mask" type="file" accept="image/*" />
+          </label>
+
+          <div class="field-grid">
+            <label>
+              <span>候选数</span>
+              <select id="candidate-count" name="candidate_count">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+              </select>
+            </label>
+
+            <label>
+              <span>前景比例</span>
+              <input id="foreground-scale" name="foreground_scale" type="range" min="0.10" max="0.60" step="0.01" value="0.25" />
+            </label>
+          </div>
+
+          <div class="scale-row">
+            <span id="scale-value">25%</span>
+            <span id="service-status">local</span>
+          </div>
+
+          <button type="submit" class="primary-action">运行本地推荐</button>
+        </form>
+
+        <section class="result-list" aria-label="候选结果">
+          <div class="section-heading">
+            <h2>Top candidates</h2>
+            <span id="request-meta">等待推理</span>
+          </div>
+          <ol id="candidate-list"></ol>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div class="stage-toolbar">
+          <div>
+            <span class="eyebrow">Preview</span>
+            <h2 id="stage-title">选择图片后查看推荐位置</h2>
+          </div>
+          <div id="model-badge" class="model-badge">mock-v0</div>
+        </div>
+
+        <div id="stage" class="stage">
+          <img id="background-preview" src="/samples/composite_1.jpg" alt="背景预览" />
+          <div id="overlay-layer" class="overlay-layer"></div>
+        </div>
+
+        <div class="evidence-row">
+          <div>
+            <span>coord</span>
+            <strong id="coord-type">normalized_xywh</strong>
+          </div>
+          <div>
+            <span>runtime</span>
+            <strong id="runtime">-- ms</strong>
+          </div>
+          <div>
+            <span>image</span>
+            <strong id="image-size">--</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/web/app.js" defer></script>
+  </body>
+</html>
