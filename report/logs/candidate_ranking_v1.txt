@@ -1,0 +1,26 @@
+SmartPlace candidate ranking v1
+cases=18
+candidate_rows=234
+positive_cases=9
+negative_cases=9
+elapsed_seconds=66.6
+positive_pass=8
+negative_pass=9
+case opa_test_001 label=1 dataset_score=0.9985 dataset_rank=1 top1=opa_position:0.9985 assessment=pass_positive_high_rank
+case opa_test_002 label=1 dataset_score=0.9987 dataset_rank=10 top1=prior_pool:1.0 assessment=review_positive_high_score_low_rank
+case opa_test_003 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_004 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_005 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_006 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_007 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_008 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_009 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_051 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_052 label=0 dataset_score=0.0 dataset_rank=2 top1=prior_pool:0.9756 assessment=pass_negative_rejected
+case opa_test_053 label=0 dataset_score=0.0 dataset_rank=11 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_054 label=0 dataset_score=0.0 dataset_rank=4 top1=prior_pool:0.8239 assessment=pass_negative_rejected
+case opa_test_055 label=0 dataset_score=0.0 dataset_rank=9 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_056 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:0.9999 assessment=pass_negative_rejected
+case opa_test_057 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_058 label=0 dataset_score=0.0 dataset_rank=2 top1=prior_pool:0.0003 assessment=pass_negative_rejected
+case opa_test_059 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected

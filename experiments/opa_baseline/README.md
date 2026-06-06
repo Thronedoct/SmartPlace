@@ -89,3 +89,30 @@ Current result on `opa_test_001`:
 - `model_version=simopa-rgb-mask-v1`
 - Top 3 scores: `0.998`, `0.8495`, `0.6471`
 - API runtime: about 3.7 seconds with subprocess model loading.
+
+## 18-Case Candidate Ranking
+
+Run:
+
+```powershell
+.\.venv\Scripts\python.exe experiments\opa_baseline\run_candidate_ranking.py
+```
+
+This selects 9 positive and 9 negative cases from `assets/datasets/opa/splits/smoke_100.csv`. For each case, it scores the OPA labeled position plus 12 generated prior candidates with the SimOPA scorer and writes model-ranked evidence tables.
+
+Outputs:
+
+```text
+assets/datasets/opa/splits/report_18.csv
+report/logs/candidate_ranking_v1.txt
+report/tables/candidate_ranking_v1.csv
+report/tables/opa_18_case_summary.csv
+```
+
+Current result:
+
+- 18 cases.
+- 234 candidate scores.
+- 8 of 9 positive cases have the OPA labeled position scored high and ranked in Top 3.
+- 9 of 9 negative OPA labeled positions are rejected with score `0.0`.
+- `opa_test_002` is a useful discussion case: the labeled position scores `0.9987`, but several generated candidates also saturate near `1.0`, so the labeled position ranks lower despite a high absolute score.
