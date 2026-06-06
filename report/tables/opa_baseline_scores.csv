@@ -1,0 +1,3 @@
+case_id,image,mask,model,device,score,runtime_ms,log_path
+opa_example_1,external/Object-Placement-Assessment-Dataset-OPA/eval_opascore/examples/composite_1.jpg,external/Object-Placement-Assessment-Dataset-OPA/eval_opascore/examples/mask_1.jpg,simopa,cuda:0,1.0,556,report/logs/opa_baseline_smoke.txt
+opa_example_0,external/Object-Placement-Assessment-Dataset-OPA/eval_opascore/examples/composite_0.jpg,external/Object-Placement-Assessment-Dataset-OPA/eval_opascore/examples/mask_0.jpg,simopa,cuda:0,0.0,384,report/logs/opa_baseline_smoke_case0.txt

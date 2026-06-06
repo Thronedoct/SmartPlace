@@ -4,6 +4,7 @@ const foregroundInput = document.querySelector("#foreground-input");
 const maskInput = document.querySelector("#mask-input");
 const candidateCount = document.querySelector("#candidate-count");
 const foregroundScale = document.querySelector("#foreground-scale");
+const scorerMode = document.querySelector("#scorer-mode");
 const scaleValue = document.querySelector("#scale-value");
 const serviceStatus = document.querySelector("#service-status");
 const backgroundPreview = document.querySelector("#background-preview");
@@ -20,6 +21,9 @@ const stage = document.querySelector("#stage");
 let responsePayload = null;
 let activeIndex = 0;
 let foregroundUrl = null;
+let serviceLabel = "local";
+
+refreshHealth();
 
 foregroundScale.addEventListener("input", () => {
   scaleValue.textContent = `${Math.round(Number(foregroundScale.value) * 100)}%`;
@@ -50,7 +54,7 @@ form.addEventListener("submit", async (event) => {
   if (maskInput.files[0]) data.append("mask", maskInput.files[0]);
   data.append("candidate_count", candidateCount.value);
   data.append("foreground_scale", foregroundScale.value);
-  data.append("mode", "auto");
+  data.append("mode", scorerMode.value);
 
   setLoading(true);
   try {
@@ -59,7 +63,7 @@ form.addEventListener("submit", async (event) => {
       body: data,
     });
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+      throw new Error(await buildErrorMessage(response));
     }
     responsePayload = await response.json();
     activeIndex = responsePayload.best_index || 0;
@@ -77,7 +81,7 @@ backgroundPreview.addEventListener("load", () => renderOverlay());
 
 function setLoading(isLoading) {
   form.querySelector("button").disabled = isLoading;
-  serviceStatus.textContent = isLoading ? "running" : "local";
+  serviceStatus.textContent = isLoading ? "running" : serviceLabel;
 }
 
 function resetResults(title) {
@@ -98,6 +102,8 @@ function renderResults() {
   imageSize.textContent = `${responsePayload.image_width} x ${responsePayload.image_height}`;
   requestMeta.textContent = responsePayload.request_id;
   stageTitle.textContent = "本地推荐结果";
+  serviceLabel = scorerMode.value === "auto" ? serviceLabel : scorerMode.value;
+  serviceStatus.textContent = serviceLabel;
 
   candidateList.innerHTML = "";
   responsePayload.candidates.forEach((candidate, index) => {
@@ -123,6 +129,30 @@ function renderResults() {
   });
 
   renderOverlay();
+}
+
+async function refreshHealth() {
+  try {
+    const response = await fetch("/api/health");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const health = await response.json();
+    serviceLabel = `${health.scorer_mode}:${health.scorer_status}`;
+    serviceStatus.textContent = serviceLabel;
+    modelBadge.textContent = health.model_version;
+  } catch (error) {
+    serviceLabel = "offline";
+    serviceStatus.textContent = "offline";
+  }
+}
+
+async function buildErrorMessage(response) {
+  try {
+    const payload = await response.json();
+    if (payload.detail) return `HTTP ${response.status}: ${payload.detail}`;
+  } catch (error) {
+    // Fall through to the compact HTTP status message.
+  }
+  return `HTTP ${response.status}`;
 }
 
 function selectCandidate(index) {

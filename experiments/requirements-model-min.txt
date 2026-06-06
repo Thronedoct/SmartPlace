@@ -1,0 +1,5 @@
+torchvision==0.23.0
+einops==0.8.2
+easydict==1.13
+tensorboardX==2.6.5
+torchsummary==1.5.1

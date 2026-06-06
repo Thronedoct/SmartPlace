@@ -85,13 +85,15 @@ h1 {
 }
 
 .file-field,
-.field-grid label {
+.field-grid label,
+.mode-field {
   display: grid;
   gap: 8px;
 }
 
 .file-field span,
-.field-grid span {
+.field-grid span,
+.mode-field span {
   color: var(--muted);
   font-size: 13px;
 }

@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from server.recommender import build_mock_recommendation, detect_image_size
+from server.scorer import score_candidate_template, score_composite
 
 
 class RecommenderTest(unittest.TestCase):
@@ -42,6 +43,16 @@ class RecommenderTest(unittest.TestCase):
         self.assertEqual(len(payload["candidates"]), 8)
         self.assertEqual(payload["candidates"][7]["rank"], 8)
         self.assertLessEqual(payload["candidates"][7]["w"], 0.4)
+
+    def test_mock_scorer_boundary(self) -> None:
+        candidate_score = score_candidate_template(0.86, model_version="mock-v0")
+        composite_score = score_composite(b"abc", b"mask", model_version="mock-v0")
+
+        self.assertEqual(candidate_score.mode, "mock")
+        self.assertEqual(candidate_score.score, 0.86)
+        self.assertEqual(composite_score.model_version, "mock-v0")
+        self.assertGreaterEqual(composite_score.score, 0.0)
+        self.assertLessEqual(composite_score.score, 1.0)
 
 
 if __name__ == "__main__":

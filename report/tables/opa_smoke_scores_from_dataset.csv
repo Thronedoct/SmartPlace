@@ -1,0 +1,5 @@
+case_id,label,score,runtime_ms,composite_path,mask_path
+opa_test_001,1,1.0,689,assets/datasets/opa/raw/new_OPA/composite/test_set/69931_442445_264_154_262_250_0.4889_1.jpg,assets/datasets/opa/raw/new_OPA/composite/test_set/mask_69931_442445_264_154_262_250_0.4889_1.jpg
+opa_test_002,1,1.0,379,assets/datasets/opa/raw/new_OPA/composite/test_set/64754_186413_457_76_54_118_0.2776_1.jpg,assets/datasets/opa/raw/new_OPA/composite/test_set/mask_64754_186413_457_76_54_118_0.2776_1.jpg
+opa_test_051,0,0.0,532,assets/datasets/opa/raw/new_OPA/composite/test_set/3332_333599_56_152_94_184_0.2879_0.jpg,assets/datasets/opa/raw/new_OPA/composite/test_set/mask_3332_333599_56_152_94_184_0.2879_0.jpg
+opa_test_052,0,0.0,380,assets/datasets/opa/raw/new_OPA/composite/test_set/55695_503008_364_116_222_147_0.3474_0.jpg,assets/datasets/opa/raw/new_OPA/composite/test_set/mask_55695_503008_364_116_222_147_0.3474_0.jpg

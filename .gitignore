@@ -20,13 +20,25 @@ local.properties
 
 # Project outputs
 .playwright-mcp/
+.server.pid
 .tmp-uvicorn.*.log
+server.out.log
+server.err.log
+server.api-smoke.out.log
+server.api-smoke.err.log
 课程项目.pdf
+external/*
+!external/README.md
+.model-packages/
+models/*
+!models/README.md
 report/exports/
 server/uploads/
 server/generated/
 server/.packages/
 assets/tmp/
+assets/datasets/opa/raw/
+assets/datasets/opa/downloads/
 
 # OS
 Thumbs.db
