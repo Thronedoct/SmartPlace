@@ -110,3 +110,19 @@ score_composite(composite_image, foreground_mask, model_version) -> score
 2. 从 `smoke_100.csv` 中筛选 18 组报告案例，覆盖合理、悬空、边缘、尺度错误和失败案例。
 3. 生成 `candidate_ranking_v1.csv`，记录每个案例的候选池分数、Top 3 和人工判断。
 4. 开始 RGB vs RGB+mask 对比实验，形成模型本体类改动证据。
+
+## 2026-06-06 候选排序推进记录
+
+- 已新增 `experiments/opa_baseline/run_candidate_ranking.py`。
+- 已从 `smoke_100.csv` 中筛选 18 组报告候选案例：9 个正例、9 个负例。
+- 已生成 `assets/datasets/opa/splits/report_18.csv`。
+- 已生成 `report/tables/candidate_ranking_v1.csv`，共 234 条候选评分记录。
+- 已生成 `report/tables/opa_18_case_summary.csv` 和 `report/logs/candidate_ranking_v1.txt`。
+- 当前结果：正例 8/9 的 OPA 标注位置高分并进入 Top 3；负例 9/9 的 OPA 标注坏位置得分为 0.0。
+- `opa_test_002` 作为需要分析的边界案例：标注位置得分 0.9987，但多个候选池位置也接近 1.0，导致标注位置排序较低。这说明 SimOPA 分数存在饱和现象，后续需要做分数校准或更细的候选去重。
+
+## 当前下一步
+
+1. 做 RGB vs RGB+mask 对比实验，形成模型本体类改动证据。
+2. 选取 3-5 组代表案例做 Web 截图或候选可视化。
+3. 对 `opa_test_002`、负例中 top1 prior 很高的案例写失败/边界分析。
