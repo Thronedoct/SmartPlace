@@ -71,15 +71,21 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 ## 下一步
 
-最近三步：
+下一阶段目标不是继续堆高风险模型功能，而是把已有高分证据包装成一个稳定、可演示、可解释、可对比的完整应用。
 
-1. 汇总报告、PPT、演示录屏和分工说明。
-2. 如时间允许，做 Web 现场演示录屏。
-3. 如果答辩需要更强模型改动，再做轻量 fine-tune 或 FOPA 候选生成对比。
+优先顺序：
+
+1. **运行证据补齐**：生成 `report/tables/inference_runtime.csv` 和 `report/tables/model_change_summary.csv`，记录真实模型、本地推理、候选排序、RGB/mask、校准、解释实验的耗时和改动类型。
+2. **Web 导出结果**：在 Web 工作台增加导出当前推荐结果 JSON/CSV 的按钮，导出 `request_id`、`model_version`、`runtime_ms`、Top 3 分数和坐标。
+3. **Web 内置样例加载**：提供 `opa_test_001`、`opa_test_002`、`opa_test_052`、`opa_test_059` 等稳定演示案例，一键加载背景、前景、mask 和推荐参数。
+4. **可信度/失败提示**：根据分数饱和、Top 3 分数差、候选重叠和低分情况显示“高可信推荐 / 需要人工复查 / 分数饱和 / 候选过于重叠”等提示。
+5. **前端演示增强**：优化工作台布局，突出模型状态、运行耗时、Top 3、解释热力图入口和课堂演示信息。
+6. **模型侧低风险优化**：如时间允许，增加轻量推理模式或轻量候选评估模式，用于本地推理对比；除非时间充裕，不做大规模训练。
 
 随后做：
 
-4. 如果时间允许，再做轻量 fine-tune 或 FOPA 候选生成对比。
+7. 汇总报告、PPT、演示录屏、AI 辅助说明和小组分工说明。
+8. 如答辩需要更强模型结构改动，再考虑 OPA 小子集轻量 fine-tune、FOPA 候选生成或轻量模型对比。
 
 ## 证据清单
 
@@ -107,6 +113,8 @@ report/screenshots/explainability/
 还需要补：
 
 ```text
+report/tables/inference_runtime.csv
+report/tables/model_change_summary.csv
 report/videos/
 ```
 
