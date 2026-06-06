@@ -72,6 +72,7 @@ def main() -> None:
     output_rows: list[dict[str, object]] = []
     for index, failure_row in enumerate(failure_rows, start=1):
         case_id = failure_row["case_id"]
+        require_case_inputs(case_id, calibration_rows, summary_rows)
         print(f"[{index:02d}/{len(failure_rows):02d}] explaining {case_id}")
         row = explain_case(
             case_id=case_id,
@@ -176,6 +177,20 @@ def explain_case(
     }
 
 
+def require_case_inputs(
+    case_id: str,
+    calibration_rows: dict[str, list[dict[str, str]]],
+    summary_rows: dict[str, dict[str, str]],
+) -> None:
+    missing = []
+    if case_id not in calibration_rows:
+        missing.append("score calibration CSV")
+    if case_id not in summary_rows:
+        missing.append("case summary CSV")
+    if missing:
+        raise KeyError(f"Missing {case_id} in: {', '.join(missing)}")
+
+
 def select_explanation_candidate(
     case_type: str,
     calibration_rows: list[dict[str, str]],
@@ -274,7 +289,8 @@ def render_heatmap(
     base = composite.convert("RGBA")
     overlay = Image.new("RGBA", base.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
-    max_positive_drop = max(0.0, *(max(0.0, float(cell["score_drop"])) for cell in cells))
+    positive_drops = [max(0.0, float(cell["score_drop"])) for cell in cells]
+    max_positive_drop = max(positive_drops, default=0.0)
     for cell in cells:
         drop = max(0.0, float(cell["score_drop"]))
         alpha = 0 if max_positive_drop == 0.0 else round(175 * drop / max_positive_drop)

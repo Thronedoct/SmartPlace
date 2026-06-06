@@ -3,7 +3,7 @@ model_version=simopa-occlusion-v1
 device=cuda:0
 grid_size=6
 cases=5
-elapsed_seconds=6.3
+elapsed_seconds=5.8
 mean_max_score_drop=0.5472
 mean_abs_drop=0.0287
 case opa_test_001 type=success_with_duplicate_cleanup candidate=opa_position baseline=0.9985 max_drop=0.9984 max_cell=r4c4 fg_mean_abs=0.089 bg_mean_abs=0.0092
