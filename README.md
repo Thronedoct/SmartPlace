@@ -10,15 +10,11 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 
 - `web/`：当前主线前端，负责图片输入、参数控制、Top 3 候选展示和演示截图。
 - `server/`：后端推理服务，支持 mock scorer 和 SimOPA 真实 scorer。
+- `docs/ROADMAP.md`：路线、当前状态、分工、下一步和 GitHub 流程。
 - `docs/API.md`：Web 前端与后端之间的接口约定。
-- `docs/HIGH_SCORE_ROUTE.md`：根据课程 PDF 整理的高分路线与交付证据清单。
-- `docs/NEXT_ROUTE.md`：当前从候选排序到 RGB/mask 对比、分数校准、截图和报告的推进顺序。
-- `docs/WORKFLOW.md`：小组协作、分支和合并规则。
-- `docs/model_plan.md`：模型路线、参考源码、高分方案、训练和解释计划。
-- `docs/PHASE0_STATUS.md`：当前阶段状态和下一步行动。
+- `docs/model_plan.md`：模型细节、参考源码、实验方案和解释计划。
 - `docs/TEST_CASES.md`：测试案例和工程验证记录。
 - `OPAAndroidDemoSimp/`：课程提供的 Android 参考骨架，仅作为参考和素材来源，不作为本项目交付主线。
-- `计划.md`：从阶段 0 到答辩准备的完整推进计划。
 
 阶段 0 的核心原则是：先用 mock 数据打通 Web 到后端的链路，再把同一套接口切换到真实 OPA/SimOPA 模型推理。
 
@@ -30,11 +26,10 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 SmartPlace/
 |-- OPAAndroidDemoSimp/      # 课程 Android Demo 骨架
 |-- server/                  # FastAPI 后端推理服务
-|-- docs/                    # 接口、协作流程、模型计划、测试记录
+|-- docs/                    # 路线、接口、模型计划、测试记录
 |-- web/                     # Web 演示工作台
 |-- assets/                  # 测试图片和共享素材
 |-- report/                  # 报告、PPT、截图、录屏材料
-|-- 计划.md                  # 项目推进计划
 `-- README.md
 ```
 
