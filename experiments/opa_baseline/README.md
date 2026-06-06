@@ -249,6 +249,37 @@ Current result:
 - `opa_test_001`, `opa_test_002`, and `opa_test_052` show strong localized sensitivity.
 - `opa_test_059` stays at score `0.0`, supporting the clear rejection case.
 
+## Robustness Ablation
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_robustness_ablation.py
+```
+
+This tests five representative cases under controlled perturbations:
+
+- mask erosion and dilation.
+- candidate left/right/up/down shifts by `0.03` normalized units.
+- candidate scale down/up by `10%`.
+
+Outputs:
+
+```text
+report/logs/robustness_ablation.txt
+report/tables/robustness_ablation.csv
+```
+
+Current result:
+
+- 5 representative cases.
+- 45 SimOPA score calls.
+- Mean absolute score delta: `0.0820`.
+- Max absolute score delta: `0.9455`.
+- 5 perturbations change the three-tier label.
+- `opa_test_002` remains high under small perturbations, supporting the score-saturation boundary analysis.
+- `opa_test_059` remains near `0.0`, supporting the clear rejection case.
+
 ## Evidence Summary
 
 Run:
@@ -269,5 +300,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 8 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, and 50-case ranking.
-- 11 model-change rows: 9 completed evidence items and 2 planned high-standard upgrades.
+- 9 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, and robustness ablation.
+- 11 model-change rows: 10 completed evidence items and 1 planned high-standard upgrade.
