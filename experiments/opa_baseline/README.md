@@ -146,3 +146,28 @@ Current result:
 - 29 candidates change by at least `0.05` against bbox mask.
 - 136 candidates change by at least `0.05` against blank mask.
 - Top 3 membership changes for 16 candidates against bbox mask and 56 against blank mask.
+
+## Score Calibration and IoU Dedup
+
+Run:
+
+```powershell
+python experiments\opa_baseline\run_score_calibration.py
+```
+
+This post-processes `candidate_ranking_v1.csv` with temperature scaling and IoU-NMS. It is meant as a reportable reliability analysis, not as a replacement for SimOPA training.
+
+Outputs:
+
+```text
+report/logs/score_calibration_v1.txt
+report/tables/score_calibration_v1.csv
+```
+
+Current result:
+
+- 234 candidate rows.
+- 97 high-saturated rows and 118 low-saturated rows.
+- 11 candidates removed by IoU dedup.
+- Raw Top 3 has duplicate boxes in 2 cases; dedup Top 3 has 0 duplicate cases.
+- `opa_test_002` remains rank 10 after calibration and dedup, which makes it a useful score-saturation boundary case rather than a simple duplicate-candidate problem.
