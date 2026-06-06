@@ -1,0 +1,58 @@
+SmartPlace candidate ranking v2 50-case
+cases=50
+candidate_rows=650
+positive_cases=25
+negative_cases=25
+elapsed_seconds=168.6
+positive_pass=22
+negative_pass=25
+case opa_test_001 label=1 dataset_score=0.9985 dataset_rank=1 top1=opa_position:0.9985 assessment=pass_positive_high_rank
+case opa_test_002 label=1 dataset_score=0.9987 dataset_rank=10 top1=prior_pool:1.0 assessment=review_positive_high_score_low_rank
+case opa_test_003 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_004 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_005 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_006 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_007 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_008 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_009 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_010 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_011 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_012 label=1 dataset_score=0.9996 dataset_rank=6 top1=prior_pool:1.0 assessment=review_positive_high_score_low_rank
+case opa_test_013 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_014 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_015 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_016 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_017 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_018 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_019 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_020 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_021 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_022 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_023 label=1 dataset_score=0.9967 dataset_rank=8 top1=prior_pool:1.0 assessment=review_positive_high_score_low_rank
+case opa_test_024 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_025 label=1 dataset_score=1.0 dataset_rank=1 top1=opa_position:1.0 assessment=pass_positive_high_rank
+case opa_test_051 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_052 label=0 dataset_score=0.0 dataset_rank=2 top1=prior_pool:0.9756 assessment=pass_negative_rejected
+case opa_test_053 label=0 dataset_score=0.0 dataset_rank=11 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_054 label=0 dataset_score=0.0 dataset_rank=4 top1=prior_pool:0.8239 assessment=pass_negative_rejected
+case opa_test_055 label=0 dataset_score=0.0 dataset_rank=9 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_056 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:0.9999 assessment=pass_negative_rejected
+case opa_test_057 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_058 label=0 dataset_score=0.0 dataset_rank=2 top1=prior_pool:0.0003 assessment=pass_negative_rejected
+case opa_test_059 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_060 label=0 dataset_score=0.0 dataset_rank=10 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_061 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_062 label=0 dataset_score=0.0 dataset_rank=5 top1=prior_pool:0.955 assessment=pass_negative_rejected
+case opa_test_063 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_064 label=0 dataset_score=0.0 dataset_rank=9 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_065 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_066 label=0 dataset_score=0.0 dataset_rank=2 top1=prior_pool:0.9756 assessment=pass_negative_rejected
+case opa_test_067 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_068 label=0 dataset_score=0.0 dataset_rank=4 top1=prior_pool:0.3897 assessment=pass_negative_rejected
+case opa_test_069 label=0 dataset_score=0.0 dataset_rank=4 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_070 label=0 dataset_score=0.0 dataset_rank=12 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_071 label=0 dataset_score=0.0 dataset_rank=6 top1=prior_pool:0.96 assessment=pass_negative_rejected
+case opa_test_072 label=0 dataset_score=0.0 dataset_rank=7 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_073 label=0 dataset_score=0.0 dataset_rank=8 top1=prior_pool:1.0 assessment=pass_negative_rejected
+case opa_test_074 label=0 dataset_score=0.0 dataset_rank=1 top1=opa_position:0.0 assessment=pass_negative_rejected
+case opa_test_075 label=0 dataset_score=0.0002 dataset_rank=2 top1=prior_pool:0.0005 assessment=pass_negative_rejected

@@ -117,6 +117,33 @@ Current result:
 - 9 of 9 negative OPA labeled positions are rejected with score `0.0`.
 - `opa_test_002` is a useful discussion case: the labeled position scores `0.9987`, but several generated candidates also saturate near `1.0`, so the labeled position ranks lower despite a high absolute score.
 
+## 50-Case Candidate Ranking
+
+Run:
+
+```powershell
+.\.venv\Scripts\python.exe experiments\opa_baseline\run_candidate_ranking.py --positive-count 25 --negative-count 25 --report-csv assets\datasets\opa\splits\report_50.csv --ranking-csv report\tables\candidate_ranking_v2_50.csv --summary-csv report\tables\opa_50_case_summary.csv --log-path report\logs\candidate_ranking_v2_50.txt --run-name "SmartPlace candidate ranking v2 50-case"
+```
+
+This expands the candidate-ranking evidence to 25 positive and 25 negative OPA cases.
+
+Outputs:
+
+```text
+assets/datasets/opa/splits/report_50.csv
+report/logs/candidate_ranking_v2_50.txt
+report/tables/candidate_ranking_v2_50.csv
+report/tables/opa_50_case_summary.csv
+```
+
+Current result:
+
+- 50 cases.
+- 650 candidate scores.
+- 22 of 25 positive cases have the OPA labeled position ranked in Top 3.
+- 25 of 25 negative OPA labeled positions are rejected with score below `0.45`.
+- `opa_test_002`, `opa_test_012`, and `opa_test_023` are high-score boundary cases where the labeled position is plausible but outside Top 3 because other candidates saturate near `1.0`.
+
 ## RGB/Mask Ablation
 
 Run:
@@ -242,5 +269,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 7 runtime rows covering mock, SimOPA smoke, FastAPI smoke, candidate ranking, RGB/mask ablation, calibration/dedup, and occlusion explainability.
-- 11 model-change rows: 8 completed evidence items and 3 planned high-standard upgrades.
+- 8 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, and 50-case ranking.
+- 11 model-change rows: 9 completed evidence items and 2 planned high-standard upgrades.

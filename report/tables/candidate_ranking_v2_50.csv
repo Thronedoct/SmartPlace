@@ -1,0 +1,651 @@
+case_id,split,dataset_label,fg_id,bg_id,foreground_category,background_category,candidate_source,candidate_id,model_rank,is_top3,score,tier,label,x,y,w,h,model_version,runtime_ms
+opa_test_001,test,1,69931,442445,cow,cow,opa_position,opa_position,1,yes,0.9985,recommended,推荐,0.4125,0.300781,0.409375,0.488281,simopa-rgb-mask-v1,195
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_02,2,yes,0.9985,recommended,推荐,0.42,0.3,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_07,3,yes,0.8876,recommended,推荐,0.59133,0.3,0.40867,0.4889,simopa-rgb-mask-v1,26
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_08,4,no,0.6002,acceptable,可接受,0.59133,0.12,0.40867,0.4889,simopa-rgb-mask-v1,28
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_11,5,no,0.197,rejected,不推荐,0.59133,0.5111,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_01,6,no,0.0,rejected,不推荐,0.38,0.5111,0.40867,0.4889,simopa-rgb-mask-v1,26
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_03,7,no,0.0,rejected,不推荐,0.15,0.5111,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_04,8,no,0.0,rejected,不推荐,0.55,0.5111,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_05,9,no,0.0,rejected,不推荐,0.52,0.46,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_06,10,no,0.0,rejected,不推荐,0.25,0.3,0.40867,0.4889,simopa-rgb-mask-v1,25
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.40867,0.4889,simopa-rgb-mask-v1,26
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_10,12,no,0.0,rejected,不推荐,0.04,0.5111,0.40867,0.4889,simopa-rgb-mask-v1,24
+opa_test_001,test,1,69931,442445,cow,cow,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.40867,0.4889,simopa-rgb-mask-v1,25
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.084435,0.2776,simopa-rgb-mask-v1,25
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_02,2,yes,1.0,recommended,推荐,0.42,0.3,0.084435,0.2776,simopa-rgb-mask-v1,25
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_03,3,yes,1.0,recommended,推荐,0.15,0.55,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_04,4,no,1.0,recommended,推荐,0.55,0.55,0.084435,0.2776,simopa-rgb-mask-v1,24
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_05,5,no,1.0,recommended,推荐,0.52,0.46,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_06,6,no,1.0,recommended,推荐,0.25,0.3,0.084435,0.2776,simopa-rgb-mask-v1,26
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_10,7,no,1.0,recommended,推荐,0.04,0.68,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_07,8,no,0.9998,recommended,推荐,0.6,0.3,0.084435,0.2776,simopa-rgb-mask-v1,25
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_08,9,no,0.9992,recommended,推荐,0.72,0.12,0.084435,0.2776,simopa-rgb-mask-v1,24
+opa_test_002,test,1,64754,186413,sheep,sheep,opa_position,opa_position,10,no,0.9987,recommended,推荐,0.714063,0.177986,0.084375,0.276347,simopa-rgb-mask-v1,203
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_12,11,no,0.5471,acceptable,可接受,0.3,0.2,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_09,12,no,0.2061,rejected,不推荐,0.08,0.18,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_002,test,1,64754,186413,sheep,sheep,prior_pool,prior_11,13,no,0.0708,rejected,不推荐,0.78,0.52,0.084435,0.2776,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.695312,0.601874,0.179688,0.053864,simopa-rgb-mask-v1,199
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.1802,0.054651,simopa-rgb-mask-v1,26
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_03,3,yes,1.0,recommended,推荐,0.15,0.55,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_04,4,no,1.0,recommended,推荐,0.55,0.55,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_05,5,no,1.0,recommended,推荐,0.52,0.46,0.1802,0.054651,simopa-rgb-mask-v1,25
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_07,6,no,1.0,recommended,推荐,0.6,0.3,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_11,7,no,1.0,recommended,推荐,0.78,0.52,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_09,8,no,0.9997,recommended,推荐,0.08,0.18,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_10,9,no,0.9015,recommended,推荐,0.04,0.68,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_02,10,no,0.0,rejected,不推荐,0.42,0.3,0.1802,0.054651,simopa-rgb-mask-v1,25
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_08,12,no,0.0,rejected,不推荐,0.72,0.12,0.1802,0.054651,simopa-rgb-mask-v1,24
+opa_test_003,test,1,160915,580029,airplane,airplane,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.1802,0.054651,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.809375,0.564706,0.16875,0.409412,simopa-rgb-mask-v1,204
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.16969,0.4106,simopa-rgb-mask-v1,25
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_03,3,yes,1.0,recommended,推荐,0.15,0.55,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_04,4,no,1.0,recommended,推荐,0.55,0.55,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_05,5,no,1.0,recommended,推荐,0.52,0.46,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_06,6,no,1.0,recommended,推荐,0.25,0.3,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_08,7,no,1.0,recommended,推荐,0.72,0.12,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_09,8,no,1.0,recommended,推荐,0.08,0.18,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.5894,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.78,0.52,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_12,11,no,1.0,recommended,推荐,0.3,0.2,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_07,12,no,0.9998,recommended,推荐,0.6,0.3,0.16969,0.4106,simopa-rgb-mask-v1,23
+opa_test_004,test,1,157189,15016,airplane,airplane,prior_pool,prior_02,13,no,0.8415,recommended,推荐,0.42,0.3,0.16969,0.4106,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.2375,0.327869,0.153125,0.381733,simopa-rgb-mask-v1,202
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.153895,0.3829,simopa-rgb-mask-v1,27
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.55,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.55,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_09,8,no,1.0,recommended,推荐,0.08,0.18,0.153895,0.3829,simopa-rgb-mask-v1,23
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.6171,0.153895,0.3829,simopa-rgb-mask-v1,23
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.78,0.52,0.153895,0.3829,simopa-rgb-mask-v1,23
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_12,11,no,0.9998,recommended,推荐,0.3,0.2,0.153895,0.3829,simopa-rgb-mask-v1,23
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_08,12,no,0.9163,recommended,推荐,0.72,0.12,0.153895,0.3829,simopa-rgb-mask-v1,23
+opa_test_005,test,1,65690,186413,sheep,sheep,prior_pool,prior_07,13,no,0.0,rejected,不推荐,0.6,0.3,0.153895,0.3829,simopa-rgb-mask-v1,24
+opa_test_006,test,1,2175267,348935,zebra,zebra,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.024575,0.640625,0.623819,0.34375,simopa-rgb-mask-v1,197
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.3749,0.58,0.6251,0.343554,simopa-rgb-mask-v1,27
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.3749,0.55,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_05,4,no,1.0,recommended,推荐,0.3749,0.46,0.6251,0.343554,simopa-rgb-mask-v1,26
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_10,5,no,1.0,recommended,推荐,0.04,0.656446,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_11,6,no,1.0,recommended,推荐,0.3749,0.52,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_03,7,no,0.9999,recommended,推荐,0.15,0.55,0.6251,0.343554,simopa-rgb-mask-v1,26
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_02,8,no,0.0,rejected,不推荐,0.3749,0.3,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_06,9,no,0.0,rejected,不推荐,0.25,0.3,0.6251,0.343554,simopa-rgb-mask-v1,26
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_07,10,no,0.0,rejected,不推荐,0.3749,0.3,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.3749,0.12,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.6251,0.343554,simopa-rgb-mask-v1,24
+opa_test_006,test,1,2175267,348935,zebra,zebra,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.6251,0.343554,simopa-rgb-mask-v1,25
+opa_test_007,test,1,1519373,78478,fork,spoon,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.651563,0.360417,0.2125,0.225,simopa-rgb-mask-v1,195
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.212906,0.2271,simopa-rgb-mask-v1,26
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_05,3,yes,1.0,recommended,推荐,0.52,0.46,0.212906,0.2271,simopa-rgb-mask-v1,24
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_07,4,no,1.0,recommended,推荐,0.6,0.3,0.212906,0.2271,simopa-rgb-mask-v1,24
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_04,5,no,0.9999,recommended,推荐,0.55,0.55,0.212906,0.2271,simopa-rgb-mask-v1,24
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_11,6,no,0.7142,acceptable,可接受,0.78,0.52,0.212906,0.2271,simopa-rgb-mask-v1,23
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_02,7,no,0.0025,rejected,不推荐,0.42,0.3,0.212906,0.2271,simopa-rgb-mask-v1,25
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_03,8,no,0.0002,rejected,不推荐,0.15,0.55,0.212906,0.2271,simopa-rgb-mask-v1,28
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_06,9,no,0.0,rejected,不推荐,0.25,0.3,0.212906,0.2271,simopa-rgb-mask-v1,24
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.72,0.12,0.212906,0.2271,simopa-rgb-mask-v1,25
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.212906,0.2271,simopa-rgb-mask-v1,25
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_10,12,no,0.0,rejected,不推荐,0.04,0.68,0.212906,0.2271,simopa-rgb-mask-v1,23
+opa_test_007,test,1,1519373,78478,fork,spoon,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.212906,0.2271,simopa-rgb-mask-v1,23
+opa_test_008,test,1,1412247,213399,zebra,zebra,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.09375,0.30445,0.625,0.545667,simopa-rgb-mask-v1,196
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.3749,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,27
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.3749,0.3,0.6251,0.547265,simopa-rgb-mask-v1,26
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,25
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.3749,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.3749,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.6251,0.547265,simopa-rgb-mask-v1,25
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.3749,0.3,0.6251,0.547265,simopa-rgb-mask-v1,26
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_09,9,no,1.0,recommended,推荐,0.08,0.18,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_10,10,no,1.0,recommended,推荐,0.04,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_11,11,no,1.0,recommended,推荐,0.3749,0.452735,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_12,12,no,1.0,recommended,推荐,0.3,0.2,0.6251,0.547265,simopa-rgb-mask-v1,24
+opa_test_008,test,1,1412247,213399,zebra,zebra,prior_pool,prior_08,13,no,0.0,rejected,不推荐,0.3749,0.12,0.6251,0.547265,simopa-rgb-mask-v1,25
+opa_test_009,test,1,13433,500165,dog,dog,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.389062,0.10625,0.29375,0.58125,simopa-rgb-mask-v1,205
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,25
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.294257,0.5828,simopa-rgb-mask-v1,30
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,26
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.294257,0.5828,simopa-rgb-mask-v1,25
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.6,0.3,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.705743,0.4172,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_12,11,no,0.9998,recommended,推荐,0.3,0.2,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_08,12,no,0.9988,recommended,推荐,0.705743,0.12,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_009,test,1,13433,500165,dog,dog,prior_pool,prior_09,13,no,0.0589,rejected,不推荐,0.08,0.18,0.294257,0.5828,simopa-rgb-mask-v1,24
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.865625,0.570423,0.092188,0.147887,simopa-rgb-mask-v1,208
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.093106,0.15,simopa-rgb-mask-v1,25
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.55,0.093106,0.15,simopa-rgb-mask-v1,24
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.55,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.6,0.3,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_08,9,no,1.0,recommended,推荐,0.72,0.12,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_09,10,no,1.0,recommended,推荐,0.08,0.18,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_10,11,no,1.0,recommended,推荐,0.04,0.68,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_11,12,no,1.0,recommended,推荐,0.78,0.52,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_010,test,1,1914814,298623,broccoli,broccoli,prior_pool,prior_12,13,no,1.0,recommended,推荐,0.3,0.2,0.093106,0.15,simopa-rgb-mask-v1,23
+opa_test_011,test,1,128038,180967,bicycle,bicycle,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.114,0.441441,0.148,0.129129,simopa-rgb-mask-v1,200
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_03,2,yes,0.9994,recommended,推荐,0.15,0.55,0.1495,0.13008,simopa-rgb-mask-v1,23
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_10,3,yes,0.3642,rejected,不推荐,0.04,0.68,0.1495,0.13008,simopa-rgb-mask-v1,22
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_01,4,no,0.0,rejected,不推荐,0.38,0.58,0.1495,0.13008,simopa-rgb-mask-v1,26
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_02,5,no,0.0,rejected,不推荐,0.42,0.3,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_04,6,no,0.0,rejected,不推荐,0.55,0.55,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.52,0.46,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.1495,0.13008,simopa-rgb-mask-v1,25
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.6,0.3,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.72,0.12,0.1495,0.13008,simopa-rgb-mask-v1,23
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.78,0.52,0.1495,0.13008,simopa-rgb-mask-v1,24
+opa_test_011,test,1,128038,180967,bicycle,bicycle,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.1495,0.13008,simopa-rgb-mask-v1,22
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.075955,0.2325,simopa-rgb-mask-v1,28
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.075955,0.2325,simopa-rgb-mask-v1,26
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_10,3,yes,1.0,recommended,推荐,0.04,0.68,0.075955,0.2325,simopa-rgb-mask-v1,24
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_11,4,no,1.0,recommended,推荐,0.78,0.52,0.075955,0.2325,simopa-rgb-mask-v1,23
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_04,5,no,0.9998,recommended,推荐,0.55,0.55,0.075955,0.2325,simopa-rgb-mask-v1,28
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,opa_position,opa_position,6,no,0.9996,recommended,推荐,0.846875,0.314583,0.075,0.23125,simopa-rgb-mask-v1,196
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_05,7,no,0.9986,recommended,推荐,0.52,0.46,0.075955,0.2325,simopa-rgb-mask-v1,25
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_09,8,no,0.5529,acceptable,可接受,0.08,0.18,0.075955,0.2325,simopa-rgb-mask-v1,23
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_07,9,no,0.0199,rejected,不推荐,0.6,0.3,0.075955,0.2325,simopa-rgb-mask-v1,23
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_02,10,no,0.0,rejected,不推荐,0.42,0.3,0.075955,0.2325,simopa-rgb-mask-v1,30
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.075955,0.2325,simopa-rgb-mask-v1,23
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_08,12,no,0.0,rejected,不推荐,0.72,0.12,0.075955,0.2325,simopa-rgb-mask-v1,25
+opa_test_012,test,1,417577,317687,fire hydrant,fire hydrant,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.075955,0.2325,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.015625,0.140515,0.240625,0.854801,simopa-rgb-mask-v1,197
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.2,0.241205,0.8,simopa-rgb-mask-v1,25
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.6,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_09,9,no,1.0,recommended,推荐,0.08,0.18,0.241205,0.8,simopa-rgb-mask-v1,25
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_10,10,no,1.0,recommended,推荐,0.04,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_11,11,no,1.0,recommended,推荐,0.758795,0.2,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_12,12,no,1.0,recommended,推荐,0.3,0.2,0.241205,0.8,simopa-rgb-mask-v1,25
+opa_test_013,test,1,178226,366257,boat,boat,prior_pool,prior_08,13,no,0.6536,acceptable,可接受,0.72,0.12,0.241205,0.8,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.429688,0.102083,0.442188,0.520833,simopa-rgb-mask-v1,199
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.479,0.444647,0.521,simopa-rgb-mask-v1,26
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.444647,0.521,simopa-rgb-mask-v1,25
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.479,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.479,0.444647,0.521,simopa-rgb-mask-v1,25
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.555353,0.3,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_08,9,no,1.0,recommended,推荐,0.555353,0.12,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_09,10,no,1.0,recommended,推荐,0.08,0.18,0.444647,0.521,simopa-rgb-mask-v1,23
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_10,11,no,1.0,recommended,推荐,0.04,0.479,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_11,12,no,1.0,recommended,推荐,0.555353,0.479,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_014,test,1,1078397,379285,donut,fork,prior_pool,prior_12,13,no,1.0,recommended,推荐,0.3,0.2,0.444647,0.521,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.195312,0.023419,0.396875,0.800937,simopa-rgb-mask-v1,202
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.2,0.402802,0.8,simopa-rgb-mask-v1,26
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.2,0.402802,0.8,simopa-rgb-mask-v1,25
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.597198,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_08,9,no,1.0,recommended,推荐,0.597198,0.12,0.402802,0.8,simopa-rgb-mask-v1,27
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_10,10,no,1.0,recommended,推荐,0.04,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_11,11,no,1.0,recommended,推荐,0.597198,0.2,0.402802,0.8,simopa-rgb-mask-v1,25
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_12,12,no,1.0,recommended,推荐,0.3,0.2,0.402802,0.8,simopa-rgb-mask-v1,24
+opa_test_015,test,1,593796,213399,zebra,zebra,prior_pool,prior_09,13,no,0.9999,recommended,推荐,0.08,0.18,0.402802,0.8,simopa-rgb-mask-v1,25
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.917188,0.570833,0.078125,0.23125,simopa-rgb-mask-v1,205
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.07814,0.2325,simopa-rgb-mask-v1,31
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_03,3,yes,1.0,recommended,推荐,0.15,0.55,0.07814,0.2325,simopa-rgb-mask-v1,28
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_10,4,no,1.0,recommended,推荐,0.04,0.68,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_11,5,no,0.9998,recommended,推荐,0.78,0.52,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_04,6,no,0.9967,recommended,推荐,0.55,0.55,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_09,7,no,0.5583,acceptable,可接受,0.08,0.18,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_05,8,no,0.5417,acceptable,可接受,0.52,0.46,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_07,9,no,0.0014,rejected,不推荐,0.6,0.3,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_02,10,no,0.0,rejected,不推荐,0.42,0.3,0.07814,0.2325,simopa-rgb-mask-v1,25
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_08,12,no,0.0,rejected,不推荐,0.72,0.12,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_016,test,1,2198049,317687,fire hydrant,fire hydrant,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.07814,0.2325,simopa-rgb-mask-v1,24
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.221875,0.556338,0.217188,0.366197,simopa-rgb-mask-v1,211
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.220316,0.3674,simopa-rgb-mask-v1,26
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.220316,0.3674,simopa-rgb-mask-v1,24
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.55,0.220316,0.3674,simopa-rgb-mask-v1,26
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.55,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.220316,0.3674,simopa-rgb-mask-v1,24
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.6,0.3,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_08,9,no,1.0,recommended,推荐,0.72,0.12,0.220316,0.3674,simopa-rgb-mask-v1,24
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_09,10,no,1.0,recommended,推荐,0.08,0.18,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_10,11,no,1.0,recommended,推荐,0.04,0.6326,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_11,12,no,1.0,recommended,推荐,0.779684,0.52,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_017,test,1,1055814,298623,broccoli,broccoli,prior_pool,prior_12,13,no,1.0,recommended,推荐,0.3,0.2,0.220316,0.3674,simopa-rgb-mask-v1,23
+opa_test_018,test,1,1926922,414401,cake,cake,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.370312,0.53125,0.451562,0.432812,simopa-rgb-mask-v1,195
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.567279,0.4517,0.432721,simopa-rgb-mask-v1,25
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_03,3,yes,1.0,recommended,推荐,0.15,0.55,0.4517,0.432721,simopa-rgb-mask-v1,25
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_04,4,no,1.0,recommended,推荐,0.5483,0.55,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_05,5,no,1.0,recommended,推荐,0.52,0.46,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_07,6,no,1.0,recommended,推荐,0.5483,0.3,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_10,7,no,1.0,recommended,推荐,0.04,0.567279,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_11,8,no,1.0,recommended,推荐,0.5483,0.52,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_02,9,no,0.9911,recommended,推荐,0.42,0.3,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_08,10,no,0.0309,rejected,不推荐,0.5483,0.12,0.4517,0.432721,simopa-rgb-mask-v1,25
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.4517,0.432721,simopa-rgb-mask-v1,26
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_018,test,1,1926922,414401,cake,cake,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.4517,0.432721,simopa-rgb-mask-v1,24
+opa_test_019,test,1,1078801,60467,donut,donut,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.194444,0.51567,0.184524,0.233618,simopa-rgb-mask-v1,197
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.58,0.186344,0.2362,simopa-rgb-mask-v1,25
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.55,0.186344,0.2362,simopa-rgb-mask-v1,22
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.55,0.186344,0.2362,simopa-rgb-mask-v1,22
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.186344,0.2362,simopa-rgb-mask-v1,24
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_10,7,no,1.0,recommended,推荐,0.04,0.68,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_11,8,no,1.0,recommended,推荐,0.78,0.52,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_06,9,no,0.9999,recommended,推荐,0.25,0.3,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_07,10,no,0.9996,recommended,推荐,0.6,0.3,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_12,11,no,0.9986,recommended,推荐,0.3,0.2,0.186344,0.2362,simopa-rgb-mask-v1,22
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_09,12,no,0.9083,recommended,推荐,0.08,0.18,0.186344,0.2362,simopa-rgb-mask-v1,23
+opa_test_019,test,1,1078801,60467,donut,donut,prior_pool,prior_08,13,no,0.0,rejected,不推荐,0.72,0.12,0.186344,0.2362,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.114062,0.311475,0.501563,0.489461,simopa-rgb-mask-v1,197
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.512705,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.5019,0.487295,simopa-rgb-mask-v1,25
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.512705,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.4981,0.512705,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.4981,0.46,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.5019,0.487295,simopa-rgb-mask-v1,23
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.4981,0.3,0.5019,0.487295,simopa-rgb-mask-v1,23
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.512705,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.4981,0.512705,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_12,11,no,0.9972,recommended,推荐,0.3,0.2,0.5019,0.487295,simopa-rgb-mask-v1,23
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_08,12,no,0.6857,acceptable,可接受,0.4981,0.12,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_020,test,1,56104,417334,horse,horse,prior_pool,prior_09,13,no,0.0,rejected,不推荐,0.08,0.18,0.5019,0.487295,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.371875,0.339583,0.525,0.610417,simopa-rgb-mask-v1,200
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,26
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.525999,0.6118,simopa-rgb-mask-v1,25
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.474001,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.474001,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.525999,0.6118,simopa-rgb-mask-v1,25
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.474001,0.3,0.525999,0.6118,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_09,9,no,1.0,recommended,推荐,0.08,0.18,0.525999,0.6118,simopa-rgb-mask-v1,27
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_10,10,no,1.0,recommended,推荐,0.04,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,25
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_11,11,no,1.0,recommended,推荐,0.474001,0.3882,0.525999,0.6118,simopa-rgb-mask-v1,24
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_12,12,no,0.3228,rejected,不推荐,0.3,0.2,0.525999,0.6118,simopa-rgb-mask-v1,25
+opa_test_021,test,1,586326,80105,bear,bear,prior_pool,prior_08,13,no,0.0,rejected,不推荐,0.474001,0.12,0.525999,0.6118,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.365625,0.016667,0.595313,0.65625,simopa-rgb-mask-v1,201
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.401644,0.3,0.598356,0.6568,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.401644,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.401644,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.401644,0.3,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_08,9,no,1.0,recommended,推荐,0.401644,0.12,0.598356,0.6568,simopa-rgb-mask-v1,25
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_09,10,no,1.0,recommended,推荐,0.08,0.18,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_10,11,no,1.0,recommended,推荐,0.04,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_11,12,no,1.0,recommended,推荐,0.401644,0.3432,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_022,test,1,1079904,379285,donut,fork,prior_pool,prior_12,13,no,1.0,recommended,推荐,0.3,0.2,0.598356,0.6568,simopa-rgb-mask-v1,24
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_03,1,yes,1.0,recommended,推荐,0.15,0.55,0.389441,0.4199,simopa-rgb-mask-v1,26
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_05,2,yes,1.0,recommended,推荐,0.52,0.46,0.389441,0.4199,simopa-rgb-mask-v1,27
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_10,3,yes,0.9999,recommended,推荐,0.04,0.5801,0.389441,0.4199,simopa-rgb-mask-v1,24
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_01,4,no,0.9995,recommended,推荐,0.38,0.58,0.389441,0.4199,simopa-rgb-mask-v1,27
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_11,5,no,0.9991,recommended,推荐,0.610559,0.52,0.389441,0.4199,simopa-rgb-mask-v1,25
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_04,6,no,0.9985,recommended,推荐,0.55,0.55,0.389441,0.4199,simopa-rgb-mask-v1,28
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_08,7,no,0.9968,recommended,推荐,0.610559,0.12,0.389441,0.4199,simopa-rgb-mask-v1,25
+opa_test_023,test,1,586987,357510,bear,bear,opa_position,opa_position,8,no,0.9967,recommended,推荐,0.603125,0.167187,0.389062,0.41875,simopa-rgb-mask-v1,197
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_09,9,no,0.0025,rejected,不推荐,0.08,0.18,0.389441,0.4199,simopa-rgb-mask-v1,24
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_07,10,no,0.0009,rejected,不推荐,0.6,0.3,0.389441,0.4199,simopa-rgb-mask-v1,24
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_02,11,no,0.0,rejected,不推荐,0.42,0.3,0.389441,0.4199,simopa-rgb-mask-v1,27
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_06,12,no,0.0,rejected,不推荐,0.25,0.3,0.389441,0.4199,simopa-rgb-mask-v1,25
+opa_test_023,test,1,586987,357510,bear,bear,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.389441,0.4199,simopa-rgb-mask-v1,24
+opa_test_024,test,1,586934,357510,bear,bear,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.359375,0.217188,0.446875,0.610938,simopa-rgb-mask-v1,201
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,27
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.447436,0.6118,simopa-rgb-mask-v1,28
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,25
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.552564,0.3,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.552564,0.3882,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_12,11,no,1.0,recommended,推荐,0.3,0.2,0.447436,0.6118,simopa-rgb-mask-v1,25
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_09,12,no,0.9999,recommended,推荐,0.08,0.18,0.447436,0.6118,simopa-rgb-mask-v1,25
+opa_test_024,test,1,586934,357510,bear,bear,prior_pool,prior_08,13,no,0.002,rejected,不推荐,0.552564,0.12,0.447436,0.6118,simopa-rgb-mask-v1,26
+opa_test_025,test,1,589018,213399,zebra,zebra,opa_position,opa_position,1,yes,1.0,recommended,推荐,0.007812,0.367681,0.434375,0.480094,simopa-rgb-mask-v1,207
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_01,2,yes,1.0,recommended,推荐,0.38,0.5192,0.435982,0.4808,simopa-rgb-mask-v1,26
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_02,3,yes,1.0,recommended,推荐,0.42,0.3,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_03,4,no,1.0,recommended,推荐,0.15,0.5192,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_04,5,no,1.0,recommended,推荐,0.55,0.5192,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_05,6,no,1.0,recommended,推荐,0.52,0.46,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_06,7,no,1.0,recommended,推荐,0.25,0.3,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_07,8,no,1.0,recommended,推荐,0.564018,0.3,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_10,9,no,1.0,recommended,推荐,0.04,0.5192,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_11,10,no,1.0,recommended,推荐,0.564018,0.5192,0.435982,0.4808,simopa-rgb-mask-v1,26
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_09,11,no,0.9956,recommended,推荐,0.08,0.18,0.435982,0.4808,simopa-rgb-mask-v1,26
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_12,12,no,0.0001,rejected,不推荐,0.3,0.2,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_025,test,1,589018,213399,zebra,zebra,prior_pool,prior_08,13,no,0.0,rejected,不推荐,0.564018,0.12,0.435982,0.4808,simopa-rgb-mask-v1,25
+opa_test_051,test,0,3332,333599,dog,dog,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.131148,0.2375,0.220141,0.2875,simopa-rgb-mask-v1,196
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.58,0.215756,0.2879,simopa-rgb-mask-v1,26
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.3,0.215756,0.2879,simopa-rgb-mask-v1,23
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.55,0.215756,0.2879,simopa-rgb-mask-v1,25
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.55,0.215756,0.2879,simopa-rgb-mask-v1,23
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.46,0.215756,0.2879,simopa-rgb-mask-v1,24
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.215756,0.2879,simopa-rgb-mask-v1,24
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.6,0.3,0.215756,0.2879,simopa-rgb-mask-v1,25
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.72,0.12,0.215756,0.2879,simopa-rgb-mask-v1,23
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.215756,0.2879,simopa-rgb-mask-v1,24
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.215756,0.2879,simopa-rgb-mask-v1,24
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.78,0.52,0.215756,0.2879,simopa-rgb-mask-v1,25
+opa_test_051,test,0,3332,333599,dog,dog,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.215756,0.2879,simopa-rgb-mask-v1,23
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_10,1,yes,0.9756,recommended,推荐,0.04,0.670734,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_052,test,0,55695,503008,horse,horse,opa_position,opa_position,2,yes,0.0,rejected,不推荐,0.56875,0.258929,0.346875,0.328125,simopa-rgb-mask-v1,209
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_01,3,yes,0.0,rejected,不推荐,0.38,0.58,0.3474,0.329266,simopa-rgb-mask-v1,27
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_02,4,no,0.0,rejected,不推荐,0.42,0.3,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_03,5,no,0.0,rejected,不推荐,0.15,0.55,0.3474,0.329266,simopa-rgb-mask-v1,26
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_04,6,no,0.0,rejected,不推荐,0.55,0.55,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.52,0.46,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.6,0.3,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.6526,0.12,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.6526,0.52,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_052,test,0,55695,503008,horse,horse,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.3829,0.354913,simopa-rgb-mask-v1,26
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.3829,0.354913,simopa-rgb-mask-v1,25
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.55,0.55,0.3829,0.354913,simopa-rgb-mask-v1,24
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_10,4,no,1.0,recommended,推荐,0.04,0.645087,0.3829,0.354913,simopa-rgb-mask-v1,23
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_11,5,no,0.9999,recommended,推荐,0.6171,0.52,0.3829,0.354913,simopa-rgb-mask-v1,24
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_06,6,no,0.9955,recommended,推荐,0.25,0.3,0.3829,0.354913,simopa-rgb-mask-v1,24
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_12,7,no,0.036,rejected,不推荐,0.3,0.2,0.3829,0.354913,simopa-rgb-mask-v1,25
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_02,8,no,0.0049,rejected,不推荐,0.42,0.3,0.3829,0.354913,simopa-rgb-mask-v1,26
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_08,9,no,0.0019,rejected,不推荐,0.6171,0.12,0.3829,0.354913,simopa-rgb-mask-v1,25
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_09,10,no,0.0018,rejected,不推荐,0.08,0.18,0.3829,0.354913,simopa-rgb-mask-v1,23
+opa_test_053,test,0,61157,186413,sheep,sheep,opa_position,opa_position,11,no,0.0,rejected,不推荐,0.342187,0.470726,0.382812,0.351288,simopa-rgb-mask-v1,207
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_05,12,no,0.0,rejected,不推荐,0.52,0.46,0.3829,0.354913,simopa-rgb-mask-v1,23
+opa_test_053,test,0,61157,186413,sheep,sheep,prior_pool,prior_07,13,no,0.0,rejected,不推荐,0.6,0.3,0.3829,0.354913,simopa-rgb-mask-v1,24
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_01,1,yes,0.8239,recommended,推荐,0.38,0.58,0.5012,0.307984,simopa-rgb-mask-v1,29
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_04,2,yes,0.0019,rejected,不推荐,0.4988,0.55,0.5012,0.307984,simopa-rgb-mask-v1,28
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_10,3,yes,0.0013,rejected,不推荐,0.04,0.68,0.5012,0.307984,simopa-rgb-mask-v1,25
+opa_test_054,test,0,164841,57284,bus,bus,opa_position,opa_position,4,no,0.0,rejected,不推荐,0.0375,0.514583,0.5,0.308333,simopa-rgb-mask-v1,212
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_02,5,no,0.0,rejected,不推荐,0.42,0.3,0.5012,0.307984,simopa-rgb-mask-v1,26
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_03,6,no,0.0,rejected,不推荐,0.15,0.55,0.5012,0.307984,simopa-rgb-mask-v1,27
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.4988,0.46,0.5012,0.307984,simopa-rgb-mask-v1,24
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.5012,0.307984,simopa-rgb-mask-v1,24
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.4988,0.3,0.5012,0.307984,simopa-rgb-mask-v1,25
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.4988,0.12,0.5012,0.307984,simopa-rgb-mask-v1,26
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.5012,0.307984,simopa-rgb-mask-v1,24
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.4988,0.52,0.5012,0.307984,simopa-rgb-mask-v1,25
+opa_test_054,test,0,164841,57284,bus,bus,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.5012,0.307984,simopa-rgb-mask-v1,25
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.227054,0.2376,simopa-rgb-mask-v1,27
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.227054,0.2376,simopa-rgb-mask-v1,23
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.55,0.55,0.227054,0.2376,simopa-rgb-mask-v1,23
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_10,4,no,1.0,recommended,推荐,0.04,0.68,0.227054,0.2376,simopa-rgb-mask-v1,25
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_11,5,no,1.0,recommended,推荐,0.772946,0.52,0.227054,0.2376,simopa-rgb-mask-v1,24
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_08,6,no,0.6183,acceptable,可接受,0.72,0.12,0.227054,0.2376,simopa-rgb-mask-v1,29
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_09,7,no,0.3076,rejected,不推荐,0.08,0.18,0.227054,0.2376,simopa-rgb-mask-v1,24
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_05,8,no,0.0017,rejected,不推荐,0.52,0.46,0.227054,0.2376,simopa-rgb-mask-v1,24
+opa_test_055,test,0,575108,124979,bench,bench,opa_position,opa_position,9,no,0.0,rejected,不推荐,0.721875,0.258294,0.225,0.236967,simopa-rgb-mask-v1,223
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_02,10,no,0.0,rejected,不推荐,0.42,0.3,0.227054,0.2376,simopa-rgb-mask-v1,25
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.227054,0.2376,simopa-rgb-mask-v1,23
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_07,12,no,0.0,rejected,不推荐,0.6,0.3,0.227054,0.2376,simopa-rgb-mask-v1,26
+opa_test_055,test,0,575108,124979,bench,bench,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.227054,0.2376,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_06,1,yes,0.9999,recommended,推荐,0.25,0.3,0.091453,0.3027,simopa-rgb-mask-v1,24
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_03,2,yes,0.9967,recommended,推荐,0.15,0.55,0.091453,0.3027,simopa-rgb-mask-v1,24
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_02,3,yes,0.9794,recommended,推荐,0.42,0.3,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_10,4,no,0.0061,rejected,不推荐,0.04,0.68,0.091453,0.3027,simopa-rgb-mask-v1,24
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_12,5,no,0.0033,rejected,不推荐,0.3,0.2,0.091453,0.3027,simopa-rgb-mask-v1,25
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_05,6,no,0.0015,rejected,不推荐,0.52,0.46,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_01,7,no,0.0008,rejected,不推荐,0.38,0.58,0.091453,0.3027,simopa-rgb-mask-v1,26
+opa_test_056,test,0,126084,180967,bicycle,bicycle,opa_position,opa_position,8,no,0.0,rejected,不推荐,0.498,0.237237,0.09,0.3003,simopa-rgb-mask-v1,204
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_04,9,no,0.0,rejected,不推荐,0.55,0.55,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_07,10,no,0.0,rejected,不推荐,0.6,0.3,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.72,0.12,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_056,test,0,126084,180967,bicycle,bicycle,prior_pool,prior_11,13,no,0.0,rejected,不推荐,0.78,0.52,0.091453,0.3027,simopa-rgb-mask-v1,23
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_05,1,yes,1.0,recommended,推荐,0.52,0.46,0.1496,0.139948,simopa-rgb-mask-v1,26
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_10,2,yes,1.0,recommended,推荐,0.04,0.68,0.1496,0.139948,simopa-rgb-mask-v1,26
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_11,3,yes,1.0,recommended,推荐,0.78,0.52,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_04,4,no,0.9999,recommended,推荐,0.55,0.55,0.1496,0.139948,simopa-rgb-mask-v1,26
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_01,5,no,0.9994,recommended,推荐,0.38,0.58,0.1496,0.139948,simopa-rgb-mask-v1,27
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_03,6,no,0.3872,rejected,不推荐,0.15,0.55,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_09,7,no,0.0001,rejected,不推荐,0.08,0.18,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_057,test,0,1084923,414401,cake,cake,opa_position,opa_position,8,no,0.0,rejected,不推荐,0.207813,0.14375,0.148438,0.139063,simopa-rgb-mask-v1,211
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_02,9,no,0.0,rejected,不推荐,0.42,0.3,0.1496,0.139948,simopa-rgb-mask-v1,26
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_06,10,no,0.0,rejected,不推荐,0.25,0.3,0.1496,0.139948,simopa-rgb-mask-v1,26
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_07,11,no,0.0,rejected,不推荐,0.6,0.3,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_08,12,no,0.0,rejected,不推荐,0.72,0.12,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_057,test,0,1084923,414401,cake,cake,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.1496,0.139948,simopa-rgb-mask-v1,25
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_03,1,yes,0.0003,rejected,不推荐,0.15,0.55,0.157071,0.1725,simopa-rgb-mask-v1,28
+opa_test_058,test,0,341620,64389,toothbrush,vase,opa_position,opa_position,2,yes,0.0,rejected,不推荐,0.358333,0.422222,0.15625,0.172222,simopa-rgb-mask-v1,211
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_01,3,yes,0.0,rejected,不推荐,0.38,0.58,0.157071,0.1725,simopa-rgb-mask-v1,24
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_02,4,no,0.0,rejected,不推荐,0.42,0.3,0.157071,0.1725,simopa-rgb-mask-v1,25
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.55,0.157071,0.1725,simopa-rgb-mask-v1,24
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.46,0.157071,0.1725,simopa-rgb-mask-v1,23
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.157071,0.1725,simopa-rgb-mask-v1,26
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.6,0.3,0.157071,0.1725,simopa-rgb-mask-v1,24
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.72,0.12,0.157071,0.1725,simopa-rgb-mask-v1,23
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.157071,0.1725,simopa-rgb-mask-v1,23
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.157071,0.1725,simopa-rgb-mask-v1,23
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.78,0.52,0.157071,0.1725,simopa-rgb-mask-v1,23
+opa_test_058,test,0,341620,64389,toothbrush,vase,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.157071,0.1725,simopa-rgb-mask-v1,24
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.418667,0.012,0.389333,0.048,simopa-rgb-mask-v1,199
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.58,0.3916,0.05,simopa-rgb-mask-v1,25
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.3,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.55,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.55,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.46,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.6,0.3,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.6084,0.12,0.3916,0.05,simopa-rgb-mask-v1,22
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.3916,0.05,simopa-rgb-mask-v1,22
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.3916,0.05,simopa-rgb-mask-v1,23
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.6084,0.52,0.3916,0.05,simopa-rgb-mask-v1,22
+opa_test_059,test,0,341604,73009,toothbrush,toothbrush,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.3916,0.05,simopa-rgb-mask-v1,22
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.5483,0.389773,0.4517,simopa-rgb-mask-v1,30
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.5483,0.389773,0.4517,simopa-rgb-mask-v1,30
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.55,0.5483,0.389773,0.4517,simopa-rgb-mask-v1,27
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_05,4,no,1.0,recommended,推荐,0.52,0.46,0.389773,0.4517,simopa-rgb-mask-v1,28
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_10,5,no,1.0,recommended,推荐,0.04,0.5483,0.389773,0.4517,simopa-rgb-mask-v1,25
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_11,6,no,1.0,recommended,推荐,0.610227,0.52,0.389773,0.4517,simopa-rgb-mask-v1,25
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_07,7,no,0.9999,recommended,推荐,0.6,0.3,0.389773,0.4517,simopa-rgb-mask-v1,25
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_08,8,no,0.989,recommended,推荐,0.610227,0.12,0.389773,0.4517,simopa-rgb-mask-v1,25
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_02,9,no,0.001,rejected,不推荐,0.42,0.3,0.389773,0.4517,simopa-rgb-mask-v1,34
+opa_test_060,test,0,1576567,414401,cake,cake,opa_position,opa_position,10,no,0.0,rejected,不推荐,0.195312,0.042188,0.392188,0.451562,simopa-rgb-mask-v1,206
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_06,11,no,0.0,rejected,不推荐,0.25,0.3,0.389773,0.4517,simopa-rgb-mask-v1,27
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.389773,0.4517,simopa-rgb-mask-v1,26
+opa_test_060,test,0,1576567,414401,cake,cake,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.389773,0.4517,simopa-rgb-mask-v1,25
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.058667,0.112,0.274667,0.052,simopa-rgb-mask-v1,199
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.58,0.2769,0.053427,simopa-rgb-mask-v1,24
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.3,0.2769,0.053427,simopa-rgb-mask-v1,23
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.55,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.55,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.46,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.6,0.3,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.72,0.12,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.7231,0.52,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_061,test,0,342658,73009,toothbrush,toothbrush,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.2769,0.053427,simopa-rgb-mask-v1,22
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_10,1,yes,0.955,recommended,推荐,0.04,0.6495,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_02,2,yes,0.1724,rejected,不推荐,0.42,0.3,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_03,3,yes,0.0315,rejected,不推荐,0.15,0.55,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_01,4,no,0.0107,rejected,不推荐,0.38,0.58,0.227669,0.3505,simopa-rgb-mask-v1,24
+opa_test_062,test,0,575902,171805,bench,bench,opa_position,opa_position,5,no,0.0,rejected,不推荐,0.585938,0.435417,0.226562,0.35,simopa-rgb-mask-v1,192
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_04,6,no,0.0,rejected,不推荐,0.55,0.55,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.52,0.46,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.6,0.3,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.72,0.12,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.227669,0.3505,simopa-rgb-mask-v1,23
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.772331,0.52,0.227669,0.3505,simopa-rgb-mask-v1,24
+opa_test_062,test,0,575902,171805,bench,bench,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.227669,0.3505,simopa-rgb-mask-v1,24
+opa_test_063,test,0,670608,460568,cup,cup,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.310458,0.081699,0.408497,0.754902,simopa-rgb-mask-v1,198
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,27
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.589185,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.589185,0.12,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.410815,0.7559,simopa-rgb-mask-v1,26
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,25
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.589185,0.2441,0.410815,0.7559,simopa-rgb-mask-v1,26
+opa_test_063,test,0,670608,460568,cup,cup,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.410815,0.7559,simopa-rgb-mask-v1,26
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.560649,0.5313,0.439351,simopa-rgb-mask-v1,24
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.5313,0.439351,simopa-rgb-mask-v1,25
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.4687,0.55,0.5313,0.439351,simopa-rgb-mask-v1,25
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_05,4,no,1.0,recommended,推荐,0.4687,0.46,0.5313,0.439351,simopa-rgb-mask-v1,26
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_10,5,no,1.0,recommended,推荐,0.04,0.560649,0.5313,0.439351,simopa-rgb-mask-v1,24
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_11,6,no,1.0,recommended,推荐,0.4687,0.52,0.5313,0.439351,simopa-rgb-mask-v1,23
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_02,7,no,0.6213,acceptable,可接受,0.42,0.3,0.5313,0.439351,simopa-rgb-mask-v1,25
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_07,8,no,0.1013,rejected,不推荐,0.4687,0.3,0.5313,0.439351,simopa-rgb-mask-v1,25
+opa_test_064,test,0,596954,203868,giraffe,giraffe,opa_position,opa_position,9,no,0.0,rejected,不推荐,0.126464,0.170313,0.529274,0.440625,simopa-rgb-mask-v1,195
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_06,10,no,0.0,rejected,不推荐,0.25,0.3,0.5313,0.439351,simopa-rgb-mask-v1,25
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.4687,0.12,0.5313,0.439351,simopa-rgb-mask-v1,24
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.5313,0.439351,simopa-rgb-mask-v1,24
+opa_test_064,test,0,596954,203868,giraffe,giraffe,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.5313,0.439351,simopa-rgb-mask-v1,23
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.2912,0.114903,simopa-rgb-mask-v1,23
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_04,3,yes,1.0,recommended,推荐,0.55,0.55,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_05,4,no,1.0,recommended,推荐,0.52,0.46,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_11,5,no,1.0,recommended,推荐,0.7088,0.52,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_07,6,no,0.999,recommended,推荐,0.6,0.3,0.2912,0.114903,simopa-rgb-mask-v1,23
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_10,7,no,0.9644,recommended,推荐,0.04,0.68,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,opa_position,opa_position,8,no,0.0,rejected,不推荐,0.384375,0.311475,0.290625,0.114754,simopa-rgb-mask-v1,193
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_02,9,no,0.0,rejected,不推荐,0.42,0.3,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_06,10,no,0.0,rejected,不推荐,0.25,0.3,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.7088,0.12,0.2912,0.114903,simopa-rgb-mask-v1,23
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.2912,0.114903,simopa-rgb-mask-v1,23
+opa_test_065,test,0,159573,580029,airplane,airplane,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.2912,0.114903,simopa-rgb-mask-v1,24
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_10,1,yes,0.9756,recommended,推荐,0.04,0.670734,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_066,test,0,55695,503008,horse,horse,opa_position,opa_position,2,yes,0.0,rejected,不推荐,0.642188,0.149554,0.346875,0.328125,simopa-rgb-mask-v1,201
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_01,3,yes,0.0,rejected,不推荐,0.38,0.58,0.3474,0.329266,simopa-rgb-mask-v1,28
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_02,4,no,0.0,rejected,不推荐,0.42,0.3,0.3474,0.329266,simopa-rgb-mask-v1,27
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_03,5,no,0.0,rejected,不推荐,0.15,0.55,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_04,6,no,0.0,rejected,不推荐,0.55,0.55,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.52,0.46,0.3474,0.329266,simopa-rgb-mask-v1,27
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.3474,0.329266,simopa-rgb-mask-v1,27
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.6,0.3,0.3474,0.329266,simopa-rgb-mask-v1,30
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.6526,0.12,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.6526,0.52,0.3474,0.329266,simopa-rgb-mask-v1,25
+opa_test_066,test,0,55695,503008,horse,horse,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.3474,0.329266,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.035937,0.45,0.495312,0.272917,simopa-rgb-mask-v1,197
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.58,0.4965,0.273889,simopa-rgb-mask-v1,27
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.3,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.55,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.5035,0.55,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.5035,0.46,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.5035,0.3,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.5035,0.12,0.4965,0.273889,simopa-rgb-mask-v1,25
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.5035,0.52,0.4965,0.273889,simopa-rgb-mask-v1,25
+opa_test_067,test,0,163007,57284,bus,bus,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.4965,0.273889,simopa-rgb-mask-v1,24
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_03,1,yes,0.3897,rejected,不推荐,0.15,0.55,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_10,2,yes,0.0006,rejected,不推荐,0.04,0.68,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_11,3,yes,0.0001,rejected,不推荐,0.78,0.52,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,opa_position,opa_position,4,no,0.0,rejected,不推荐,0.024,0.144144,0.058,0.147147,simopa-rgb-mask-v1,196
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_01,5,no,0.0,rejected,不推荐,0.38,0.58,0.059545,0.1495,simopa-rgb-mask-v1,24
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_02,6,no,0.0,rejected,不推荐,0.42,0.3,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_04,7,no,0.0,rejected,不推荐,0.55,0.55,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_05,8,no,0.0,rejected,不推荐,0.52,0.46,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_06,9,no,0.0,rejected,不推荐,0.25,0.3,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_07,10,no,0.0,rejected,不推荐,0.6,0.3,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.72,0.12,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_068,test,0,1765106,180967,bicycle,bicycle,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.059545,0.1495,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_03,1,yes,1.0,recommended,推荐,0.15,0.55,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_10,2,yes,1.0,recommended,推荐,0.04,0.5853,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_01,3,yes,0.9851,recommended,推荐,0.38,0.58,0.241312,0.4147,simopa-rgb-mask-v1,23
+opa_test_069,test,0,1100242,62376,laptop,laptop,opa_position,opa_position,4,no,0.0,rejected,不推荐,0.40625,0.547222,0.239583,0.413889,simopa-rgb-mask-v1,198
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_02,5,no,0.0,rejected,不推荐,0.42,0.3,0.241312,0.4147,simopa-rgb-mask-v1,23
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_04,6,no,0.0,rejected,不推荐,0.55,0.55,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_05,7,no,0.0,rejected,不推荐,0.52,0.46,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_06,8,no,0.0,rejected,不推荐,0.25,0.3,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_07,9,no,0.0,rejected,不推荐,0.6,0.3,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.72,0.12,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.758687,0.52,0.241312,0.4147,simopa-rgb-mask-v1,24
+opa_test_069,test,0,1100242,62376,laptop,laptop,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.241312,0.4147,simopa-rgb-mask-v1,22
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_02,1,yes,1.0,recommended,推荐,0.407272,0.3,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_07,2,yes,1.0,recommended,推荐,0.407272,0.3,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_04,3,yes,0.9999,recommended,推荐,0.407272,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,25
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_05,4,no,0.9999,recommended,推荐,0.407272,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_11,5,no,0.9999,recommended,推荐,0.407272,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_08,6,no,0.9967,recommended,推荐,0.407272,0.12,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_01,7,no,0.981,recommended,推荐,0.38,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,27
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_06,8,no,0.9461,recommended,推荐,0.25,0.3,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_03,9,no,0.8476,recommended,推荐,0.15,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_10,10,no,0.3613,rejected,不推荐,0.04,0.3131,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_12,11,no,0.0002,rejected,不推荐,0.3,0.2,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_070,test,0,1576567,414401,cake,cake,opa_position,opa_position,12,no,0.0,rejected,不推荐,0.279687,0.015625,0.595313,0.685937,simopa-rgb-mask-v1,204
+opa_test_070,test,0,1576567,414401,cake,cake,prior_pool,prior_09,13,no,0.0,rejected,不推荐,0.08,0.18,0.592728,0.6869,simopa-rgb-mask-v1,26
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_01,1,yes,0.96,recommended,推荐,0.38,0.58,0.2529,0.0843,simopa-rgb-mask-v1,25
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_03,2,yes,0.9244,recommended,推荐,0.15,0.55,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_10,3,yes,0.8744,recommended,推荐,0.04,0.68,0.2529,0.0843,simopa-rgb-mask-v1,23
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_04,4,no,0.1089,rejected,不推荐,0.55,0.55,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_11,5,no,0.0041,rejected,不推荐,0.7471,0.52,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,opa_position,opa_position,6,no,0.0,rejected,不推荐,0.066993,0.357843,0.251634,0.083333,simopa-rgb-mask-v1,202
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_02,7,no,0.0,rejected,不推荐,0.42,0.3,0.2529,0.0843,simopa-rgb-mask-v1,25
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_05,8,no,0.0,rejected,不推荐,0.52,0.46,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_06,9,no,0.0,rejected,不推荐,0.25,0.3,0.2529,0.0843,simopa-rgb-mask-v1,23
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_07,10,no,0.0,rejected,不推荐,0.6,0.3,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.72,0.12,0.2529,0.0843,simopa-rgb-mask-v1,24
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.2529,0.0843,simopa-rgb-mask-v1,23
+opa_test_071,test,0,1976110,218668,cell phone,cell phone,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.2529,0.0843,simopa-rgb-mask-v1,25
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_01,1,yes,1.0,recommended,推荐,0.38,0.58,0.059039,0.1423,simopa-rgb-mask-v1,25
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_03,2,yes,1.0,recommended,推荐,0.15,0.55,0.059039,0.1423,simopa-rgb-mask-v1,24
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_04,3,yes,0.9999,recommended,推荐,0.55,0.55,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_10,4,no,0.9999,recommended,推荐,0.04,0.68,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_11,5,no,0.9996,recommended,推荐,0.78,0.52,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_07,6,no,0.0057,rejected,不推荐,0.6,0.3,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,opa_position,opa_position,7,no,0.0,rejected,不推荐,0.045312,0.204167,0.057813,0.141667,simopa-rgb-mask-v1,199
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_02,8,no,0.0,rejected,不推荐,0.42,0.3,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_05,9,no,0.0,rejected,不推荐,0.52,0.46,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_06,10,no,0.0,rejected,不推荐,0.25,0.3,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_08,11,no,0.0,rejected,不推荐,0.72,0.12,0.059039,0.1423,simopa-rgb-mask-v1,24
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_09,12,no,0.0,rejected,不推荐,0.08,0.18,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_072,test,0,416834,317687,fire hydrant,fire hydrant,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.059039,0.1423,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_11,1,yes,1.0,recommended,推荐,0.78,0.52,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_07,2,yes,0.9937,recommended,推荐,0.6,0.3,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_02,3,yes,0.9922,recommended,推荐,0.42,0.3,0.1635,0.05,simopa-rgb-mask-v1,24
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_01,4,no,0.9921,recommended,推荐,0.38,0.58,0.1635,0.05,simopa-rgb-mask-v1,24
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_05,5,no,0.763,recommended,推荐,0.52,0.46,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_04,6,no,0.528,acceptable,可接受,0.55,0.55,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_03,7,no,0.0002,rejected,不推荐,0.15,0.55,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,opa_position,opa_position,8,no,0.0,rejected,不推荐,0.198437,0.329167,0.1625,0.0375,simopa-rgb-mask-v1,200
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_06,9,no,0.0,rejected,不推荐,0.25,0.3,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_08,10,no,0.0,rejected,不推荐,0.72,0.12,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_09,11,no,0.0,rejected,不推荐,0.08,0.18,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_10,12,no,0.0,rejected,不推荐,0.04,0.68,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_073,test,0,702138,78478,spoon,spoon,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.1635,0.05,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,opa_position,opa_position,1,yes,0.0,rejected,不推荐,0.75625,0.49375,0.13125,0.091667,simopa-rgb-mask-v1,213
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_01,2,yes,0.0,rejected,不推荐,0.38,0.58,0.1322,0.092063,simopa-rgb-mask-v1,26
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_02,3,yes,0.0,rejected,不推荐,0.42,0.3,0.1322,0.092063,simopa-rgb-mask-v1,24
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_03,4,no,0.0,rejected,不推荐,0.15,0.55,0.1322,0.092063,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_04,5,no,0.0,rejected,不推荐,0.55,0.55,0.1322,0.092063,simopa-rgb-mask-v1,24
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_05,6,no,0.0,rejected,不推荐,0.52,0.46,0.1322,0.092063,simopa-rgb-mask-v1,24
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_06,7,no,0.0,rejected,不推荐,0.25,0.3,0.1322,0.092063,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_07,8,no,0.0,rejected,不推荐,0.6,0.3,0.1322,0.092063,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_08,9,no,0.0,rejected,不推荐,0.72,0.12,0.1322,0.092063,simopa-rgb-mask-v1,24
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_09,10,no,0.0,rejected,不推荐,0.08,0.18,0.1322,0.092063,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_10,11,no,0.0,rejected,不推荐,0.04,0.68,0.1322,0.092063,simopa-rgb-mask-v1,23
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_11,12,no,0.0,rejected,不推荐,0.78,0.52,0.1322,0.092063,simopa-rgb-mask-v1,24
+opa_test_074,test,0,355769,107745,car,car,prior_pool,prior_12,13,no,0.0,rejected,不推荐,0.3,0.2,0.1322,0.092063,simopa-rgb-mask-v1,22
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_12,1,yes,0.0005,rejected,不推荐,0.3,0.2,0.1215,0.065294,simopa-rgb-mask-v1,23
+opa_test_075,test,0,18901,29727,potted plant,potted plant,opa_position,opa_position,2,yes,0.0002,rejected,不推荐,0.382353,0.420312,0.120098,0.064062,simopa-rgb-mask-v1,201
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_02,3,yes,0.0002,rejected,不推荐,0.42,0.3,0.1215,0.065294,simopa-rgb-mask-v1,23
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_09,4,no,0.0002,rejected,不推荐,0.08,0.18,0.1215,0.065294,simopa-rgb-mask-v1,24
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_10,5,no,0.0002,rejected,不推荐,0.04,0.68,0.1215,0.065294,simopa-rgb-mask-v1,23
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_06,6,no,0.0001,rejected,不推荐,0.25,0.3,0.1215,0.065294,simopa-rgb-mask-v1,24
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_01,7,no,0.0,rejected,不推荐,0.38,0.58,0.1215,0.065294,simopa-rgb-mask-v1,24
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_03,8,no,0.0,rejected,不推荐,0.15,0.55,0.1215,0.065294,simopa-rgb-mask-v1,25
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_04,9,no,0.0,rejected,不推荐,0.55,0.55,0.1215,0.065294,simopa-rgb-mask-v1,23
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_05,10,no,0.0,rejected,不推荐,0.52,0.46,0.1215,0.065294,simopa-rgb-mask-v1,24
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_07,11,no,0.0,rejected,不推荐,0.6,0.3,0.1215,0.065294,simopa-rgb-mask-v1,23
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_08,12,no,0.0,rejected,不推荐,0.72,0.12,0.1215,0.065294,simopa-rgb-mask-v1,25
+opa_test_075,test,0,18901,29727,potted plant,potted plant,prior_pool,prior_11,13,no,0.0,rejected,不推荐,0.78,0.52,0.1215,0.065294,simopa-rgb-mask-v1,23

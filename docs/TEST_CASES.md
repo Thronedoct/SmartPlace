@@ -72,6 +72,7 @@
 | V012 | 分数校准和 IoU 去重 | `python experiments\opa_baseline\run_score_calibration.py` | 通过 | 234 条候选；温度缩放后生成校准分数，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。 |
 | V013 | 代表案例图和失败/边界表 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_case_gallery.py` | 通过 | 生成 5 组成功/边界/负例案例图，写入 `report/tables/failure_cases.csv` 和 `report/screenshots/cases/`。 |
 | V014 | 遮挡解释实验 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_occlusion_explainability.py` | 通过 | 5 组代表案例，6x6 遮挡网格；平均最大分数下降 0.5472，热力图写入 `report/screenshots/explainability/`。 |
-| V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 7 行运行耗时证据和 11 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |
+| V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 8 行运行耗时证据和 11 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |
 | V016 | Web 内置样例、可信度提示和导出验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 桌面视口加载 5 个内置案例；加载 `opa_test_001` 后运行推荐得到 3 个候选、可信度为“高可信”、JSON/CSV 导出按钮启用，JSON 下载成功；移动视口中样例区、可信度区和画布可见。 |
 | V017 | Web 前端美化与演示模式验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 页面中文无乱码；演示模式切换成功；当前案例有选中态；Top 3 候选框按分级着色；JSON/CSV 导出可用；移动视口无横向溢出；控制台无相关错误。 |
+| V018 | 50 组 OPA 候选排序扩展评测 | `.\.venv\Scripts\python.exe experiments\opa_baseline\run_candidate_ranking.py --positive-count 25 --negative-count 25 ...` | 通过 | 50 组、650 条候选；正例 22/25 的 OPA 标注位置进入 Top 3，负例 25/25 低分拒绝；边界案例为 `opa_test_002`、`opa_test_012`、`opa_test_023`。 |

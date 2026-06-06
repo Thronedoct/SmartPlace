@@ -1,0 +1,51 @@
+case_id,dataset_label,fg_id,bg_id,foreground_category,background_category,image_width,image_height,dataset_position_score,dataset_position_rank,top1_source,top1_score,top3_scores,assessment,model_version
+opa_test_001,1,69931,442445,cow,cow,640,512,0.9985,1,opa_position,0.9985,0.9985;0.9985;0.8876,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_002,1,64754,186413,sheep,sheep,640,427,0.9987,10,prior_pool,1.0,1.0000;1.0000;1.0000,review_positive_high_score_low_rank,simopa-rgb-mask-v1
+opa_test_003,1,160915,580029,airplane,airplane,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_004,1,157189,15016,airplane,airplane,640,425,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_005,1,65690,186413,sheep,sheep,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_006,1,2175267,348935,zebra,zebra,529,640,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_007,1,1519373,78478,fork,spoon,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_008,1,1412247,213399,zebra,zebra,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_009,1,13433,500165,dog,dog,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_010,1,1914814,298623,broccoli,broccoli,640,426,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_011,1,128038,180967,bicycle,bicycle,500,333,1.0,1,opa_position,1.0,1.0000;0.9994;0.3642,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_012,1,417577,317687,fire hydrant,fire hydrant,640,480,0.9996,6,prior_pool,1.0,1.0000;1.0000;1.0000,review_positive_high_score_low_rank,simopa-rgb-mask-v1
+opa_test_013,1,178226,366257,boat,boat,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_014,1,1078397,379285,donut,fork,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_015,1,593796,213399,zebra,zebra,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_016,1,2198049,317687,fire hydrant,fire hydrant,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_017,1,1055814,298623,broccoli,broccoli,640,426,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_018,1,1926922,414401,cake,cake,640,640,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_019,1,1078801,60467,donut,donut,504,351,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_020,1,56104,417334,horse,horse,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_021,1,586326,80105,bear,bear,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_022,1,1079904,379285,donut,fork,640,480,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_023,1,586987,357510,bear,bear,640,640,0.9967,8,prior_pool,1.0,1.0000;1.0000;0.9999,review_positive_high_score_low_rank,simopa-rgb-mask-v1
+opa_test_024,1,586934,357510,bear,bear,640,640,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_025,1,589018,213399,zebra,zebra,640,427,1.0,1,opa_position,1.0,1.0000;1.0000;1.0000,pass_positive_high_rank,simopa-rgb-mask-v1
+opa_test_051,0,3332,333599,dog,dog,427,640,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_052,0,55695,503008,horse,horse,640,448,0.0,2,prior_pool,0.9756,0.9756;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_053,0,61157,186413,sheep,sheep,640,427,0.0,11,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_054,0,164841,57284,bus,bus,640,480,0.0,4,prior_pool,0.8239,0.8239;0.0019;0.0013,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_055,0,575108,124979,bench,bench,640,422,0.0,9,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_056,0,126084,180967,bicycle,bicycle,500,333,0.0,8,prior_pool,0.9999,0.9999;0.9967;0.9794,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_057,0,1084923,414401,cake,cake,640,640,0.0,8,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_058,0,341620,64389,toothbrush,vase,480,360,0.0,2,prior_pool,0.0003,0.0003;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_059,0,341604,73009,toothbrush,toothbrush,375,500,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_060,0,1576567,414401,cake,cake,640,640,0.0,10,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_061,0,342658,73009,toothbrush,toothbrush,375,500,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_062,0,575902,171805,bench,bench,640,480,0.0,5,prior_pool,0.955,0.9550;0.1724;0.0315,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_063,0,670608,460568,cup,cup,612,612,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_064,0,596954,203868,giraffe,giraffe,427,640,0.0,9,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_065,0,159573,580029,airplane,airplane,640,427,0.0,8,prior_pool,1.0,1.0000;1.0000;1.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_066,0,55695,503008,horse,horse,640,448,0.0,2,prior_pool,0.9756,0.9756;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_067,0,163007,57284,bus,bus,640,480,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_068,0,1765106,180967,bicycle,bicycle,500,333,0.0,4,prior_pool,0.3897,0.3897;0.0006;0.0001,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_069,0,1100242,62376,laptop,laptop,480,360,0.0,4,prior_pool,1.0,1.0000;1.0000;0.9851,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_070,0,1576567,414401,cake,cake,640,640,0.0,12,prior_pool,1.0,1.0000;1.0000;0.9999,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_071,0,1976110,218668,cell phone,cell phone,612,612,0.0,6,prior_pool,0.96,0.9600;0.9244;0.8744,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_072,0,416834,317687,fire hydrant,fire hydrant,640,480,0.0,7,prior_pool,1.0,1.0000;1.0000;0.9999,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_073,0,702138,78478,spoon,spoon,640,480,0.0,8,prior_pool,1.0,1.0000;0.9937;0.9922,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_074,0,355769,107745,car,car,640,480,0.0,1,opa_position,0.0,0.0000;0.0000;0.0000,pass_negative_rejected,simopa-rgb-mask-v1
+opa_test_075,0,18901,29727,potted plant,potted plant,408,640,0.0002,2,prior_pool,0.0005,0.0005;0.0002;0.0002,pass_negative_rejected,simopa-rgb-mask-v1

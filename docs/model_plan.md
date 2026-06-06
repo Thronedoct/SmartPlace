@@ -40,7 +40,7 @@ OPA/libcom baseline
 | 工作 | 类型 | 当前证据 |
 |---|---|---|
 | SimOPA scorer 服务化 | 功能类改动 | `server/scorer.py`、`experiments/opa_baseline/score_candidates.py`、`report/tables/api_simopa_smoke.csv` |
-| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv` |
+| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv`、`report/tables/candidate_ranking_v2_50.csv` |
 | RGB/mask ablation | 输入适配/本体类证据 | `report/tables/rgb_vs_mask_comparison.csv` |
 | 0-1 分数与三档标签 | 输出适配 | `server/recommender.py`、API 返回字段 |
 | 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
@@ -52,7 +52,7 @@ OPA/libcom baseline
 
 升级后优先做：
 
-1. 扩大候选排序评测：从 18 组扩展到 50 或 100 组，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`。
+1. 扩大候选排序评测：50 组已完成；如还需要更强统计证据，可继续扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
 2. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
 3. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
 4. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
@@ -266,6 +266,7 @@ report/screenshots/opa_baseline_run.png
 
 ```text
 report/tables/candidate_ranking_v1.csv
+report/tables/candidate_ranking_v2_50.csv
 ```
 
 字段建议：
@@ -324,6 +325,7 @@ report/tables/rgb_vs_mask_comparison.csv
 report/tables/inference_runtime.csv
 report/tables/model_change_summary.csv
 report/tables/candidate_ranking_v2_50.csv
+report/tables/opa_50_case_summary.csv
 report/tables/lite_mode_comparison.csv
 report/tables/robustness_ablation.csv
 ```
