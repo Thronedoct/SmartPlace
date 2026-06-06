@@ -116,3 +116,33 @@ Current result:
 - 8 of 9 positive cases have the OPA labeled position scored high and ranked in Top 3.
 - 9 of 9 negative OPA labeled positions are rejected with score `0.0`.
 - `opa_test_002` is a useful discussion case: the labeled position scores `0.9987`, but several generated candidates also saturate near `1.0`, so the labeled position ranks lower despite a high absolute score.
+
+## RGB/Mask Ablation
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_rgb_mask_comparison.py
+```
+
+This reuses the 234 candidates from `candidate_ranking_v1.csv` and compares three scoring inputs:
+
+- `score_rgb_mask`: normal SimOPA composite RGB plus object-shape mask.
+- `score_bbox_mask`: same composite RGB plus only a coarse bounding-box mask.
+- `score_blank_mask`: same composite RGB plus a blank mask channel as an RGB-only proxy.
+
+Outputs:
+
+```text
+report/logs/rgb_vs_mask_comparison.txt
+report/tables/rgb_vs_mask_comparison.csv
+```
+
+Current result:
+
+- 234 candidate rows.
+- Mean absolute delta between object mask and bbox mask: `0.0839`.
+- Mean absolute delta between object mask and blank mask: `0.3487`.
+- 29 candidates change by at least `0.05` against bbox mask.
+- 136 candidates change by at least `0.05` against blank mask.
+- Top 3 membership changes for 16 candidates against bbox mask and 56 against blank mask.
