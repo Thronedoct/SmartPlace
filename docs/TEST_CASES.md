@@ -72,3 +72,4 @@
 | V012 | 分数校准和 IoU 去重 | `python experiments\opa_baseline\run_score_calibration.py` | 通过 | 234 条候选；温度缩放后生成校准分数，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。 |
 | V013 | 代表案例图和失败/边界表 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_case_gallery.py` | 通过 | 生成 5 组成功/边界/负例案例图，写入 `report/tables/failure_cases.csv` 和 `report/screenshots/cases/`。 |
 | V014 | 遮挡解释实验 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_occlusion_explainability.py` | 通过 | 5 组代表案例，6x6 遮挡网格；平均最大分数下降 0.5472，热力图写入 `report/screenshots/explainability/`。 |
+| V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 7 行运行耗时证据和 11 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |

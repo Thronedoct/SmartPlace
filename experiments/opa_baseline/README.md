@@ -221,3 +221,26 @@ Current result:
 - Mean max score drop: `0.5472`.
 - `opa_test_001`, `opa_test_002`, and `opa_test_052` show strong localized sensitivity.
 - `opa_test_059` stays at score `0.0`, supporting the clear rejection case.
+
+## Evidence Summary
+
+Run:
+
+```powershell
+python experiments\opa_baseline\run_evidence_summary.py
+```
+
+This reads the existing experiment logs and tables, then writes one runtime table and one model-change summary table for report/PPT reuse. It does not rerun the heavy GPU experiments.
+
+Outputs:
+
+```text
+report/logs/evidence_summary.txt
+report/tables/inference_runtime.csv
+report/tables/model_change_summary.csv
+```
+
+Current result:
+
+- 7 runtime rows covering mock, SimOPA smoke, FastAPI smoke, candidate ranking, RGB/mask ablation, calibration/dedup, and occlusion explainability.
+- 11 model-change rows: 8 completed evidence items and 3 planned high-standard upgrades.
