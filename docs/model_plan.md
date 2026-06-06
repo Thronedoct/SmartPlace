@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准和候选 IoU 去重。下一阶段优先级是：代表案例解释和 Web 截图；轻量 fine-tune 和 FOPA/TopNet 作为后续进阶项。
+当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重和代表案例图。下一阶段优先级是：遮挡实验或 Grad-CAM 解释；轻量 fine-tune 和 FOPA/TopNet 作为后续进阶项。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 

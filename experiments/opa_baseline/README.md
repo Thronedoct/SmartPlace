@@ -171,3 +171,28 @@ Current result:
 - 11 candidates removed by IoU dedup.
 - Raw Top 3 has duplicate boxes in 2 cases; dedup Top 3 has 0 duplicate cases.
 - `opa_test_002` remains rank 10 after calibration and dedup, which makes it a useful score-saturation boundary case rather than a simple duplicate-candidate problem.
+
+## Representative Case Gallery
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_case_gallery.py
+```
+
+This selects five report cases and renders three-panel images: OPA composite, raw SimOPA Top 3, and calibrated + dedup Top 3.
+
+Outputs:
+
+```text
+report/tables/failure_cases.csv
+report/screenshots/cases/
+```
+
+Current cases:
+
+- `opa_test_001`: success with duplicate cleanup.
+- `opa_test_002`: score-saturation boundary.
+- `opa_test_006`: dedup success.
+- `opa_test_052`: negative false-positive risk.
+- `opa_test_059`: clear negative rejection.
