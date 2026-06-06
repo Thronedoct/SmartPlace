@@ -67,9 +67,11 @@ def build_runtime_rows() -> list[dict[str, object]]:
     occlusion_rows = read_csv(TABLE_DIR / "occlusion_explainability_v1.csv")
     robustness_rows = read_csv(TABLE_DIR / "robustness_ablation.csv")
     lite_rows = read_csv(TABLE_DIR / "lite_mode_comparison.csv")
+    worker_rows = read_csv(TABLE_DIR / "persistent_worker_comparison.csv")
 
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
+    api_worker_log = parse_key_value_log(LOG_DIR / "api_simopa_worker_smoke.txt")
     ranking_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v1.txt")
     ranking_50_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v2_50.txt")
     rgb_log = parse_key_value_log(LOG_DIR / "rgb_vs_mask_comparison.txt")
@@ -77,6 +79,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     occlusion_log = parse_key_value_log(LOG_DIR / "occlusion_explainability_v1.txt")
     robustness_log = parse_key_value_log(LOG_DIR / "robustness_ablation.txt")
     lite_log = parse_key_value_log(LOG_DIR / "lite_mode_comparison.txt")
+    worker_log = parse_key_value_log(LOG_DIR / "persistent_worker_comparison.txt")
 
     calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
 
@@ -128,6 +131,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
         ),
         runtime_row(
             stage_id="R004",
+            stage_name="FastAPI SimOPA worker multipart smoke",
+            mode="simopa-worker",
+            model_version=api_worker_log.get("model_version", "simopa-worker-rgb-mask-v1"),
+            device="cuda:0",
+            source_artifact="report/logs/api_simopa_worker_smoke.txt",
+            cases=1,
+            candidate_rows=3,
+            score_calls=12,
+            elapsed_seconds=float_value(api_worker_log.get("runtime_ms")) / 1000.0,
+            inner_runtimes_ms=[],
+            runtime_source="API response runtime_ms",
+            notes="First worker API call includes worker startup and model loading; later calls reuse the worker.",
+        ),
+        runtime_row(
+            stage_id="R005",
             stage_name="18-case candidate ranking",
             mode="simopa-full",
             model_version=first_value(ranking_rows, "model_version", "simopa-rgb-mask-v1"),
@@ -142,7 +160,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="Scores OPA labeled candidate plus generated prior pool for each case.",
         ),
         runtime_row(
-            stage_id="R005",
+            stage_id="R006",
             stage_name="RGB/mask ablation",
             mode="simopa-full",
             model_version=rgb_log.get("model_version", "simopa-mask-ablation-v1"),
@@ -157,7 +175,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="Each candidate is scored with object mask, bbox mask, and blank mask.",
         ),
         runtime_row(
-            stage_id="R006",
+            stage_id="R007",
             stage_name="score calibration and IoU dedup",
             mode="postprocess",
             model_version=first_value(calibration_rows, "model_version", "simopa-rgb-mask-v1"),
@@ -172,7 +190,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="No model inference; applies temperature scaling and IoU dedup on existing scores.",
         ),
         runtime_row(
-            stage_id="R007",
+            stage_id="R008",
             stage_name="occlusion explainability",
             mode="simopa-full",
             model_version=occlusion_log.get("model_version", "simopa-occlusion-v1"),
@@ -187,7 +205,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="Each representative case gets one baseline score plus grid occlusion scores.",
         ),
         runtime_row(
-            stage_id="R008",
+            stage_id="R009",
             stage_name="50-case candidate ranking",
             mode="simopa-full",
             model_version=first_value(ranking_50_rows, "model_version", "simopa-rgb-mask-v1"),
@@ -202,7 +220,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="Expanded validation with 25 positive and 25 negative OPA cases.",
         ),
         runtime_row(
-            stage_id="R009",
+            stage_id="R010",
             stage_name="robustness ablation",
             mode="simopa-full",
             model_version=robustness_log.get("model_version", "simopa-robustness-v1"),
@@ -217,7 +235,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             notes="Perturbs mask shape, candidate position, and candidate scale on five representative cases.",
         ),
         runtime_row(
-            stage_id="R010",
+            stage_id="R011",
             stage_name="SimOPA full-vs-lite comparison",
             mode="simopa-lite",
             model_version=lite_log.get("model_version", "simopa-lite-candidate-budget-v1"),
@@ -230,6 +248,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
             inner_runtimes_ms=[],
             runtime_source="lite_mode_comparison.txt",
             notes="Compares full 13-candidate SimOPA ranking with a reduced candidate-budget lite mode.",
+        ),
+        runtime_row(
+            stage_id="R012",
+            stage_name="persistent SimOPA worker comparison",
+            mode="simopa-worker",
+            model_version=worker_log.get("model_version", "simopa-worker-rgb-mask-v1"),
+            device="cuda:0",
+            source_artifact="report/tables/persistent_worker_comparison.csv",
+            cases=int_value(worker_log.get("cases"), len(worker_rows)),
+            candidate_rows=sum_int_column(worker_rows, "worker_candidate_count"),
+            score_calls=int_value(worker_log.get("worker_score_calls"), sum_int_column(worker_rows, "worker_candidate_count")),
+            elapsed_seconds=float_value(worker_log.get("worker_elapsed_seconds")),
+            inner_runtimes_ms=numeric_column(worker_rows, "worker_inner_runtime_ms"),
+            runtime_source="persistent_worker_comparison.txt",
+            notes="Keeps one SimOPA model worker alive and compares it with per-case subprocess loading.",
         ),
     ]
     return rows
@@ -405,6 +438,18 @@ def build_change_rows() -> list[dict[str, str]]:
             "Adds high-standard reliability evidence without replacing the main model.",
             "Current evidence is five representative cases, not a large statistical benchmark.",
             "Optionally repeat on the 50-case split if runtime budget allows.",
+        ),
+        change_row(
+            "C012",
+            "Persistent SimOPA worker",
+            "serving optimization",
+            "Load SimOPA once in a JSONL worker process and reuse it across candidate-scoring requests.",
+            "experiments/opa_baseline/score_candidates_worker.py; server/scorer.py; experiments/opa_baseline/run_worker_comparison.py",
+            "report/tables/persistent_worker_comparison.csv; report/logs/persistent_worker_comparison.txt; report/logs/api_simopa_worker_smoke.txt",
+            "completed",
+            "Cuts 50-case full ranking time from 168.6s to 23.4s while keeping Top 1, Top 3, and assessment identical.",
+            "Worker mode is local-process serving; production concurrency still needs queueing and lifecycle hardening.",
+            "Use simopa-worker for live demo once startup is complete.",
         ),
     ]
 

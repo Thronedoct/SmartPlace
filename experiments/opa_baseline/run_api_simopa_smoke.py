@@ -19,12 +19,18 @@ MODEL_PYTHON = Path(
     )
 )
 PORT = int(os.getenv("SMARTPLACE_API_SMOKE_PORT", "8011"))
+MODE = os.getenv("SMARTPLACE_API_SMOKE_MODE", "simopa").strip().lower() or "simopa"
 CASE_ID = "opa_test_001"
 BACKGROUND = ROOT_DIR / "assets" / "datasets" / "opa" / "raw" / "new_OPA" / "background" / "cow" / "442445.jpg"
 FOREGROUND = ROOT_DIR / "assets" / "datasets" / "opa" / "raw" / "new_OPA" / "foreground" / "cow" / "69931.jpg"
 MASK = ROOT_DIR / "assets" / "datasets" / "opa" / "raw" / "new_OPA" / "foreground" / "cow" / "mask_69931.jpg"
-LOG_PATH = ROOT_DIR / "report" / "logs" / "api_simopa_smoke.txt"
-TABLE_PATH = ROOT_DIR / "report" / "tables" / "api_simopa_smoke.csv"
+SAFE_MODE = MODE.replace("-", "_")
+LOG_PATH = ROOT_DIR / "report" / "logs" / (
+    "api_simopa_smoke.txt" if MODE == "simopa" else f"api_{SAFE_MODE}_smoke.txt"
+)
+TABLE_PATH = ROOT_DIR / "report" / "tables" / (
+    "api_simopa_smoke.csv" if MODE == "simopa" else f"api_{SAFE_MODE}_smoke.csv"
+)
 
 
 def main() -> None:
@@ -92,7 +98,7 @@ def stop_server(process: subprocess.Popen) -> None:
 def normalized_environment() -> dict[str, str]:
     env = {key: value for key, value in os.environ.items() if key.upper() != "PATH"}
     env["Path"] = os.environ.get("Path") or os.environ.get("PATH", "")
-    env["SMARTPLACE_SCORER"] = "simopa"
+    env["SMARTPLACE_SCORER"] = MODE
     env["SMARTPLACE_MODEL_PYTHON"] = str(MODEL_PYTHON)
     env["SMARTPLACE_SIMOPA_DEVICE"] = os.getenv("SMARTPLACE_SIMOPA_DEVICE", "auto")
     return env
@@ -117,7 +123,7 @@ def post_recommendation() -> dict:
         fields={
             "candidate_count": "3",
             "foreground_scale": "0.49",
-            "mode": "simopa",
+            "mode": MODE,
         },
         files={
             "background": ("442445.jpg", BACKGROUND, "image/jpeg"),
@@ -200,7 +206,7 @@ def write_outputs(health: dict, payload: dict, output_log: Path, error_log: Path
             )
 
     lines = [
-        "SmartPlace SimOPA API smoke",
+        f"SmartPlace {MODE} API smoke",
         f"health={json.dumps(health, ensure_ascii=False)}",
         f"model_version={payload['model_version']}",
         f"runtime_ms={payload['runtime_ms']}",

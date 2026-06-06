@@ -77,11 +77,21 @@ After the FastAPI dependencies are installed in `.venv`, run:
 
 This starts a temporary FastAPI server, posts one real multipart request, routes candidate scoring through `server/scorer.py`, and then shuts the server down.
 
+To run the same API smoke through the persistent worker mode:
+
+```powershell
+$env:SMARTPLACE_API_SMOKE_MODE='simopa-worker'
+$env:SMARTPLACE_API_SMOKE_PORT='8012'
+.\.venv\Scripts\python.exe experiments\opa_baseline\run_api_simopa_smoke.py
+```
+
 Outputs:
 
 ```text
 report/logs/api_simopa_smoke.txt
 report/tables/api_simopa_smoke.csv
+report/logs/api_simopa_worker_smoke.txt
+report/tables/api_simopa_worker_smoke.csv
 ```
 
 Current result on `opa_test_001`:
@@ -307,6 +317,34 @@ Current result:
 - Assessment matches: `50/50`.
 - End-to-end speedup: about `1.02x`, showing that subprocess model loading dominates current runtime.
 
+## Persistent Worker Comparison
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_worker_comparison.py
+```
+
+This compares the existing 50-case subprocess SimOPA evidence with `simopa-worker`, a JSONL worker that loads the same SimOPA checkpoint once and reuses it across scoring requests.
+
+Outputs:
+
+```text
+report/logs/persistent_worker_comparison.txt
+report/tables/persistent_worker_comparison.csv
+```
+
+Current result:
+
+- 50 cases.
+- Score calls stay the same: `650` vs `650`.
+- Subprocess elapsed time: `168.6s`.
+- Persistent worker elapsed time: `23.4s`.
+- Speedup: about `7.2x`.
+- Top 1 matches: `50/50`.
+- Mean Top 3 overlap ratio: `1.0000`.
+- Assessment matches: `50/50`.
+
 ## Evidence Summary
 
 Run:
@@ -327,5 +365,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 10 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, and full-vs-lite comparison.
-- 11 model-change rows: all 11 evidence items completed.
+- 12 runtime rows covering mock, SimOPA smoke, FastAPI smoke, FastAPI worker smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, full-vs-lite comparison, and persistent worker comparison.
+- 12 model-change rows: all 12 evidence items completed.

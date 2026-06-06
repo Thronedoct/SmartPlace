@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以继续扩大到 100 组评测，或优化持久化模型服务以减少子进程加载开销。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、subprocess vs persistent worker 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以继续扩大到 100 组评测，或尝试 LightOPA 真轻量模型。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -47,6 +47,7 @@ OPA/libcom baseline
 | 遮挡热力图 | 模型解释进阶 | `report/tables/occlusion_explainability_v1.csv`、`report/screenshots/explainability/` |
 | 鲁棒性 ablation | 可靠性/解释补强 | `report/tables/robustness_ablation.csv`、`report/logs/robustness_ablation.txt` |
 | `simopa-lite` 候选预算模式 | 轻量推理/工程对比 | `report/tables/lite_mode_comparison.csv`、`report/logs/lite_mode_comparison.txt` |
+| 常驻 SimOPA worker | 推理服务优化 | `report/tables/persistent_worker_comparison.csv`、`report/logs/persistent_worker_comparison.txt` |
 
 如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
 
@@ -63,7 +64,8 @@ OPA/libcom baseline
 
 1. **`simopa-full`**：当前真实 SimOPA scorer，作为质量优先模式。
 2. **`simopa-lite`**：轻量应用模式，使用较小候选预算评估同一 SimOPA 权重，强调速度/质量取舍，不宣称是新网络。
-3. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
+3. **`simopa-worker`**：常驻 SimOPA JSONL worker，模型只加载一次，解决子进程重复加载瓶颈。
+4. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
 4. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
 
 暂不做：
@@ -112,7 +114,7 @@ Android 端接入
 - 对 SimOPA 分数做温度缩放和三档标签映射。
 - 对候选框做 IoU 去重，减少重复 Top 3。
 - 在 Web 中展示可信度/失败提示。
-- 已提供 `simopa-full` 与 `simopa-lite` 两种推理模式；第一版 `simopa-lite` 定义为候选预算模式，不宣称训练了新网络。
+- 已提供 `simopa-full`、`simopa-lite` 和 `simopa-worker` 三种推理模式；`simopa-lite` 定义为候选预算模式，`simopa-worker` 定义为常驻模型服务模式，均不宣称训练了新网络。
 
 目标：让模型分数更适合交互应用展示，同时补充本地推理耗时和轻量模式对比证据。
 
@@ -125,10 +127,10 @@ Android 端接入
 
 ### V5 轻量模型版
 
-- 已实现 `simopa-full` 与 `simopa-lite` 对比；可选继续做 `lightopa-resnet18` / `lightopa-mobilenet`。
+- 已实现 `simopa-full` 与 `simopa-lite` 对比，也已实现 subprocess 与 persistent worker 对比；可选继续做 `lightopa-resnet18` / `lightopa-mobilenet`。
 - `simopa-lite` 作为轻量应用模式，默认 Top 3 场景减少候选评分次数。
 - 如果时间允许，训练一个 OPA 小子集轻量 scorer，使用 composite + mask 作为输入，输出 0-1 合理性分数。
-- 比较准确性、Top 3 排序、失败案例和推理耗时。当前 `simopa-lite` 50 组对比显示评分调用减少 `46.15%`，Top 1 一致 `45/50`，assessment 一致 `50/50`，但端到端加速只有约 `1.02x`，说明后续更应优化常驻模型服务或 in-process scorer。
+- 比较准确性、Top 3 排序、失败案例和推理耗时。当前 `simopa-lite` 50 组对比显示评分调用减少 `46.15%`，Top 1 一致 `45/50`，assessment 一致 `50/50`，但端到端加速只有约 `1.02x`；`simopa-worker` 进一步把同样 50 组 full ranking 从 `168.6s` 降到 `23.4s`，Top 1、Top 3 和 assessment 全一致，证明主要瓶颈是模型重复加载。
 
 目标：让前端可以选择质量优先或速度优先模式，同时补强“轻量化”和“模型本体改动”的答辩证据。
 
@@ -308,17 +310,18 @@ report/tables/rgb_vs_mask_comparison.csv
 - 明显悬空/越界案例是否被压低分。
 - 推理耗时变化。
 
-### 第 6 步：运行耗时、扩展评测与轻量模式
+### 第 6 步：运行耗时、扩展评测、轻量模式与 worker 优化
 
-下一步优先补充运行耗时、扩展评测和轻量模式对比。训练不做大规模主线，但可以做一个小子集轻量 scorer 作为高标准补强。
+当前已经补齐运行耗时、50 组扩展评测、`simopa-lite` 候选预算对比和 `simopa-worker` 常驻模型 worker 对比。训练不做大规模主线，但如果时间继续充裕，可以做一个小子集 LightOPA scorer 作为高标准补强。
 
 建议：
 
-- 记录 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡解释的耗时。
+- 记录 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡解释、lite 模式和 worker 模式的耗时。
 - 记录候选数量、设备、模型版本、平均耗时和备注。
-- 将候选排序评测从 18 组扩展到 50 或 100 组。
-- 第一版 `simopa-lite` 可通过减少候选数或跳过重计算实现，不宣称训练新网络。
-- 第二版尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
+- 候选排序评测已从 18 组扩展到 50 组；如还需要统计证据，可继续到 100 组。
+- 第一版 `simopa-lite` 已通过减少候选数实现，不宣称训练新网络。
+- `simopa-worker` 已通过常驻模型进程证明加载开销是主要瓶颈。
+- 下一版可尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
 - 增加 mask 膨胀/腐蚀、候选平移、尺度扰动等鲁棒性实验。
 
 输出：
@@ -330,6 +333,7 @@ report/tables/candidate_ranking_v2_50.csv
 report/tables/opa_50_case_summary.csv
 report/tables/robustness_ablation.csv
 report/tables/lite_mode_comparison.csv
+report/tables/persistent_worker_comparison.csv
 ```
 
 ## 本地推理与训练可行性

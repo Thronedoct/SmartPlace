@@ -5,9 +5,21 @@ import time
 import uuid
 
 try:
-    from server.scorer import DEFAULT_SCORER_MODE, is_simopa_mode, resolve_scorer_mode, score_candidate_boxes
+    from server.scorer import (
+        DEFAULT_SCORER_MODE,
+        is_simopa_lite_mode,
+        is_simopa_mode,
+        resolve_scorer_mode,
+        score_candidate_boxes,
+    )
 except ModuleNotFoundError:
-    from scorer import DEFAULT_SCORER_MODE, is_simopa_mode, resolve_scorer_mode, score_candidate_boxes
+    from scorer import (
+        DEFAULT_SCORER_MODE,
+        is_simopa_lite_mode,
+        is_simopa_mode,
+        resolve_scorer_mode,
+        score_candidate_boxes,
+    )
 
 
 DEFAULT_MODEL_VERSION = "mock-v0"
@@ -152,11 +164,11 @@ def build_candidate_pool(
 
 
 def select_candidates_for_scoring(candidates: list[dict], scorer_mode: str, limit: int) -> list[dict]:
-    if scorer_mode == "simopa":
-        return candidates
-    if scorer_mode == "simopa-lite":
+    if is_simopa_lite_mode(scorer_mode):
         budget = min(len(candidates), max(limit, SIMOPA_LITE_MIN_CANDIDATE_BUDGET))
         return candidates[:budget]
+    if is_simopa_mode(scorer_mode):
+        return candidates
     return candidates[:limit]
 
 
@@ -228,8 +240,12 @@ def score_to_tier(score: float) -> tuple[str, str]:
 def build_reason(mode: str, score: float, mock_reason: str) -> str:
     if mode == "mock":
         return mock_reason
+    if mode == "simopa-worker":
+        return f"SimOPA Worker: candidate scored {score:.2f} by a persistent RGB+mask scorer."
     if mode == "simopa-lite":
         return f"SimOPA Lite: candidate scored {score:.2f} with a reduced candidate budget."
+    if mode == "simopa-lite-worker":
+        return f"SimOPA Lite Worker: candidate scored {score:.2f} with persistent reduced-budget scoring."
     return f"SimOPA: candidate scored {score:.2f} by RGB+mask placement assessment."
 
 
