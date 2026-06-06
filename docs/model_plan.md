@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图和遮挡解释实验。下一阶段优先级是：补充运行耗时表、模型改动说明表、Web 演示增强和最终报告/PPT；轻量 fine-tune、FOPA/TopNet 只作为时间充裕时的进阶项。
+当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图和遮挡解释实验。时间充裕后，下一阶段升级为高标准模型工程线：补充运行耗时表、模型改动说明表、扩大验证规模、轻量推理/轻量 scorer 对比、鲁棒性 ablation，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -48,20 +48,23 @@ OPA/libcom baseline
 
 如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
 
-## 低风险补强计划
+## 高标准补强计划
 
-优先做：
+升级后优先做：
 
 1. `inference_runtime.csv`：比较 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡实验耗时。
 2. `model_change_summary.csv`：把输入适配、输出适配、候选排序、校准去重、解释实验逐项列清楚。
-3. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
-4. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
+3. 扩大候选排序评测：从 18 组扩展到 50 或 100 组，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`。
+4. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
+5. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
+6. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
 
-可选做：
+轻量化路线：
 
-1. **轻量推理模式**：前端可选择 `simopa-full` 与 `simopa-lite`。第一版 `simopa-lite` 可定义为减少候选数、减少解释网格或复用校准后处理的轻量应用模式，不要宣称训练了新网络。
-2. **轻量模型对比**：若时间充裕，再尝试 OPA 小子集上的轻量 CNN/ResNet18 对比，并输出排序和耗时表。
-3. **FOPA/TopNet 对比**：只作为候选生成进阶展示，不作为主线。
+1. **`simopa-full`**：当前真实 SimOPA scorer，作为质量优先模式。
+2. **`simopa-lite`**：轻量应用模式，减少候选数或复用校准后处理，强调速度与现场稳定性，不宣称是新网络。
+3. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
+4. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
 
 暂不做：
 
@@ -120,12 +123,21 @@ Android 端接入
 
 目标：提升答辩说服力，解释模型不是随机打分。
 
-### V5 进阶候选版
+### V5 轻量模型版
+
+- 实现 `simopa-full`、`simopa-lite` 和可选 `lightopa-resnet18` / `lightopa-mobilenet` 对比。
+- `simopa-lite` 先作为轻量应用模式，减少候选数或重计算次数。
+- 如果时间允许，训练一个 OPA 小子集轻量 scorer，使用 composite + mask 作为输入，输出 0-1 合理性分数。
+- 比较准确性、Top 3 排序、失败案例和推理耗时。
+
+目标：让前端可以选择质量优先或速度优先模式，同时补强“轻量化”和“模型本体改动”的答辩证据。
+
+### V6 进阶候选版
 
 - 尝试 `FOPAHeatMapModel` 预测合理放置区域。
 - 或尝试 TopNet 做候选生成对比。
 
-目标：作为冲高分项。此项依赖和时间风险较高，不应阻塞 V1-V4。
+目标：作为附录级冲高分项。此项依赖和时间风险较高，不应替代 V1-V5。
 
 ## 改动推荐程度
 
@@ -141,10 +153,12 @@ Android 端接入
 | B. RGB 与 RGB+mask 输入对比 | 本体类改动 | 保留 RGB baseline，再实现或适配 `RGB + foreground mask` 输入，比较两种模型在候选排序和分数上的差异。 | 3 | 5 | 强烈推荐，主打模型改动 |
 | C. 评分输出校准与三档标签 | 输出类改动 | 将模型 softmax/logit 分数校准成 0-1 分数，并映射为推荐、可接受、不推荐。 | 2 | 3 | 推荐，配合 A/B 做 |
 | D. Grad-CAM 或遮挡实验解释 | 解释类改动 | 为推荐/失败案例生成热力图或遮挡敏感性图，说明模型关注区域。 | 3 | 4 | 推荐，作为进阶亮点 |
-| E. 轻量推理/候选评估模式 | 工程与模型后处理 | 提供 `simopa-full` 与 `simopa-lite` 对比，减少候选数或复用轻量后处理，并记录耗时和排序变化。 | 2 | 3 | 推荐，低风险补强 |
-| F. FOPAHeatMapModel 替代规则候选生成 | 功能类/进阶 | 使用 libcom 的 FOPA 热力图预测背景-前景对的合理区域，再返回 Top 3。 | 4 | 4 | 中等推荐，时间足够再做 |
-| G. TopNet 接入候选生成 | 功能类/进阶 | 使用 TopNet 预测候选位置或尺度，替换规则网格候选。 | 5 | 4 | 谨慎推荐，依赖和权重风险较高 |
-| H. 从零设计新网络并完整训练 | 本体类大改 | 自己定义网络结构，从数据集训练物体放置评分模型。 | 5 | 2 | 不推荐，风险远高于收益 |
+| E. 轻量推理/候选评估模式 | 工程与模型后处理 | 提供 `simopa-full` 与 `simopa-lite` 对比，减少候选数或复用轻量后处理，并记录耗时和排序变化。 | 2 | 3 | 推荐，先做 |
+| F. LightOPA 轻量 scorer | 本体类/轻量化 | 使用 ResNet18 或 MobileNetV3 适配 composite + mask 输入，在 OPA 小子集上训练或微调，并比较准确性、排序和耗时。 | 3 | 4 | 推荐，时间充裕时做 |
+| G. 鲁棒性 ablation | 解释/可靠性 | 测试 mask 膨胀/腐蚀、候选平移、尺度扰动对分数和排序的影响。 | 2 | 4 | 推荐，证据丰富且风险低 |
+| H. FOPAHeatMapModel 替代规则候选生成 | 功能类/进阶 | 使用 libcom 的 FOPA 热力图预测背景-前景对的合理区域，再返回 Top 3。 | 4 | 4 | 中等推荐，作为附录对比 |
+| I. TopNet 接入候选生成 | 功能类/进阶 | 使用 TopNet 预测候选位置或尺度，替换规则网格候选。 | 5 | 4 | 谨慎推荐，依赖和权重风险较高 |
+| J. 从零设计新网络并完整训练 | 本体类大改 | 自己定义网络结构，从数据集训练物体放置评分模型。 | 5 | 2 | 不推荐，风险远高于收益 |
 
 ## 数据集方案
 
@@ -293,25 +307,30 @@ report/tables/rgb_vs_mask_comparison.csv
 - 明显悬空/越界案例是否被压低分。
 - 推理耗时变化。
 
-### 第 6 步：运行耗时与轻量模式
+### 第 6 步：运行耗时、扩展评测与轻量模式
 
-下一步优先补充运行耗时和轻量模式对比，不把训练作为当前主线。
+下一步优先补充运行耗时、扩展评测和轻量模式对比。训练不做大规模主线，但可以做一个小子集轻量 scorer 作为高标准补强。
 
 建议：
 
 - 记录 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡解释的耗时。
 - 记录候选数量、设备、模型版本、平均耗时和备注。
+- 将候选排序评测从 18 组扩展到 50 或 100 组。
 - 第一版 `simopa-lite` 可通过减少候选数或跳过重计算实现，不宣称训练新网络。
-- 如果后续时间充裕，再单独开小子集 fine-tune 分支，不阻塞交付主线。
+- 第二版尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
+- 增加 mask 膨胀/腐蚀、候选平移、尺度扰动等鲁棒性实验。
 
 输出：
 
 ```text
 report/tables/inference_runtime.csv
 report/tables/model_change_summary.csv
+report/tables/candidate_ranking_v2_50.csv
+report/tables/lite_mode_comparison.csv
+report/tables/robustness_ablation.csv
 ```
 
-## 本地训练可行性
+## 本地推理与训练可行性
 
 当前可用硬件：
 
@@ -324,7 +343,7 @@ CPU 推理也可作为兜底，但耗时更高
 结论：
 
 - 当前硬件已经足够 OPA/SimOPA baseline 推理、候选排序、RGB/mask ablation、校准和遮挡解释。
-- 如果要做轻量模式，优先比较候选数量、后处理和推理耗时，不先训练新网络。
+- 轻量模式先比较候选数量、后处理和推理耗时；时间充裕时再训练 LightOPA 级别的小模型。
 - 即使 GPU 充足，也不建议从零训练新模型或把 TopNet 训练作为主线。
 
 适合本地训练/推理：
@@ -336,7 +355,8 @@ CPU 推理也可作为兜底，但耗时更高
 | 分数校准与 IoU 去重 | 适合 | 很适合 | 已完成 |
 | 遮挡解释 | 较慢 | 很适合 | 已完成 |
 | 轻量推理/候选评估模式 | 适合 | 很适合 | 下一步 |
-| OPA 小子集 fine-tune | 较慢 | 可尝试 | 可选 |
+| LightOPA 小子集训练/微调 | 较慢 | 可尝试 | 高标准补强 |
+| 鲁棒性 ablation | 适合 | 很适合 | 高标准补强 |
 | FOPAHeatMapModel 推理 | 较慢 | 可尝试 | 可选 |
 | TopNet 推理 | 风险较高 | 可尝试 | 可选 |
 | TopNet 训练 | 不推荐 | 谨慎尝试 | 暂不做 |
@@ -349,6 +369,8 @@ experiments/
 |-- opa_baseline/
 |-- opa_rgb_mask/
 |-- opa_finetune/
+|-- opa_lightweight/
+|-- robustness/
 |-- explainability/
 `-- README.md
 ```
@@ -400,9 +422,12 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 - RGB vs RGB+mask 对比表。
 - 分数校准与 IoU 去重表。
 - 推理时间对比表。
+- 50/100 组扩展候选排序表。
+- 轻量模式或轻量 scorer 对比表。
+- mask 和候选扰动鲁棒性表。
 - 成功案例和失败案例。
 - 遮挡实验或其他模型解释结果。
-- 可选：轻量模式或小子集 fine-tune 对比表。
+- 可选：FOPA/TopNet 候选生成对比表。
 
 ## 下一轮模型任务
 
@@ -410,10 +435,13 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 |---|---|---|
 | 生成推理耗时表 | 成员 A、B | `report/tables/inference_runtime.csv` |
 | 生成模型改动说明表 | 成员 A | `report/tables/model_change_summary.csv` |
+| 扩展候选排序评测 | 成员 A、B | `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` |
+| 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
+| 鲁棒性 ablation | 成员 A | `robustness_ablation.csv` |
 | Web 展示模型证据与导出结果 | 成员 B、C | `request_id`、`model_version`、`runtime_ms`、JSON/CSV 导出 |
 | Web 内置代表案例 | 成员 C | 成功、边界、负例、拒绝案例一键加载 |
 | 可信度/失败提示 | 成员 A、B、C | 分数饱和、候选重叠、低可信等提示规则 |
-| 轻量推理模式 | 成员 A、B | `simopa-full` / `simopa-lite` 耗时与排序对比，可选 |
+| 最终材料整理 | 队友/材料负责人 | 报告、PPT、录屏、AI 辅助说明、分工说明 |
 
 ## 答辩表述
 
