@@ -128,9 +128,12 @@ def demo_cases() -> list[DemoCase]:
                 case_id=case_id,
                 title=DEMO_CASE_TITLES.get(case_type, case_id),
                 case_type=case_type,
-                dataset_label=int(failure.get("dataset_label") or summary.get("dataset_label") or 0),
+                dataset_label=safe_int(
+                    failure.get("dataset_label") or summary.get("dataset_label"),
+                    0,
+                ),
                 note=failure.get("note", ""),
-                foreground_scale=float(split.get("scale") or 0.35),
+                foreground_scale=safe_float(split.get("scale"), 0.35),
                 candidate_count=3,
                 recommended_mode="simopa",
                 available=demo_case_available(case_id, summary),
@@ -208,6 +211,22 @@ def read_csv_by_key(path: Path, key: str) -> dict[str, dict[str, str]]:
         return {}
     with path.open("r", encoding="utf-8", newline="") as handle:
         return {row[key]: row for row in csv.DictReader(handle) if row.get(key)}
+
+
+def safe_int(value: object, default: int) -> int:
+    try:
+        text = str(value).strip()
+        return int(float(text)) if text else default
+    except (TypeError, ValueError):
+        return default
+
+
+def safe_float(value: object, default: float) -> float:
+    try:
+        text = str(value).strip()
+        return float(text) if text else default
+    except (TypeError, ValueError):
+        return default
 
 
 def demo_case_available(case_id: str, summary: dict[str, str]) -> bool:

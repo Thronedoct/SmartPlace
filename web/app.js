@@ -524,7 +524,7 @@ function toCsv(rows) {
 
 function csvEscape(value) {
   const text = String(value ?? "");
-  if (/[",\n]/.test(text)) {
+  if (/[",\r\n]/.test(text)) {
     return `"${text.replace(/"/g, '""')}"`;
   }
   return text;
