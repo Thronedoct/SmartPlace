@@ -1,0 +1,13 @@
+SmartPlace occlusion explainability v1
+model_version=simopa-occlusion-v1
+device=cuda:0
+grid_size=6
+cases=5
+elapsed_seconds=5.8
+mean_max_score_drop=0.5472
+mean_abs_drop=0.0287
+case opa_test_001 type=success_with_duplicate_cleanup candidate=opa_position baseline=0.9985 max_drop=0.9984 max_cell=r4c4 fg_mean_abs=0.089 bg_mean_abs=0.0092
+case opa_test_002 type=score_saturation_boundary candidate=opa_position baseline=0.9987 max_drop=0.9151 max_cell=r3c4 fg_mean_abs=0.1834 bg_mean_abs=0.0327
+case opa_test_006 type=dedup_success candidate=opa_position baseline=1.0 max_drop=0.0002 max_cell=r5c1 fg_mean_abs=0.0 bg_mean_abs=0.0
+case opa_test_052 type=negative_false_positive_risk candidate=prior_10 baseline=0.9756 max_drop=0.8221 max_cell=r5c1 fg_mean_abs=0.2506 bg_mean_abs=0.0298
+case opa_test_059 type=clear_negative_rejection candidate=opa_position baseline=0.0 max_drop=0.0 max_cell=r1c2 fg_mean_abs=0.0 bg_mean_abs=0.0

@@ -65,3 +65,4 @@
 | V011 | RGB/mask ablation | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_rgb_mask_comparison.py` | 通过 | 234 条候选；object mask vs blank mask 平均绝对差异 0.3487，Top 3 成员变化 56 条，见 `report/tables/rgb_vs_mask_comparison.csv`。 |
 | V012 | 分数校准和 IoU 去重 | `python experiments\opa_baseline\run_score_calibration.py` | 通过 | 234 条候选；温度缩放后生成校准分数，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。 |
 | V013 | 代表案例图和失败/边界表 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_case_gallery.py` | 通过 | 生成 5 组成功/边界/负例案例图，写入 `report/tables/failure_cases.csv` 和 `report/screenshots/cases/`。 |
+| V014 | 遮挡解释实验 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_occlusion_explainability.py` | 通过 | 5 组代表案例，6x6 遮挡网格；平均最大分数下降 0.5472，热力图写入 `report/screenshots/explainability/`。 |

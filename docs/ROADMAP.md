@@ -42,6 +42,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - RGB/mask ablation 已完成：234 条候选中，object mask 与 blank mask 的平均绝对差异为 `0.3487`，Top 3 成员变化 56 条。
 - 分数校准和 IoU 去重已完成：温度缩放后生成 `score_calibration_v1.csv`，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。
 - 代表案例图已完成：5 组成功/边界/负例案例写入 `failure_cases.csv`，案例图位于 `report/screenshots/cases/`。
+- 遮挡解释实验已完成：5 组代表案例生成 `occlusion_explainability_v1.csv` 和热力图，平均最大分数下降为 `0.5472`。
 
 当前候选排序结论：
 
@@ -72,9 +73,9 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 最近三步：
 
-1. 做遮挡实验或 Grad-CAM，补解释性证据。
-2. 汇总报告、PPT、演示录屏和分工说明。
-3. 如时间允许，做 Web 现场演示录屏。
+1. 汇总报告、PPT、演示录屏和分工说明。
+2. 如时间允许，做 Web 现场演示录屏。
+3. 如果答辩需要更强模型改动，再做轻量 fine-tune 或 FOPA 候选生成对比。
 
 随后做：
 
@@ -96,8 +97,11 @@ report/tables/opa_sample_audit.csv
 report/tables/opa_smoke_scores_from_dataset.csv
 report/tables/rgb_vs_mask_comparison.csv
 report/tables/score_calibration_v1.csv
+report/logs/occlusion_explainability_v1.txt
 report/tables/failure_cases.csv
+report/tables/occlusion_explainability_v1.csv
 report/screenshots/cases/
+report/screenshots/explainability/
 ```
 
 还需要补：
