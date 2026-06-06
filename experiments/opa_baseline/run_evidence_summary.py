@@ -437,9 +437,11 @@ def parse_key_value_log(path: Path) -> dict[str, str]:
     values: dict[str, str] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
-        if "=" not in stripped:
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
             continue
         key, value = stripped.split("=", 1)
+        key = key.strip()
+        value = value.strip()
         if " " in key:
             continue
         values[key] = value
@@ -452,7 +454,10 @@ def numeric_column(rows: list[dict[str, str]], key: str) -> list[float]:
         value = row.get(key, "")
         if value == "":
             continue
-        values.append(float(value))
+        try:
+            values.append(float(value))
+        except (TypeError, ValueError):
+            continue
     return values
 
 
@@ -471,13 +476,19 @@ def count_unique(rows: list[dict[str, str]], key: str) -> int:
 def float_value(value: object, fallback: float = 0.0) -> float:
     if value is None or value == "":
         return fallback
-    return float(value)
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return fallback
 
 
 def int_value(value: object, fallback: int = 0) -> int:
     if value is None or value == "":
         return fallback
-    return int(value)
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return fallback
 
 
 def percentile(values: list[float], q: float) -> float:
