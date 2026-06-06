@@ -33,7 +33,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 已经完成：
 
 - Web 工作台可上传背景图、前景图和可选 mask。
-- FastAPI 后端支持 `SMARTPLACE_SCORER=mock`、`SMARTPLACE_SCORER=simopa` 和 `SMARTPLACE_SCORER=simopa-lite`。
+- FastAPI 后端支持 `SMARTPLACE_SCORER=mock`、`SMARTPLACE_SCORER=simopa`、`SMARTPLACE_SCORER=simopa-lite` 和 `SMARTPLACE_SCORER=simopa-worker`。
 - OPA/SimOPA 权重已本地跑通，`model_version=simopa-rgb-mask-v1`。
 - OPA 全量数据集位于 `assets/datasets/opa/raw/new_OPA`，raw 数据不提交 Git。
 - `smoke_100.csv` 已审计：100 条 test 样例可读，正负各 50。
@@ -46,7 +46,8 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - 遮挡解释实验已完成：5 组代表案例生成 `occlusion_explainability_v1.csv` 和热力图，平均最大分数下降为 `0.5472`。
 - 鲁棒性 ablation 已完成：5 个代表案例、45 次扰动评分；平均绝对分数变化 `0.0820`，5 条扰动造成三档标签变化。
 - 轻量推理对比已完成：`simopa-lite` 将 50 组评测的评分调用从 650 次降到 350 次，Top 1 一致 45/50，assessment 一致 50/50；端到端加速约 `1.02x`，说明当前主要瓶颈是每个 case 的子进程模型加载。
-- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 10 个运行阶段，`model_change_summary.csv` 汇总 11 个已完成改动。
+- 常驻 SimOPA worker 已完成：同样 50 组、650 次评分调用，subprocess 模式耗时 `168.6s`，worker 模式耗时 `23.4s`，Top 1、Top 3 和 assessment 全部一致。
+- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 12 个运行阶段，`model_change_summary.csv` 汇总 12 个已完成改动。
 - Web 工作台已支持内置案例加载、当前结果 JSON/CSV 导出、可信度/失败提示、解释热力图入口、前端美化和课堂演示模式。
 
 当前候选排序结论：
@@ -86,7 +87,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 模型侧升级顺序：
 
-3. **持久化模型服务优化**：`simopa-lite` 证明减少候选数对端到端耗时帮助有限，因为子进程模型加载占主导。下一步如果继续卷工程，应优先做常驻模型进程或 in-process scorer，再比较 full/lite 的真实吞吐差异。
+3. **可选 LightOPA 真轻量模型**：worker 已解决主要加载瓶颈。若继续卷模型本体，可以训练或适配 ResNet18/MobileNetV3 级别 LightOPA scorer，与 `simopa-worker` 比较速度、排序质量和失败案例。
 4. **可选扩大验证规模**：50 组候选排序已经完成；如还需要更强统计证据，再扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
 
 交付材料分工：
@@ -100,11 +101,13 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 ```text
 report/logs/api_simopa_smoke.txt
+report/logs/api_simopa_worker_smoke.txt
 report/logs/candidate_ranking_v1.txt
 report/logs/candidate_ranking_v2_50.txt
 report/logs/rgb_vs_mask_comparison.txt
 report/logs/score_calibration_v1.txt
 report/tables/api_simopa_smoke.csv
+report/tables/api_simopa_worker_smoke.csv
 report/tables/candidate_ranking_v1.csv
 report/tables/candidate_ranking_v2_50.csv
 report/tables/opa_18_case_summary.csv
@@ -121,8 +124,10 @@ report/tables/failure_cases.csv
 report/tables/occlusion_explainability_v1.csv
 report/logs/robustness_ablation.txt
 report/logs/lite_mode_comparison.txt
+report/logs/persistent_worker_comparison.txt
 report/tables/robustness_ablation.csv
 report/tables/lite_mode_comparison.csv
+report/tables/persistent_worker_comparison.csv
 report/screenshots/cases/
 report/screenshots/explainability/
 ```

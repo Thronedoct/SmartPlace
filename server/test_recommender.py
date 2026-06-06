@@ -56,12 +56,17 @@ class RecommenderTest(unittest.TestCase):
 
     def test_simopa_lite_status_and_candidate_budget(self) -> None:
         status = get_scorer_status("simopa-lite")
+        worker_status = get_scorer_status("simopa-worker")
         candidates = [{"rank": rank} for rank in range(1, 13)]
 
         self.assertEqual(status["mode"], "simopa-lite")
         self.assertEqual(status["model_version"], "simopa-lite-candidate-budget-v1")
+        self.assertEqual(worker_status["mode"], "simopa-worker")
+        self.assertEqual(worker_status["model_version"], "simopa-worker-rgb-mask-v1")
         self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite", 3)), 6)
         self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite", 8)), 8)
+        self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite-worker", 3)), 6)
+        self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-worker", 3)), 12)
 
 
 if __name__ == "__main__":

@@ -1,15 +1,17 @@
 SmartPlace evidence summary
-runtime_rows=10
-change_rows=11
-completed_changes=11
+runtime_rows=12
+change_rows=12
+completed_changes=12
 planned_changes=0
 runtime R001 mock recommendation elapsed_seconds=0.001 score_calls=3 source=server/recommender.py
 runtime R002 SimOPA single composite smoke elapsed_seconds=0.556 score_calls=1 source=report/logs/opa_baseline_smoke.txt
 runtime R003 FastAPI SimOPA multipart smoke elapsed_seconds=3.821 score_calls=12 source=report/logs/api_simopa_smoke.txt
-runtime R004 18-case candidate ranking elapsed_seconds=66.6 score_calls=234 source=report/tables/candidate_ranking_v1.csv
-runtime R005 RGB/mask ablation elapsed_seconds=23.5 score_calls=702 source=report/tables/rgb_vs_mask_comparison.csv
-runtime R006 score calibration and IoU dedup elapsed_seconds=0.002 score_calls=0 source=report/tables/score_calibration_v1.csv
-runtime R007 occlusion explainability elapsed_seconds=5.8 score_calls=185 source=report/tables/occlusion_explainability_v1.csv
-runtime R008 50-case candidate ranking elapsed_seconds=168.6 score_calls=650 source=report/tables/candidate_ranking_v2_50.csv
-runtime R009 robustness ablation elapsed_seconds=1.5 score_calls=45 source=report/tables/robustness_ablation.csv
-runtime R010 SimOPA full-vs-lite comparison elapsed_seconds=165.0 score_calls=350 source=report/tables/lite_mode_comparison.csv
+runtime R004 FastAPI SimOPA worker multipart smoke elapsed_seconds=3.104 score_calls=12 source=report/logs/api_simopa_worker_smoke.txt
+runtime R005 18-case candidate ranking elapsed_seconds=66.6 score_calls=234 source=report/tables/candidate_ranking_v1.csv
+runtime R006 RGB/mask ablation elapsed_seconds=23.5 score_calls=702 source=report/tables/rgb_vs_mask_comparison.csv
+runtime R007 score calibration and IoU dedup elapsed_seconds=0.002 score_calls=0 source=report/tables/score_calibration_v1.csv
+runtime R008 occlusion explainability elapsed_seconds=5.8 score_calls=185 source=report/tables/occlusion_explainability_v1.csv
+runtime R009 50-case candidate ranking elapsed_seconds=168.6 score_calls=650 source=report/tables/candidate_ranking_v2_50.csv
+runtime R010 robustness ablation elapsed_seconds=1.5 score_calls=45 source=report/tables/robustness_ablation.csv
+runtime R011 SimOPA full-vs-lite comparison elapsed_seconds=165.0 score_calls=350 source=report/tables/lite_mode_comparison.csv
+runtime R012 persistent SimOPA worker comparison elapsed_seconds=23.4 score_calls=650 source=report/tables/persistent_worker_comparison.csv
