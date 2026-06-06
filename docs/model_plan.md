@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图和遮挡解释实验。时间充裕后，下一阶段升级为高标准模型工程线：补充运行耗时表、模型改动说明表、扩大验证规模、轻量推理/轻量 scorer 对比、鲁棒性 ablation，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、运行耗时表和模型改动说明表。时间充裕后，下一阶段升级为高标准模型工程线：扩大验证规模、轻量推理/轻量 scorer 对比、鲁棒性 ablation，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -52,12 +52,10 @@ OPA/libcom baseline
 
 升级后优先做：
 
-1. `inference_runtime.csv`：比较 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡实验耗时。
-2. `model_change_summary.csv`：把输入适配、输出适配、候选排序、校准去重、解释实验逐项列清楚。
-3. 扩大候选排序评测：从 18 组扩展到 50 或 100 组，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`。
-4. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
-5. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
-6. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
+1. 扩大候选排序评测：从 18 组扩展到 50 或 100 组，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`。
+2. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
+3. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
+4. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
 
 轻量化路线：
 
@@ -433,8 +431,6 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 
 | 任务 | 负责人 | 输出物 |
 |---|---|---|
-| 生成推理耗时表 | 成员 A、B | `report/tables/inference_runtime.csv` |
-| 生成模型改动说明表 | 成员 A | `report/tables/model_change_summary.csv` |
 | 扩展候选排序评测 | 成员 A、B | `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` |
 | 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
 | 鲁棒性 ablation | 成员 A | `robustness_ablation.csv` |

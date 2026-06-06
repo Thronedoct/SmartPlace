@@ -110,7 +110,10 @@ report/tables/opa_sample_audit.csv
 report/tables/opa_smoke_scores_from_dataset.csv
 report/tables/rgb_vs_mask_comparison.csv
 report/tables/score_calibration_v1.csv
+report/tables/inference_runtime.csv
+report/tables/model_change_summary.csv
 report/logs/occlusion_explainability_v1.txt
+report/logs/evidence_summary.txt
 report/tables/failure_cases.csv
 report/tables/occlusion_explainability_v1.csv
 report/screenshots/cases/
@@ -120,8 +123,6 @@ report/screenshots/explainability/
 还需要补：
 
 ```text
-report/tables/inference_runtime.csv
-report/tables/model_change_summary.csv
 report/tables/candidate_ranking_v2_50.csv
 report/tables/lite_mode_comparison.csv
 report/tables/robustness_ablation.csv
