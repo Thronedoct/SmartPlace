@@ -160,6 +160,25 @@ report/videos/
 - `codex/*` 或 `feature/*`：功能分支。
 - 每块工作开 PR，先保持 Draft，验证通过后再合并。
 - 权重、raw 数据、external 源码和 `.model-packages/` 不提交。
+- GitHub CLI 优先使用沙箱外 `gh`。沙箱内 `gh` 的 token 容易失效，日常开 PR、查 review、合并 PR 走沙箱外授权好的 `gh`；不要把 GitHub PAT 或 API key 发到聊天里。
+
+推荐本机登录方式：
+
+```powershell
+gh auth login -h github.com --web --git-protocol https
+gh auth setup-git
+gh auth status
+```
+
+如果必须使用 PAT，先在 GitHub 创建只授权 `Thronedoct/SmartPlace` 的 fine-grained token，然后在本机 PowerShell 中通过 `Read-Host` 输入，不要写进文档、脚本、日志或对话记录：
+
+```powershell
+$token = Read-Host "Paste GitHub token"
+$token | gh auth login -h github.com --with-token
+Remove-Variable token
+gh auth setup-git
+gh auth status
+```
 
 合并前至少检查：
 
