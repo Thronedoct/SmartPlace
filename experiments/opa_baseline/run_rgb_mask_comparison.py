@@ -168,7 +168,8 @@ def load_image(cache: dict[str, Image.Image], path: Path, mode: str) -> Image.Im
     key = f"{path}:{mode}"
     if key not in cache:
         require_existing_file(path, "OPA image")
-        cache[key] = Image.open(path).convert(mode)
+        with Image.open(path) as image:
+            cache[key] = image.convert(mode).copy()
     return cache[key]
 
 
