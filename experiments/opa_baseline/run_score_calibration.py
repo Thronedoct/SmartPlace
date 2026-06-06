@@ -35,6 +35,8 @@ def main() -> None:
     log_path = Path(args.log_path)
 
     require_existing_file(ranking_csv, "candidate ranking CSV")
+    if args.temperature <= 0:
+        raise ValueError(f"Temperature must be positive, got {args.temperature}")
     output_csv.parent.mkdir(parents=True, exist_ok=True)
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -243,14 +245,17 @@ def write_log(
     for case_id, case_rows in sorted(case_groups.items()):
         removed_in_case = [row for row in case_rows if row["dedup_keep"] == "no"]
         if removed_in_case or case_id == "opa_test_002":
-            dataset_row = next(row for row in case_rows if row["candidate_source"] == "opa_position")
+            dataset_row = next(
+                (row for row in case_rows if row["candidate_source"] == "opa_position"),
+                None,
+            )
             lines.append(
                 "case "
                 f"{case_id} "
-                f"label={dataset_row['dataset_label']} "
-                f"dataset_raw_rank={dataset_row['raw_rank']} "
-                f"dataset_calibrated_rank={dataset_row['calibrated_rank']} "
-                f"dataset_dedup_rank={dataset_row['dedup_rank'] or 'removed'} "
+                f"label={dataset_row['dataset_label'] if dataset_row else 'unknown'} "
+                f"dataset_raw_rank={dataset_row['raw_rank'] if dataset_row else 'missing'} "
+                f"dataset_calibrated_rank={dataset_row['calibrated_rank'] if dataset_row else 'missing'} "
+                f"dataset_dedup_rank={dataset_row['dedup_rank'] if dataset_row and dataset_row['dedup_rank'] else 'removed'} "
                 f"removed={len(removed_in_case)} "
                 f"raw_top3_max_iou={top3_max_iou(case_rows, 'raw_rank'):.4f} "
                 f"dedup_top3_max_iou={dedup_top3_max_iou(case_rows):.4f}"
@@ -297,7 +302,11 @@ def logit(value: float) -> float:
 
 
 def sigmoid(value: float) -> float:
-    return 1.0 / (1.0 + math.exp(-value))
+    if value >= 0:
+        z = math.exp(-value)
+        return 1.0 / (1.0 + z)
+    z = math.exp(value)
+    return z / (1.0 + z)
 
 
 def score_to_tier(score: float) -> str:
