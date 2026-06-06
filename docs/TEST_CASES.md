@@ -74,3 +74,4 @@
 | V014 | 遮挡解释实验 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_occlusion_explainability.py` | 通过 | 5 组代表案例，6x6 遮挡网格；平均最大分数下降 0.5472，热力图写入 `report/screenshots/explainability/`。 |
 | V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 7 行运行耗时证据和 11 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |
 | V016 | Web 内置样例、可信度提示和导出验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 桌面视口加载 5 个内置案例；加载 `opa_test_001` 后运行推荐得到 3 个候选、可信度为“高可信”、JSON/CSV 导出按钮启用，JSON 下载成功；移动视口中样例区、可信度区和画布可见。 |
+| V017 | Web 前端美化与演示模式验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 页面中文无乱码；演示模式切换成功；当前案例有选中态；Top 3 候选框按分级着色；JSON/CSV 导出可用；移动视口无横向溢出；控制台无相关错误。 |
