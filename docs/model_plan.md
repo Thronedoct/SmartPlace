@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、subprocess vs persistent worker 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以继续扩大到 100 组评测，或尝试 LightOPA 真轻量模型。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组、50 组和 100 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、subprocess vs persistent worker 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以尝试 LightOPA 真轻量模型。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -40,7 +40,7 @@ OPA/libcom baseline
 | 工作 | 类型 | 当前证据 |
 |---|---|---|
 | SimOPA scorer 服务化 | 功能类改动 | `server/scorer.py`、`experiments/opa_baseline/score_candidates.py`、`report/tables/api_simopa_smoke.csv` |
-| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv`、`report/tables/candidate_ranking_v2_50.csv` |
+| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv`、`report/tables/candidate_ranking_v2_50.csv`、`report/tables/candidate_ranking_v2_100.csv` |
 | RGB/mask ablation | 输入适配/本体类证据 | `report/tables/rgb_vs_mask_comparison.csv` |
 | 0-1 分数与三档标签 | 输出适配 | `server/recommender.py`、API 返回字段 |
 | 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
@@ -55,7 +55,7 @@ OPA/libcom baseline
 
 升级后优先做：
 
-1. 扩大候选排序评测：50 组已完成；如还需要更强统计证据，可继续扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
+1. 扩大候选排序评测：100 组已完成，输出 `candidate_ranking_v2_100.csv` 和 `opa_100_case_summary.csv`。
 2. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
 3. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
 4. 鲁棒性 ablation：已在 5 个代表案例上完成 mask 膨胀/腐蚀、候选平移、尺度扰动实验，输出 `robustness_ablation.csv`。
@@ -312,13 +312,13 @@ report/tables/rgb_vs_mask_comparison.csv
 
 ### 第 6 步：运行耗时、扩展评测、轻量模式与 worker 优化
 
-当前已经补齐运行耗时、50 组扩展评测、`simopa-lite` 候选预算对比和 `simopa-worker` 常驻模型 worker 对比。训练不做大规模主线，但如果时间继续充裕，可以做一个小子集 LightOPA scorer 作为高标准补强。
+当前已经补齐运行耗时、100 组扩展评测、`simopa-lite` 候选预算对比和 `simopa-worker` 常驻模型 worker 对比。训练不做大规模主线，但如果时间继续充裕，可以做一个小子集 LightOPA scorer 作为高标准补强。
 
 建议：
 
 - 记录 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡解释、lite 模式和 worker 模式的耗时。
 - 记录候选数量、设备、模型版本、平均耗时和备注。
-- 候选排序评测已从 18 组扩展到 50 组；如还需要统计证据，可继续到 100 组。
+- 候选排序评测已从 18 组扩展到 50 组和 100 组。
 - 第一版 `simopa-lite` 已通过减少候选数实现，不宣称训练新网络。
 - `simopa-worker` 已通过常驻模型进程证明加载开销是主要瓶颈。
 - 下一版可尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
@@ -330,7 +330,9 @@ report/tables/rgb_vs_mask_comparison.csv
 report/tables/inference_runtime.csv
 report/tables/model_change_summary.csv
 report/tables/candidate_ranking_v2_50.csv
+report/tables/candidate_ranking_v2_100.csv
 report/tables/opa_50_case_summary.csv
+report/tables/opa_100_case_summary.csv
 report/tables/robustness_ablation.csv
 report/tables/lite_mode_comparison.csv
 report/tables/persistent_worker_comparison.csv
@@ -440,7 +442,7 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 | 任务 | 负责人 | 输出物 |
 |---|---|---|
 | 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
-| 可选 100 组候选排序评测 | 成员 A、B | `candidate_ranking_v2_100.csv` |
+| 100 组候选排序评测 | 成员 A、B | `candidate_ranking_v2_100.csv` |
 | Web 展示模型证据与导出结果 | 成员 B、C | `request_id`、`model_version`、`runtime_ms`、JSON/CSV 导出 |
 | Web 内置代表案例 | 成员 C | 成功、边界、负例、拒绝案例一键加载 |
 | 可信度/失败提示 | 成员 A、B、C | 分数饱和、候选重叠、低可信等提示规则 |

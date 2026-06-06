@@ -12,7 +12,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT_DIR))
 
 from server.recommender import build_candidate_pool, detect_image_size, score_to_tier  # noqa: E402
-from server.scorer import score_candidate_boxes  # noqa: E402
+from server.scorer import score_candidate_boxes, stop_simopa_worker  # noqa: E402
 
 DEFAULT_DATASET = ROOT_DIR / "assets" / "datasets" / "opa" / "raw" / "new_OPA"
 DEFAULT_SMOKE_CSV = ROOT_DIR / "assets" / "datasets" / "opa" / "splits" / "smoke_100.csv"
@@ -23,7 +23,7 @@ DEFAULT_LOG = ROOT_DIR / "report" / "logs" / "candidate_ranking_v1.txt"
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build 18-case SimOPA candidate ranking evidence.")
+    parser = argparse.ArgumentParser(description="Build SimOPA candidate ranking evidence.")
     parser.add_argument("--dataset-root", default=str(DEFAULT_DATASET))
     parser.add_argument("--smoke-csv", default=str(DEFAULT_SMOKE_CSV))
     parser.add_argument("--report-csv", default=str(DEFAULT_REPORT_CSV))
@@ -33,6 +33,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-name", default="SmartPlace candidate ranking v1")
     parser.add_argument("--positive-count", type=int, default=9)
     parser.add_argument("--negative-count", type=int, default=9)
+    parser.add_argument(
+        "--scorer-mode",
+        default="simopa",
+        choices=["simopa", "simopa-worker"],
+        help="Use subprocess SimOPA or the persistent worker scorer.",
+    )
     return parser.parse_args()
 
 
@@ -63,18 +69,34 @@ def main() -> None:
     summary_rows: list[dict[str, object]] = []
     report_rows: list[dict[str, object]] = []
 
-    for index, case in enumerate(selected_cases, start=1):
-        case_id = case["case_id"]
-        print(f"[{index:02d}/{len(selected_cases):02d}] scoring {case_id}")
-        scored_rows, summary_row = score_case(case, background_index, foreground_index)
-        ranking_rows.extend(scored_rows)
-        summary_rows.append(summary_row)
-        report_rows.append(case)
+    try:
+        for index, case in enumerate(selected_cases, start=1):
+            case_id = case["case_id"]
+            print(f"[{index:02d}/{len(selected_cases):02d}] scoring {case_id}")
+            scored_rows, summary_row = score_case(
+                case,
+                background_index,
+                foreground_index,
+                scorer_mode=args.scorer_mode,
+            )
+            ranking_rows.extend(scored_rows)
+            summary_rows.append(summary_row)
+            report_rows.append(case)
+    finally:
+        if "worker" in args.scorer_mode:
+            stop_simopa_worker()
 
     write_csv(report_csv, report_rows)
     write_csv(ranking_csv, ranking_rows)
     write_csv(summary_csv, summary_rows)
-    write_log(log_path, args.run_name, summary_rows, ranking_rows, time.perf_counter() - started)
+    write_log(
+        log_path,
+        args.run_name,
+        summary_rows,
+        ranking_rows,
+        time.perf_counter() - started,
+        scorer_mode=args.scorer_mode,
+    )
 
     print(f"cases={len(summary_rows)}")
     print(f"candidate_rows={len(ranking_rows)}")
@@ -124,6 +146,8 @@ def score_case(
     case: dict[str, str],
     background_index: dict[str, Path],
     foreground_index: dict[str, Path],
+    *,
+    scorer_mode: str,
 ) -> tuple[list[dict[str, object]], dict[str, object]]:
     fg_id = case["fg_id"]
     bg_id = case["bg_id"]
@@ -152,7 +176,7 @@ def score_case(
         background_size=(image_width, image_height),
         foreground_bytes=foreground_bytes,
         scale=float(case["scale"]),
-        scorer_mode="simopa",
+        scorer_mode=scorer_mode,
     )
     candidates = [annotation_candidate]
     for prior in prior_candidates:
@@ -171,7 +195,7 @@ def score_case(
         foreground_bytes=foreground_bytes,
         mask_bytes=foreground_mask_bytes,
         candidates=candidates,
-        mode="simopa",
+        mode=scorer_mode,
     )
     scored = list(zip(candidates, score_results))
     scored.sort(key=lambda item: item[1].score, reverse=True)
@@ -274,6 +298,8 @@ def write_log(
     summary_rows: list[dict[str, object]],
     ranking_rows: list[dict[str, object]],
     elapsed_seconds: float,
+    *,
+    scorer_mode: str,
 ) -> None:
     positive_rows = [row for row in summary_rows if row["dataset_label"] == "1"]
     negative_rows = [row for row in summary_rows if row["dataset_label"] == "0"]
@@ -283,6 +309,7 @@ def write_log(
         f"candidate_rows={len(ranking_rows)}",
         f"positive_cases={len(positive_rows)}",
         f"negative_cases={len(negative_rows)}",
+        f"scorer_mode={scorer_mode}",
         f"elapsed_seconds={elapsed_seconds:.1f}",
         f"positive_pass={sum(1 for row in positive_rows if str(row['assessment']).startswith('pass_'))}",
         f"negative_pass={sum(1 for row in negative_rows if str(row['assessment']).startswith('pass_'))}",

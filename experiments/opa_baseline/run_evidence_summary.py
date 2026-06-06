@@ -62,6 +62,7 @@ def main() -> None:
 def build_runtime_rows() -> list[dict[str, object]]:
     ranking_rows = read_csv(TABLE_DIR / "candidate_ranking_v1.csv")
     ranking_50_rows = read_csv(TABLE_DIR / "candidate_ranking_v2_50.csv")
+    ranking_100_rows = read_csv(TABLE_DIR / "candidate_ranking_v2_100.csv")
     rgb_mask_rows = read_csv(TABLE_DIR / "rgb_vs_mask_comparison.csv")
     calibration_rows = read_csv(TABLE_DIR / "score_calibration_v1.csv")
     occlusion_rows = read_csv(TABLE_DIR / "occlusion_explainability_v1.csv")
@@ -74,6 +75,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     api_worker_log = parse_key_value_log(LOG_DIR / "api_simopa_worker_smoke.txt")
     ranking_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v1.txt")
     ranking_50_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v2_50.txt")
+    ranking_100_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v2_100.txt")
     rgb_log = parse_key_value_log(LOG_DIR / "rgb_vs_mask_comparison.txt")
     calibration_log = parse_key_value_log(LOG_DIR / "score_calibration_v1.txt")
     occlusion_log = parse_key_value_log(LOG_DIR / "occlusion_explainability_v1.txt")
@@ -264,6 +266,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
             runtime_source="persistent_worker_comparison.txt",
             notes="Keeps one SimOPA model worker alive and compares it with per-case subprocess loading.",
         ),
+        runtime_row(
+            stage_id="R013",
+            stage_name="100-case worker candidate ranking",
+            mode=ranking_100_log.get("scorer_mode", "simopa-worker"),
+            model_version=first_value(ranking_100_rows, "model_version", "simopa-worker-rgb-mask-v1"),
+            device="cuda:0",
+            source_artifact="report/tables/candidate_ranking_v2_100.csv",
+            cases=count_unique(ranking_100_rows, "case_id"),
+            candidate_rows=len(ranking_100_rows),
+            score_calls=len(ranking_100_rows),
+            elapsed_seconds=float_value(ranking_100_log.get("elapsed_seconds")),
+            inner_runtimes_ms=numeric_column(ranking_100_rows, "runtime_ms"),
+            runtime_source="candidate_ranking_v2_100.txt plus per-candidate runtime_ms",
+            notes="Expanded worker-backed validation with 50 positive and 50 negative OPA cases.",
+        ),
     ]
     return rows
 
@@ -325,11 +342,11 @@ def build_change_rows() -> list[dict[str, str]]:
             "functionality",
             "Score OPA labeled placement and generated prior candidates, then rank Top 3.",
             "experiments/opa_baseline/run_candidate_ranking.py; server/recommender.py",
-            "report/tables/candidate_ranking_v1.csv; report/tables/candidate_ranking_v2_50.csv; report/tables/opa_50_case_summary.csv",
+            "report/tables/candidate_ranking_v1.csv; report/tables/candidate_ranking_v2_50.csv; report/tables/candidate_ranking_v2_100.csv; report/tables/opa_100_case_summary.csv",
             "completed",
             "Turns a single score model into an object-placement recommendation workflow.",
-            "Current evidence covers 50 cases; 3 positive cases remain high-score boundary cases outside Top 3.",
-            "Optionally expand to candidate_ranking_v2_100.csv if extra statistical evidence is needed.",
+            "Current evidence covers 100 cases; 6 positive cases remain high-score boundary cases outside Top 3.",
+            "Use boundary cases to discuss SimOPA score saturation and candidate diversity.",
         ),
         change_row(
             "C003",

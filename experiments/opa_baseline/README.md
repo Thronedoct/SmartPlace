@@ -154,6 +154,35 @@ Current result:
 - 25 of 25 negative OPA labeled positions are rejected with score below `0.45`.
 - `opa_test_002`, `opa_test_012`, and `opa_test_023` are high-score boundary cases where the labeled position is plausible but outside Top 3 because other candidates saturate near `1.0`.
 
+## 100-Case Worker Candidate Ranking
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_candidate_ranking.py --positive-count 50 --negative-count 50 --scorer-mode simopa-worker --run-name "SmartPlace candidate ranking v2 100-case worker" --report-csv assets\datasets\opa\splits\report_100.csv --ranking-csv report\tables\candidate_ranking_v2_100.csv --summary-csv report\tables\opa_100_case_summary.csv --log-path report\logs\candidate_ranking_v2_100.txt
+```
+
+This expands the candidate-ranking evidence to all 100 audited smoke cases and uses the persistent SimOPA worker to keep the runtime practical.
+
+Outputs:
+
+```text
+assets/datasets/opa/splits/report_100.csv
+report/logs/candidate_ranking_v2_100.txt
+report/tables/candidate_ranking_v2_100.csv
+report/tables/opa_100_case_summary.csv
+```
+
+Current result:
+
+- 100 cases.
+- 1300 candidate scores.
+- Worker scorer mode: `simopa-worker`.
+- Runtime: `42.1s`.
+- 44 of 50 positive cases have the OPA labeled position ranked in Top 3.
+- 50 of 50 negative OPA labeled positions are rejected with score below `0.45`.
+- 6 positive cases are high-score boundary cases where the labeled position remains plausible but ranks below saturated generated candidates.
+
 ## RGB/Mask Ablation
 
 Run:
@@ -365,5 +394,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 12 runtime rows covering mock, SimOPA smoke, FastAPI smoke, FastAPI worker smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, full-vs-lite comparison, and persistent worker comparison.
+- 13 runtime rows covering mock, SimOPA smoke, FastAPI smoke, FastAPI worker smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, full-vs-lite comparison, persistent worker comparison, and 100-case worker ranking.
 - 12 model-change rows: all 12 evidence items completed.
