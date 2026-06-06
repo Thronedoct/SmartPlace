@@ -4,15 +4,17 @@ from pathlib import Path
 import time
 from typing import Annotated
 
-from fastapi import FastAPI, File, Form, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 try:
     from server.recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
+    from server.scorer import DEFAULT_SCORER_MODE, get_scorer_status
 except ModuleNotFoundError:
     from recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
+    from scorer import DEFAULT_SCORER_MODE, get_scorer_status
 
 MODEL_VERSION = DEFAULT_MODEL_VERSION
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -20,7 +22,7 @@ WEB_DIR = ROOT_DIR / "web"
 SAMPLES_DIR = ROOT_DIR / "OPAAndroidDemoSimp" / "app" / "src" / "main" / "assets" / "samples"
 
 app = FastAPI(
-    title="SmartPlace Mock Inference Service",
+    title="SmartPlace Inference Service",
     version="0.1.0",
     description="Local inference service and web workspace for SmartPlace.",
 )
@@ -69,10 +71,13 @@ def favicon() -> FileResponse:
 
 @app.get("/api/health")
 def health() -> dict[str, str]:
+    scorer_status = get_scorer_status()
     return {
         "status": "ok",
-        "service": "smartplace-mock",
-        "model_version": MODEL_VERSION,
+        "service": "smartplace-inference",
+        "model_version": scorer_status["model_version"],
+        "scorer_mode": scorer_status["mode"],
+        "scorer_status": scorer_status["status"],
     }
 
 
@@ -87,32 +92,37 @@ async def recommend_place(
 ) -> RecommendResponse:
     started = time.perf_counter()
 
-    # Phase 0 deliberately avoids real image/model work. These reads prove that
-    # the multipart upload path works and make later validation easier.
     background_bytes = await background.read()
     foreground_bytes = await foreground.read()
-    if mask is not None:
-        await mask.read()
+    mask_bytes = await mask.read() if mask is not None else None
+    scorer_mode = DEFAULT_SCORER_MODE if mode == "auto" else mode
 
     print(
-        "mock recommendation",
+        "place recommendation",
         {
             "background": background.filename,
             "background_bytes": len(background_bytes),
             "foreground": foreground.filename,
             "foreground_bytes": len(foreground_bytes),
+            "mask_bytes": len(mask_bytes) if mask_bytes else 0,
             "candidate_count": candidate_count,
             "foreground_scale": foreground_scale,
-            "mode": mode,
+            "mode": scorer_mode,
         },
     )
 
-    return RecommendResponse(
-        **build_mock_recommendation(
+    try:
+        recommendation = build_mock_recommendation(
             candidate_count=candidate_count,
             foreground_scale=foreground_scale,
             background_bytes=background_bytes,
+            foreground_bytes=foreground_bytes,
+            mask_bytes=mask_bytes,
             model_version=MODEL_VERSION,
+            scorer_mode=scorer_mode,
             started_at=started,
         )
-    )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    return RecommendResponse(**recommendation)

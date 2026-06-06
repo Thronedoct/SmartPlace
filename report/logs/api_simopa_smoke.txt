@@ -1,0 +1,10 @@
+SmartPlace SimOPA API smoke
+health={"status": "ok", "service": "smartplace-inference", "model_version": "simopa-rgb-mask-v1", "scorer_mode": "simopa", "scorer_status": "ready"}
+model_version=simopa-rgb-mask-v1
+runtime_ms=3996
+image_size=640x512
+server_stdout=D:\Dev\SmartPlace\server.api-smoke.out.log
+server_stderr=D:\Dev\SmartPlace\server.api-smoke.err.log
+candidate rank=1 score=0.998 tier=recommended xywh=(0.4200,0.3000,0.4096,0.4900)
+candidate rank=2 score=0.8495 tier=recommended xywh=(0.5904,0.3000,0.4096,0.4900)
+candidate rank=3 score=0.6471 tier=acceptable xywh=(0.5904,0.1200,0.4096,0.4900)

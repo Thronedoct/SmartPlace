@@ -1,0 +1,8 @@
+﻿Build ObjectPlaceAssessment Model
+device=cuda:0
+weight=D:\Dev\SmartPlace\external\Object-Placement-Assessment-Dataset-OPA\eval_opascore\checkpoints\simopa.pth
+image=external\Object-Placement-Assessment-Dataset-OPA\eval_opascore\examples\composite_0.jpg
+mask=external\Object-Placement-Assessment-Dataset-OPA\eval_opascore\examples\mask_0.jpg
+score=0.0
+runtime_ms=384
+
