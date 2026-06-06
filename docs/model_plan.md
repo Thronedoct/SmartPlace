@@ -381,20 +381,17 @@ CPU 推理也可作为兜底，但耗时更高
 | TopNet 训练 | 不推荐 | 谨慎尝试 | 暂不做 |
 | 从零训练新网络 | 不推荐 | 不推荐 | 不做 |
 
-推荐模型实验环境单独放在：
+当前模型实验目录：
 
 ```text
 experiments/
 |-- opa_baseline/
-|-- opa_rgb_mask/
-|-- opa_finetune/
-|-- opa_lightweight/
-|-- robustness/
-|-- explainability/
+|-- lightopa/
+|-- requirements-model-min.txt
 `-- README.md
 ```
 
-权重、原始数据集和训练输出不要提交 GitHub，只提交脚本、配置、少量样例和结果表。
+RGB/mask ablation、鲁棒性、遮挡解释、worker 对比等都已收在 `opa_baseline/`，避免为了每个实验单独扩散目录。权重、原始数据集和训练输出不要提交 GitHub，只提交脚本、配置、少量样例和结果表。
 
 ## 本地推理与真实性证据
 

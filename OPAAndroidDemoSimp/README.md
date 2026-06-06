@@ -1,45 +1,20 @@
-# OPA Android Demo 前端骨架
+# OPA Android Demo Reference
 
-这是课程为图像合成与视觉应用项目提供的 Android 前端参考骨架。
+This directory contains the Android demo skeleton provided by the course.
+SmartPlace does not use it as the delivery frontend.
 
-重要说明：本 Demo 只是一个参考例子，主要展示移动端应用的基本交互形式，例如图片导入、拖拽交互、前景与背景合成结果展示。小组不一定必须基于这份代码开发，也可以根据团队技术栈选择 Flutter、React Native、Web、小程序或重新编写原生 Android。
+Current project frontend:
 
-## 骨架说明
+```text
+web/ + FastAPI backend
+```
 
-如果选择参考本代码或在此基础上二次开发，需要注意：原项目中的核心 AI 逻辑已经被故意剥离，例如智能抠图、自动放置推荐、模型评分等。
+Keep this directory only as reference material for:
 
-在 `app/src/main/java/per/jau/opademosimp/MainActivity.java` 中搜索 `TODO`，可以看到若干被截断或需要替换的逻辑。当前“自动放置”更适合作为交互入口，后续应接入小组自己实现的云端推理服务或端侧推理逻辑。
+- understanding the course-provided interaction example;
+- checking how the original demo handled image import and manual placement;
+- borrowing small UI or asset ideas if needed.
 
-## 推荐路线 A：前后端分离
-
-把 Android 作为展示端，把模型推理放在 Python 后端或云端服务中。
-
-建议流程：
-
-1. Android 选择背景图和前景图。
-2. Android 通过 HTTP 请求把图片发送给后端。
-3. 后端调用 OPA/libcom 或改造后的模型进行候选评分。
-4. 后端返回候选位置、分数、推荐标签和可选解释图。
-5. Android 解析结果并展示 Top 3 推荐位置。
-
-项目根目录的 `server/` 已提供阶段 0 mock 服务，可先用于 Android 网络联调。
-
-## 可选路线 B：端侧本地推理
-
-如果希望挑战“本地推理”或 MindSpore Lite 等进阶项，可以尝试把模型转换为移动端适配格式，例如 `.onnx`、`.tflite` 或 MindSpore Lite 格式，并在 Android 中直接完成张量预处理和推理。
-
-该路线难度更高，建议在云端推理主链路稳定后再考虑。
-
-## 编译与运行
-
-1. 安装 Android Studio。
-2. 使用 `File -> Open` 打开本目录。
-3. 等待 Gradle 同步完成。
-4. 连接 Android 真机，或创建模拟器。
-5. 点击 Android Studio 顶部的 Run 按钮运行。
-
-## 后续开发建议
-
-- 先保持 UI 简单，优先打通图片选择、请求后端、展示候选结果的主链路。
-- 后端接口以项目根目录的 `docs/API.md` 为准。
-- 后续再补充 Top 3 切换、评分展示、失败提示、结果导出等交互。
+Do not treat Android integration as an active task. The main project route is
+documented in `../docs/ROADMAP.md`, and the stable API contract is documented in
+`../docs/API.md`.

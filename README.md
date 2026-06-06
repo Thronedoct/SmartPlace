@@ -33,9 +33,9 @@ SmartPlace/
 `-- README.md
 ```
 
-## 阶段 0 快速运行
+## 快速运行
 
-优先运行无额外依赖的 mock 后端：
+仅做前端连通性调试时，可以运行无额外依赖的 mock 后端：
 
 ```bash
 python server/mock_stdlib.py --host 0.0.0.0 --port 8000
