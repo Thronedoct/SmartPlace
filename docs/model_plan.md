@@ -39,12 +39,12 @@ OPA/libcom baseline
 
 | 工作 | 类型 | 当前证据 |
 |---|---|---|
-| SimOPA scorer 服务化 | 功能类改动 | `server/scorer.py`、`experiments/opa_baseline/score_candidates.py`、API smoke |
-| Top 3 候选排序 | 功能类改动 | `candidate_ranking_v1.csv` |
-| RGB/mask ablation | 输入适配/本体类证据 | `rgb_vs_mask_comparison.csv` |
+| SimOPA scorer 服务化 | 功能类改动 | `server/scorer.py`、`experiments/opa_baseline/score_candidates.py`、`report/tables/api_simopa_smoke.csv` |
+| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv` |
+| RGB/mask ablation | 输入适配/本体类证据 | `report/tables/rgb_vs_mask_comparison.csv` |
 | 0-1 分数与三档标签 | 输出适配 | `server/recommender.py`、API 返回字段 |
-| 温度缩放与 IoU 去重 | 后处理/可信度改动 | `score_calibration_v1.csv` |
-| 遮挡热力图 | 模型解释进阶 | `occlusion_explainability_v1.csv`、热力图 |
+| 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
+| 遮挡热力图 | 模型解释进阶 | `report/tables/occlusion_explainability_v1.csv`、`report/screenshots/explainability/` |
 
 如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
 
