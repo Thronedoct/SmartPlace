@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ranking-csv", default=str(DEFAULT_RANKING_CSV))
     parser.add_argument("--summary-csv", default=str(DEFAULT_SUMMARY_CSV))
     parser.add_argument("--log-path", default=str(DEFAULT_LOG))
+    parser.add_argument("--run-name", default="SmartPlace candidate ranking v1")
     parser.add_argument("--positive-count", type=int, default=9)
     parser.add_argument("--negative-count", type=int, default=9)
     return parser.parse_args()
@@ -73,7 +74,7 @@ def main() -> None:
     write_csv(report_csv, report_rows)
     write_csv(ranking_csv, ranking_rows)
     write_csv(summary_csv, summary_rows)
-    write_log(log_path, summary_rows, ranking_rows, time.perf_counter() - started)
+    write_log(log_path, args.run_name, summary_rows, ranking_rows, time.perf_counter() - started)
 
     print(f"cases={len(summary_rows)}")
     print(f"candidate_rows={len(ranking_rows)}")
@@ -269,6 +270,7 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 def write_log(
     path: Path,
+    run_name: str,
     summary_rows: list[dict[str, object]],
     ranking_rows: list[dict[str, object]],
     elapsed_seconds: float,
@@ -276,7 +278,7 @@ def write_log(
     positive_rows = [row for row in summary_rows if row["dataset_label"] == "1"]
     negative_rows = [row for row in summary_rows if row["dataset_label"] == "0"]
     lines = [
-        "SmartPlace candidate ranking v1",
+        run_name,
         f"cases={len(summary_rows)}",
         f"candidate_rows={len(ranking_rows)}",
         f"positive_cases={len(positive_rows)}",

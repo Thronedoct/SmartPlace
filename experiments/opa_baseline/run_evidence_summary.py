@@ -61,6 +61,7 @@ def main() -> None:
 
 def build_runtime_rows() -> list[dict[str, object]]:
     ranking_rows = read_csv(TABLE_DIR / "candidate_ranking_v1.csv")
+    ranking_50_rows = read_csv(TABLE_DIR / "candidate_ranking_v2_50.csv")
     rgb_mask_rows = read_csv(TABLE_DIR / "rgb_vs_mask_comparison.csv")
     calibration_rows = read_csv(TABLE_DIR / "score_calibration_v1.csv")
     occlusion_rows = read_csv(TABLE_DIR / "occlusion_explainability_v1.csv")
@@ -68,6 +69,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
     ranking_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v1.txt")
+    ranking_50_log = parse_key_value_log(LOG_DIR / "candidate_ranking_v2_50.txt")
     rgb_log = parse_key_value_log(LOG_DIR / "rgb_vs_mask_comparison.txt")
     calibration_log = parse_key_value_log(LOG_DIR / "score_calibration_v1.txt")
     occlusion_log = parse_key_value_log(LOG_DIR / "occlusion_explainability_v1.txt")
@@ -180,6 +182,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
             runtime_source="occlusion_explainability_v1.txt",
             notes="Each representative case gets one baseline score plus grid occlusion scores.",
         ),
+        runtime_row(
+            stage_id="R008",
+            stage_name="50-case candidate ranking",
+            mode="simopa-full",
+            model_version=first_value(ranking_50_rows, "model_version", "simopa-rgb-mask-v1"),
+            device="cuda:0",
+            source_artifact="report/tables/candidate_ranking_v2_50.csv",
+            cases=count_unique(ranking_50_rows, "case_id"),
+            candidate_rows=len(ranking_50_rows),
+            score_calls=len(ranking_50_rows),
+            elapsed_seconds=float_value(ranking_50_log.get("elapsed_seconds")),
+            inner_runtimes_ms=numeric_column(ranking_50_rows, "runtime_ms"),
+            runtime_source="candidate_ranking_v2_50.txt plus per-candidate runtime_ms",
+            notes="Expanded validation with 25 positive and 25 negative OPA cases.",
+        ),
     ]
     return rows
 
@@ -241,11 +258,11 @@ def build_change_rows() -> list[dict[str, str]]:
             "functionality",
             "Score OPA labeled placement and generated prior candidates, then rank Top 3.",
             "experiments/opa_baseline/run_candidate_ranking.py; server/recommender.py",
-            "report/tables/candidate_ranking_v1.csv; report/tables/opa_18_case_summary.csv",
+            "report/tables/candidate_ranking_v1.csv; report/tables/candidate_ranking_v2_50.csv; report/tables/opa_50_case_summary.csv",
             "completed",
             "Turns a single score model into an object-placement recommendation workflow.",
-            "Current evidence is 18 cases; high-standard plan expands to 50 or 100 cases.",
-            "Generate candidate_ranking_v2_50.csv or candidate_ranking_v2_100.csv.",
+            "Current evidence covers 50 cases; 3 positive cases remain high-score boundary cases outside Top 3.",
+            "Optionally expand to candidate_ranking_v2_100.csv if extra statistical evidence is needed.",
         ),
         change_row(
             "C003",

@@ -39,18 +39,20 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - `smoke_100.csv` 已审计：100 条 test 样例可读，正负各 50。
 - API smoke 已跑通：`opa_test_001` Top 3 分数为 `0.998 / 0.8495 / 0.6471`。
 - 18 组候选排序实验已完成：9 正例、9 负例、234 条候选评分。
+- 50 组扩展候选排序实验已完成：25 正例、25 负例、650 条候选评分；正例 22/25 的 OPA 标注位置进 Top 3，负例 25/25 被低分拒绝。
 - RGB/mask ablation 已完成：234 条候选中，object mask 与 blank mask 的平均绝对差异为 `0.3487`，Top 3 成员变化 56 条。
 - 分数校准和 IoU 去重已完成：温度缩放后生成 `score_calibration_v1.csv`，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。
 - 代表案例图已完成：5 组成功/边界/负例案例写入 `failure_cases.csv`，案例图位于 `report/screenshots/cases/`。
 - 遮挡解释实验已完成：5 组代表案例生成 `occlusion_explainability_v1.csv` 和热力图，平均最大分数下降为 `0.5472`。
-- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 7 个运行阶段，`model_change_summary.csv` 汇总 9 个已完成改动和 2 个 planned_next 项。
+- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 8 个运行阶段，`model_change_summary.csv` 汇总 9 个已完成改动和 2 个 planned_next 项。
 - Web 工作台已支持内置案例加载、当前结果 JSON/CSV 导出、可信度/失败提示、解释热力图入口、前端美化和课堂演示模式。
 
 当前候选排序结论：
 
 - 正例 8/9 的 OPA 标注位置高分且进入 Top 3。
 - 负例 9/9 的 OPA 标注坏位置得分为 `0.0`。
-- `opa_test_002` 是边界案例：标注位置得分 `0.9987`，但多个候选也接近 `1.0`，说明 SimOPA 分数有饱和问题，需要做校准或候选去重。
+- 扩展到 50 组后，正例 22/25 进 Top 3，负例 25/25 低分拒绝。
+- `opa_test_002`、`opa_test_012`、`opa_test_023` 是边界案例：标注位置高分，但多个候选也接近 `1.0`，说明 SimOPA 分数有饱和问题，需要做校准或候选去重。
 
 ## 高分路线
 
@@ -98,11 +100,14 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 ```text
 report/logs/api_simopa_smoke.txt
 report/logs/candidate_ranking_v1.txt
+report/logs/candidate_ranking_v2_50.txt
 report/logs/rgb_vs_mask_comparison.txt
 report/logs/score_calibration_v1.txt
 report/tables/api_simopa_smoke.csv
 report/tables/candidate_ranking_v1.csv
+report/tables/candidate_ranking_v2_50.csv
 report/tables/opa_18_case_summary.csv
+report/tables/opa_50_case_summary.csv
 report/tables/opa_sample_audit.csv
 report/tables/opa_smoke_scores_from_dataset.csv
 report/tables/rgb_vs_mask_comparison.csv
@@ -120,7 +125,7 @@ report/screenshots/explainability/
 还需要补：
 
 ```text
-report/tables/candidate_ranking_v2_50.csv
+report/tables/candidate_ranking_v2_100.csv
 report/tables/lite_mode_comparison.csv
 report/tables/robustness_ablation.csv
 report/videos/

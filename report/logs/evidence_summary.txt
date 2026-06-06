@@ -1,5 +1,5 @@
 SmartPlace evidence summary
-runtime_rows=7
+runtime_rows=8
 change_rows=11
 completed_changes=9
 planned_changes=2
@@ -10,3 +10,4 @@ runtime R004 18-case candidate ranking elapsed_seconds=66.6 score_calls=234 sour
 runtime R005 RGB/mask ablation elapsed_seconds=23.5 score_calls=702 source=report/tables/rgb_vs_mask_comparison.csv
 runtime R006 score calibration and IoU dedup elapsed_seconds=0.002 score_calls=0 source=report/tables/score_calibration_v1.csv
 runtime R007 occlusion explainability elapsed_seconds=5.8 score_calls=185 source=report/tables/occlusion_explainability_v1.csv
+runtime R008 50-case candidate ranking elapsed_seconds=168.6 score_calls=650 source=report/tables/candidate_ranking_v2_50.csv
