@@ -62,3 +62,4 @@
 | V008 | OPA 数据集样例评分 | `run_simopa_smoke.py` | 通过 | 2 个正例得分 1.0，2 个负例得分 0.0，结果写入 `report/tables/opa_smoke_scores_from_dataset.csv`。 |
 | V009 | FastAPI + SimOPA multipart 推荐接口冒烟 | `.\.venv\Scripts\python.exe experiments\opa_baseline\run_api_simopa_smoke.py` | 通过 | health 返回 `scorer_mode=simopa`；`opa_test_001` Top 3 分数为 0.998、0.8495、0.6471。 |
 | V010 | 18 组 OPA 候选排序实验 | `.\.venv\Scripts\python.exe experiments\opa_baseline\run_candidate_ranking.py` | 通过 | 18 组、234 条候选评分；正例 8/9 高分且进 Top 3，负例 9/9 的 OPA 标注坏位置得分 0.0。 |
+| V011 | RGB/mask ablation | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_rgb_mask_comparison.py` | 通过 | 234 条候选；object mask vs blank mask 平均绝对差异 0.3487，Top 3 成员变化 56 条，见 `report/tables/rgb_vs_mask_comparison.csv`。 |

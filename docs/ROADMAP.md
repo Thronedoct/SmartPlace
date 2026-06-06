@@ -39,6 +39,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - `smoke_100.csv` 已审计：100 条 test 样例可读，正负各 50。
 - API smoke 已跑通：`opa_test_001` Top 3 分数为 `0.998 / 0.8495 / 0.6471`。
 - 18 组候选排序实验已完成：9 正例、9 负例、234 条候选评分。
+- RGB/mask ablation 已完成：234 条候选中，object mask 与 blank mask 的平均绝对差异为 `0.3487`，Top 3 成员变化 56 条。
 
 当前候选排序结论：
 
@@ -69,15 +70,13 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 最近三步：
 
-1. 合并候选排序 PR，让 `main` 有 18 组真实证据。
-2. 做 RGB/mask 对比，输出 `report/tables/rgb_vs_mask_comparison.csv`。
-3. 选 3-5 组代表案例，做 Web 截图和失败/边界分析。
+1. 做分数校准和候选 IoU 去重，重点处理 `opa_test_002`。
+2. 选 3-5 组代表案例，做 Web 截图和失败/边界分析。
+3. 做遮挡实验或 Grad-CAM，补解释性证据。
 
 随后做：
 
-4. 分数校准和候选 IoU 去重，重点处理 `opa_test_002`。
-5. 遮挡实验或 Grad-CAM。
-6. 汇总报告、PPT、演示录屏和分工说明。
+4. 汇总报告、PPT、演示录屏和分工说明。
 
 ## 证据清单
 
@@ -86,17 +85,18 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 ```text
 report/logs/api_simopa_smoke.txt
 report/logs/candidate_ranking_v1.txt
+report/logs/rgb_vs_mask_comparison.txt
 report/tables/api_simopa_smoke.csv
 report/tables/candidate_ranking_v1.csv
 report/tables/opa_18_case_summary.csv
 report/tables/opa_sample_audit.csv
 report/tables/opa_smoke_scores_from_dataset.csv
+report/tables/rgb_vs_mask_comparison.csv
 ```
 
 还需要补：
 
 ```text
-report/tables/rgb_vs_mask_comparison.csv
 report/tables/score_calibration_v1.csv
 report/tables/failure_cases.csv
 report/screenshots/

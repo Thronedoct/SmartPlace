@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧下一阶段优先级是：RGB/mask 对比、分数校准和候选去重、代表案例解释；轻量 fine-tune 和 FOPA/TopNet 作为后续进阶项。
+当前模型侧已完成 SimOPA baseline、18 组候选排序和 RGB/mask ablation。下一阶段优先级是：分数校准和候选去重、代表案例解释；轻量 fine-tune 和 FOPA/TopNet 作为后续进阶项。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -225,6 +225,8 @@ report/tables/candidate_ranking_v1.csv
 | `match` | 排序是否符合人工判断 |
 
 ### 第 5 步：做 RGB vs RGB+mask 对比
+
+当前已完成一版 mask ablation：`report/tables/rgb_vs_mask_comparison.csv`。同一批 234 条候选分别使用 object mask、bbox mask 和 blank mask 评分；object mask vs blank mask 的平均绝对差异为 `0.3487`，Top 3 成员变化 56 条。
 
 做法：
 

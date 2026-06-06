@@ -1,0 +1,19 @@
+SmartPlace RGB/mask ablation
+model_version=simopa-mask-ablation-v1
+device=cuda:0
+candidate_rows=234
+elapsed_seconds=23.5
+mean_abs_delta_shape_vs_bbox=0.0839
+mean_abs_delta_shape_vs_blank=0.3487
+changed_shape_vs_bbox_ge_0.05=29
+changed_shape_vs_blank_ge_0.05=136
+top3_membership_changed_bbox=16
+top3_membership_changed_blank=56
+case opa_test_006 prior_01 label=1 rgb_mask=1.0 bbox=1.0 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_01 label=1 rgb_mask=1.0 bbox=0.9999 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_04 label=1 rgb_mask=1.0 bbox=0.9999 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_05 label=1 rgb_mask=1.0 bbox=0.9999 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_09 label=1 rgb_mask=1.0 bbox=1.0 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_11 label=1 rgb_mask=1.0 bbox=0.9999 blank=0.0 delta_blank=1.0
+case opa_test_008 prior_12 label=1 rgb_mask=1.0 bbox=1.0 blank=0.0 delta_blank=1.0
+case opa_test_006 opa_position label=1 rgb_mask=1.0 bbox=1.0 blank=0.0001 delta_blank=0.9999
