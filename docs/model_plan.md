@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、运行耗时表和模型改动说明表。时间充裕后，下一阶段升级为高标准模型工程线：轻量推理/轻量 scorer 对比，可选继续扩大到 100 组评测，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以继续扩大到 100 组评测，或优化持久化模型服务以减少子进程加载开销。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -46,6 +46,7 @@ OPA/libcom baseline
 | 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
 | 遮挡热力图 | 模型解释进阶 | `report/tables/occlusion_explainability_v1.csv`、`report/screenshots/explainability/` |
 | 鲁棒性 ablation | 可靠性/解释补强 | `report/tables/robustness_ablation.csv`、`report/logs/robustness_ablation.txt` |
+| `simopa-lite` 候选预算模式 | 轻量推理/工程对比 | `report/tables/lite_mode_comparison.csv`、`report/logs/lite_mode_comparison.txt` |
 
 如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
 
@@ -61,7 +62,7 @@ OPA/libcom baseline
 轻量化路线：
 
 1. **`simopa-full`**：当前真实 SimOPA scorer，作为质量优先模式。
-2. **`simopa-lite`**：轻量应用模式，减少候选数或复用校准后处理，强调速度与现场稳定性，不宣称是新网络。
+2. **`simopa-lite`**：轻量应用模式，使用较小候选预算评估同一 SimOPA 权重，强调速度/质量取舍，不宣称是新网络。
 3. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
 4. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
 
@@ -111,7 +112,7 @@ Android 端接入
 - 对 SimOPA 分数做温度缩放和三档标签映射。
 - 对候选框做 IoU 去重，减少重复 Top 3。
 - 在 Web 中展示可信度/失败提示。
-- 如时间允许，提供 `simopa-full` 与 `simopa-lite` 两种推理模式；第一版 `simopa-lite` 定义为减少候选数或复用轻量后处理，不宣称训练了新网络。
+- 已提供 `simopa-full` 与 `simopa-lite` 两种推理模式；第一版 `simopa-lite` 定义为候选预算模式，不宣称训练了新网络。
 
 目标：让模型分数更适合交互应用展示，同时补充本地推理耗时和轻量模式对比证据。
 
@@ -124,10 +125,10 @@ Android 端接入
 
 ### V5 轻量模型版
 
-- 实现 `simopa-full`、`simopa-lite` 和可选 `lightopa-resnet18` / `lightopa-mobilenet` 对比。
-- `simopa-lite` 先作为轻量应用模式，减少候选数或重计算次数。
+- 已实现 `simopa-full` 与 `simopa-lite` 对比；可选继续做 `lightopa-resnet18` / `lightopa-mobilenet`。
+- `simopa-lite` 作为轻量应用模式，默认 Top 3 场景减少候选评分次数。
 - 如果时间允许，训练一个 OPA 小子集轻量 scorer，使用 composite + mask 作为输入，输出 0-1 合理性分数。
-- 比较准确性、Top 3 排序、失败案例和推理耗时。
+- 比较准确性、Top 3 排序、失败案例和推理耗时。当前 `simopa-lite` 50 组对比显示评分调用减少 `46.15%`，Top 1 一致 `45/50`，assessment 一致 `50/50`，但端到端加速只有约 `1.02x`，说明后续更应优化常驻模型服务或 in-process scorer。
 
 目标：让前端可以选择质量优先或速度优先模式，同时补强“轻量化”和“模型本体改动”的答辩证据。
 
