@@ -12,6 +12,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 - `server/`：后端推理服务，支持 mock scorer 和 SimOPA 真实 scorer。
 - `docs/API.md`：Web 前端与后端之间的接口约定。
 - `docs/HIGH_SCORE_ROUTE.md`：根据课程 PDF 整理的高分路线与交付证据清单。
+- `docs/NEXT_ROUTE.md`：当前从候选排序到 RGB/mask 对比、分数校准、截图和报告的推进顺序。
 - `docs/WORKFLOW.md`：小组协作、分支和合并规则。
 - `docs/model_plan.md`：模型路线、参考源码、高分方案、训练和解释计划。
 - `docs/PHASE0_STATUS.md`：当前阶段状态和下一步行动。

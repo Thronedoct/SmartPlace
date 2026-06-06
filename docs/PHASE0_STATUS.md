@@ -123,6 +123,8 @@ score_composite(composite_image, foreground_mask, model_version) -> score
 
 ## 当前下一步
 
+下一阶段执行顺序以 `docs/NEXT_ROUTE.md` 为准，核心是先把已完成的真实候选排序证据转成模型对比、分数可信度和可展示案例。
+
 1. 做 RGB vs RGB+mask 对比实验，形成模型本体类改动证据。
 2. 选取 3-5 组代表案例做 Web 截图或候选可视化。
 3. 对 `opa_test_002`、负例中 top1 prior 很高的案例写失败/边界分析。
