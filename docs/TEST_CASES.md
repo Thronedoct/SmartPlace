@@ -44,7 +44,7 @@
 | 表格 | 位置 | 用途 |
 |---|---|---|
 | 候选排序表 | `report/tables/candidate_ranking_v1.csv` | 说明 Top 3 排序是否符合人工判断。 |
-| 扩展候选排序表 | `report/tables/candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` | 用更多案例验证排序稳定性。 |
+| 扩展候选排序表 | `report/tables/candidate_ranking_v2_50.csv` 和 `candidate_ranking_v2_100.csv` | 用更多案例验证排序稳定性。 |
 | RGB vs RGB+mask 对比表 | `report/tables/rgb_vs_mask_comparison.csv` | 证明本体类模型改动的效果和限制。 |
 | 分数校准与去重表 | `report/tables/score_calibration_v1.csv` | 解释分数饱和和重复候选问题。 |
 | 推理耗时表 | `report/tables/inference_runtime.csv` | 证明本地推理可运行，并比较不同模型版本。 |
@@ -73,7 +73,7 @@
 | V012 | 分数校准和 IoU 去重 | `python experiments\opa_baseline\run_score_calibration.py` | 通过 | 234 条候选；温度缩放后生成校准分数，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。 |
 | V013 | 代表案例图和失败/边界表 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_case_gallery.py` | 通过 | 生成 5 组成功/边界/负例案例图，写入 `report/tables/failure_cases.csv` 和 `report/screenshots/cases/`。 |
 | V014 | 遮挡解释实验 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_occlusion_explainability.py` | 通过 | 5 组代表案例，6x6 遮挡网格；平均最大分数下降 0.5472，热力图写入 `report/screenshots/explainability/`。 |
-| V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 12 行运行耗时证据和 12 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |
+| V015 | 运行耗时与模型改动说明汇总 | `python experiments\opa_baseline\run_evidence_summary.py` | 通过 | 生成 13 行运行耗时证据和 12 行模型改动说明，写入 `report/tables/inference_runtime.csv`、`report/tables/model_change_summary.csv` 和 `report/logs/evidence_summary.txt`。 |
 | V016 | Web 内置样例、可信度提示和导出验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 桌面视口加载 5 个内置案例；加载 `opa_test_001` 后运行推荐得到 3 个候选、可信度为“高可信”、JSON/CSV 导出按钮启用，JSON 下载成功；移动视口中样例区、可信度区和画布可见。 |
 | V017 | Web 前端美化与演示模式验证 | Playwright fallback，URL `http://127.0.0.1:8000/` | 通过 | 页面中文无乱码；演示模式切换成功；当前案例有选中态；Top 3 候选框按分级着色；JSON/CSV 导出可用；移动视口无横向溢出；控制台无相关错误。 |
 | V018 | 50 组 OPA 候选排序扩展评测 | `.\.venv\Scripts\python.exe experiments\opa_baseline\run_candidate_ranking.py --positive-count 25 --negative-count 25 ...` | 通过 | 50 组、650 条候选；正例 22/25 的 OPA 标注位置进入 Top 3，负例 25/25 低分拒绝；边界案例为 `opa_test_002`、`opa_test_012`、`opa_test_023`。 |
@@ -81,3 +81,4 @@
 | V020 | SimOPA full-vs-lite 对比 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_lite_mode_comparison.py` | 通过 | 50 组；`simopa-lite` 将评分调用从 650 降到 350，Top 1 一致 45/50，assessment 一致 50/50；端到端加速约 1.02x，说明子进程模型加载是主要瓶颈。 |
 | V021 | SimOPA subprocess-vs-worker 对比 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_worker_comparison.py` | 通过 | 50 组、650 次评分调用；subprocess 耗时 168.6s，常驻 worker 耗时 23.4s，约 7.2x 加速；Top 1、Top 3 和 assessment 全一致。 |
 | V022 | FastAPI + SimOPA worker 推荐接口冒烟 | `SMARTPLACE_API_SMOKE_MODE=simopa-worker .\.venv\Scripts\python.exe experiments\opa_baseline\run_api_simopa_smoke.py` | 通过 | health 返回 `scorer_mode=simopa-worker`；`opa_test_001` Top 3 分数为 0.998、0.8495、0.6471，结果写入 `api_simopa_worker_smoke.*`。 |
+| V023 | 100 组 OPA worker 候选排序扩展评测 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_candidate_ranking.py --positive-count 50 --negative-count 50 --scorer-mode simopa-worker ...` | 通过 | 100 组、1300 条候选；正例 44/50 的 OPA 标注位置进入 Top 3，负例 50/50 低分拒绝；耗时 42.1s。 |

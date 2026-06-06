@@ -40,6 +40,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - API smoke 已跑通：`opa_test_001` Top 3 分数为 `0.998 / 0.8495 / 0.6471`。
 - 18 组候选排序实验已完成：9 正例、9 负例、234 条候选评分。
 - 50 组扩展候选排序实验已完成：25 正例、25 负例、650 条候选评分；正例 22/25 的 OPA 标注位置进 Top 3，负例 25/25 被低分拒绝。
+- 100 组 worker 候选排序实验已完成：50 正例、50 负例、1300 条候选评分；正例 44/50 的 OPA 标注位置进 Top 3，负例 50/50 被低分拒绝。
 - RGB/mask ablation 已完成：234 条候选中，object mask 与 blank mask 的平均绝对差异为 `0.3487`，Top 3 成员变化 56 条。
 - 分数校准和 IoU 去重已完成：温度缩放后生成 `score_calibration_v1.csv`，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。
 - 代表案例图已完成：5 组成功/边界/负例案例写入 `failure_cases.csv`，案例图位于 `report/screenshots/cases/`。
@@ -47,14 +48,14 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - 鲁棒性 ablation 已完成：5 个代表案例、45 次扰动评分；平均绝对分数变化 `0.0820`，5 条扰动造成三档标签变化。
 - 轻量推理对比已完成：`simopa-lite` 将 50 组评测的评分调用从 650 次降到 350 次，Top 1 一致 45/50，assessment 一致 50/50；端到端加速约 `1.02x`，说明当前主要瓶颈是每个 case 的子进程模型加载。
 - 常驻 SimOPA worker 已完成：同样 50 组、650 次评分调用，subprocess 模式耗时 `168.6s`，worker 模式耗时 `23.4s`，Top 1、Top 3 和 assessment 全部一致。
-- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 12 个运行阶段，`model_change_summary.csv` 汇总 12 个已完成改动。
+- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 13 个运行阶段，`model_change_summary.csv` 汇总 12 个已完成改动。
 - Web 工作台已支持内置案例加载、当前结果 JSON/CSV 导出、可信度/失败提示、解释热力图入口、前端美化和课堂演示模式。
 
 当前候选排序结论：
 
 - 正例 8/9 的 OPA 标注位置高分且进入 Top 3。
 - 负例 9/9 的 OPA 标注坏位置得分为 `0.0`。
-- 扩展到 50 组后，正例 22/25 进 Top 3，负例 25/25 低分拒绝。
+- 扩展到 100 组后，正例 44/50 进 Top 3，负例 50/50 低分拒绝。
 - `opa_test_002`、`opa_test_012`、`opa_test_023` 是边界案例：标注位置高分，但多个候选也接近 `1.0`，说明 SimOPA 分数有饱和问题，需要做校准或候选去重。
 
 ## 高分路线
@@ -88,7 +89,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 模型侧升级顺序：
 
 3. **可选 LightOPA 真轻量模型**：worker 已解决主要加载瓶颈。若继续卷模型本体，可以训练或适配 ResNet18/MobileNetV3 级别 LightOPA scorer，与 `simopa-worker` 比较速度、排序质量和失败案例。
-4. **可选扩大验证规模**：50 组候选排序已经完成；如还需要更强统计证据，再扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
+4. **可选更大规模验证**：100 组候选排序已经完成；如还需要更强统计证据，可以继续扩大到全量测试子集，但这不再是当前主线必需项。
 
 交付材料分工：
 
@@ -104,14 +105,17 @@ report/logs/api_simopa_smoke.txt
 report/logs/api_simopa_worker_smoke.txt
 report/logs/candidate_ranking_v1.txt
 report/logs/candidate_ranking_v2_50.txt
+report/logs/candidate_ranking_v2_100.txt
 report/logs/rgb_vs_mask_comparison.txt
 report/logs/score_calibration_v1.txt
 report/tables/api_simopa_smoke.csv
 report/tables/api_simopa_worker_smoke.csv
 report/tables/candidate_ranking_v1.csv
 report/tables/candidate_ranking_v2_50.csv
+report/tables/candidate_ranking_v2_100.csv
 report/tables/opa_18_case_summary.csv
 report/tables/opa_50_case_summary.csv
+report/tables/opa_100_case_summary.csv
 report/tables/opa_sample_audit.csv
 report/tables/opa_smoke_scores_from_dataset.csv
 report/tables/rgb_vs_mask_comparison.csv
@@ -135,7 +139,6 @@ report/screenshots/explainability/
 还需要补：
 
 ```text
-report/tables/candidate_ranking_v2_100.csv
 report/videos/
 ```
 

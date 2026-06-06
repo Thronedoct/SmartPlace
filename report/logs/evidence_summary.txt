@@ -1,5 +1,5 @@
 SmartPlace evidence summary
-runtime_rows=12
+runtime_rows=13
 change_rows=12
 completed_changes=12
 planned_changes=0
@@ -15,3 +15,4 @@ runtime R009 50-case candidate ranking elapsed_seconds=168.6 score_calls=650 sou
 runtime R010 robustness ablation elapsed_seconds=1.5 score_calls=45 source=report/tables/robustness_ablation.csv
 runtime R011 SimOPA full-vs-lite comparison elapsed_seconds=165.0 score_calls=350 source=report/tables/lite_mode_comparison.csv
 runtime R012 persistent SimOPA worker comparison elapsed_seconds=23.4 score_calls=650 source=report/tables/persistent_worker_comparison.csv
+runtime R013 100-case worker candidate ranking elapsed_seconds=42.1 score_calls=1300 source=report/tables/candidate_ranking_v2_100.csv
