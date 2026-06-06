@@ -21,17 +21,20 @@
         <form id="recommend-form" class="control-form">
           <label class="file-field">
             <span>背景图</span>
-            <input id="background-input" name="background" type="file" accept="image/*" required />
+            <input id="background-input" name="background" type="file" accept="image/*" />
+            <small id="background-source" class="file-source">未选择</small>
           </label>
 
           <label class="file-field">
             <span>前景物体</span>
-            <input id="foreground-input" name="foreground" type="file" accept="image/*" required />
+            <input id="foreground-input" name="foreground" type="file" accept="image/*" />
+            <small id="foreground-source" class="file-source">未选择</small>
           </label>
 
           <label class="file-field">
             <span>Mask</span>
             <input id="mask-input" name="mask" type="file" accept="image/*" />
+            <small id="mask-source" class="file-source">可选</small>
           </label>
 
           <div class="field-grid">
@@ -46,7 +49,7 @@
 
             <label>
               <span>前景比例</span>
-              <input id="foreground-scale" name="foreground_scale" type="range" min="0.10" max="0.60" step="0.01" value="0.25" />
+              <input id="foreground-scale" name="foreground_scale" type="range" min="0.10" max="0.70" step="0.01" value="0.25" />
             </label>
           </div>
 
@@ -67,12 +70,36 @@
           <button type="submit" class="primary-action">运行本地推荐</button>
         </form>
 
+        <section class="demo-panel" aria-label="内置演示案例">
+          <div class="section-heading">
+            <h2>Demo cases</h2>
+            <span id="demo-case-status">loading</span>
+          </div>
+          <div id="demo-case-list" class="demo-case-list"></div>
+          <p id="demo-case-note" class="demo-case-note">选择内置案例后会自动载入背景、前景和 mask。</p>
+        </section>
+
         <section class="result-list" aria-label="候选结果">
           <div class="section-heading">
             <h2>Top candidates</h2>
-            <span id="request-meta">等待推理</span>
+            <div class="result-actions">
+              <button id="export-json" type="button" class="secondary-action" disabled>JSON</button>
+              <button id="export-csv" type="button" class="secondary-action" disabled>CSV</button>
+            </div>
           </div>
+          <span id="request-meta" class="request-meta">等待推理</span>
           <ol id="candidate-list"></ol>
+        </section>
+
+        <section class="confidence-panel" aria-label="可信度提示">
+          <div class="section-heading">
+            <h2>Confidence</h2>
+            <span id="confidence-tier">待运行</span>
+          </div>
+          <ul id="confidence-list" class="confidence-list">
+            <li>运行推荐后显示分数饱和、候选重叠和低可信提示。</li>
+          </ul>
+          <div id="case-links" class="case-links"></div>
         </section>
       </aside>
 
