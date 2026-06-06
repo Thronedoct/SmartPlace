@@ -48,7 +48,8 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - 鲁棒性 ablation 已完成：5 个代表案例、45 次扰动评分；平均绝对分数变化 `0.0820`，5 条扰动造成三档标签变化。
 - 轻量推理对比已完成：`simopa-lite` 将 50 组评测的评分调用从 650 次降到 350 次，Top 1 一致 45/50，assessment 一致 50/50；端到端加速约 `1.02x`，说明当前主要瓶颈是每个 case 的子进程模型加载。
 - 常驻 SimOPA worker 已完成：同样 50 组、650 次评分调用，subprocess 模式耗时 `168.6s`，worker 模式耗时 `23.4s`，Top 1、Top 3 和 assessment 全部一致。
-- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 13 个运行阶段，`model_change_summary.csv` 汇总 12 个已完成改动。
+- LightOPA tiny 轻量模型探索已完成：4 通道小 CNN 使用 2,000 条 OPA train 样例训练、500 条 test 样例验证；最佳 epoch 验证准确率 `0.65`，ROC-AUC `0.6761`，平均验证推理 `12.36ms/sample`。该模型作为轻量 baseline，不替代主线 `simopa-worker`。
+- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 14 个运行阶段，`model_change_summary.csv` 汇总 13 个已完成改动。
 - Web 工作台已支持内置案例加载、当前结果 JSON/CSV 导出、可信度/失败提示、解释热力图入口、前端美化和课堂演示模式。
 
 当前候选排序结论：
@@ -88,7 +89,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 模型侧升级顺序：
 
-3. **可选 LightOPA 真轻量模型**：worker 已解决主要加载瓶颈。若继续卷模型本体，可以训练或适配 ResNet18/MobileNetV3 级别 LightOPA scorer，与 `simopa-worker` 比较速度、排序质量和失败案例。
+3. **LightOPA 后续增强**：tiny LightOPA baseline 已完成，证明可以训练真实轻量 scorer。若继续卷模型本体，可以升级到 ResNet18/MobileNetV3 级别 LightOPA scorer，与 `simopa-worker` 比较速度、排序质量和失败案例。
 4. **可选更大规模验证**：100 组候选排序已经完成；如还需要更强统计证据，可以继续扩大到全量测试子集，但这不再是当前主线必需项。
 
 交付材料分工：
@@ -129,9 +130,11 @@ report/tables/occlusion_explainability_v1.csv
 report/logs/robustness_ablation.txt
 report/logs/lite_mode_comparison.txt
 report/logs/persistent_worker_comparison.txt
+report/logs/lightopa_tiny_training.txt
 report/tables/robustness_ablation.csv
 report/tables/lite_mode_comparison.csv
 report/tables/persistent_worker_comparison.csv
+report/tables/lightopa_tiny_metrics.csv
 report/screenshots/cases/
 report/screenshots/explainability/
 ```

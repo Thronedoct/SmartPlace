@@ -1,0 +1,27 @@
+SmartPlace Tiny LightOPA training
+model_name=tiny-lightopa-cnn-v1
+model_type=4-channel tiny CNN
+device=cuda:0
+image_size=128
+train_count=2000
+val_count=500
+epochs=4
+batch_size=64
+learning_rate=0.001
+param_count=79425
+elapsed_seconds=122.26
+best_epoch=3
+checkpoint_path=models\lightopa\tiny_lightopa_smoke.pth
+checkpoint_sha256=78d26de067b28e09d4fa31431a6473a2e53938ee56ca85da26f1a2cb7224b7d4
+best_epoch_accuracy=0.65
+best_epoch_balanced_accuracy=0.65
+best_epoch_f1=0.595843
+best_epoch_roc_auc=0.676064
+best_threshold=0.527073
+best_balanced_accuracy=0.664
+best_threshold_f1=0.598086
+avg_inference_ms_per_sample=12.359374
+epoch 1 train_loss=0.658435 val_loss=0.66908 accuracy=0.522 roc_auc=0.614064
+epoch 2 train_loss=0.634006 val_loss=0.688116 accuracy=0.622 roc_auc=0.686816
+epoch 3 train_loss=0.606244 val_loss=0.659102 accuracy=0.65 roc_auc=0.676064
+epoch 4 train_loss=0.584077 val_loss=0.682318 accuracy=0.54 roc_auc=0.633328
