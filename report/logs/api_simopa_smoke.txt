@@ -1,7 +1,7 @@
 SmartPlace SimOPA API smoke
 health={"status": "ok", "service": "smartplace-inference", "model_version": "simopa-rgb-mask-v1", "scorer_mode": "simopa", "scorer_status": "ready"}
 model_version=simopa-rgb-mask-v1
-runtime_ms=3996
+runtime_ms=3821
 image_size=640x512
 server_stdout=D:\Dev\SmartPlace\server.api-smoke.out.log
 server_stderr=D:\Dev\SmartPlace\server.api-smoke.err.log

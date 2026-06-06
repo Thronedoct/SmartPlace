@@ -127,8 +127,8 @@ def build_rgba_foreground(foreground: Image.Image, foreground_mask: Image.Image 
 
 
 def preprocess_image_mask(image: str, mask: str, image_size: int, device: torch.device) -> torch.Tensor:
-    img = Image.open(image).convert("RGB").resize((image_size, image_size), Image.BILINEAR)
-    mask_img = Image.open(mask).convert("L").resize((image_size, image_size), Image.BILINEAR)
+    img = Image.open(image).convert("RGB").resize((image_size, image_size), Image.Resampling.BILINEAR)
+    mask_img = Image.open(mask).convert("L").resize((image_size, image_size), Image.Resampling.BILINEAR)
     return preprocess_pil_pair(img, mask_img, image_size, device)
 
 
@@ -138,8 +138,8 @@ def preprocess_pil_pair(
     image_size: int,
     device: torch.device,
 ) -> torch.Tensor:
-    img = image.convert("RGB").resize((image_size, image_size), Image.BILINEAR)
-    mask_img = mask.convert("L").resize((image_size, image_size), Image.BILINEAR)
+    img = image.convert("RGB").resize((image_size, image_size), Image.Resampling.BILINEAR)
+    mask_img = mask.convert("L").resize((image_size, image_size), Image.Resampling.BILINEAR)
 
     rgb = torch.tensor(list(img.getdata()), dtype=torch.float32).view(image_size, image_size, 3) / 255.0
     alpha = torch.tensor(list(mask_img.getdata()), dtype=torch.float32).view(image_size, image_size, 1) / 255.0

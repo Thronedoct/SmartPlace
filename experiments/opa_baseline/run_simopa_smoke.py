@@ -63,8 +63,8 @@ def main() -> None:
 
 
 def preprocess_image_mask(image: str, mask: str, image_size: int, device: torch.device) -> torch.Tensor:
-    img = Image.open(image).convert("RGB").resize((image_size, image_size), Image.BILINEAR)
-    mask_img = Image.open(mask).convert("L").resize((image_size, image_size), Image.BILINEAR)
+    img = Image.open(image).convert("RGB").resize((image_size, image_size), Image.Resampling.BILINEAR)
+    mask_img = Image.open(mask).convert("L").resize((image_size, image_size), Image.Resampling.BILINEAR)
 
     rgb = torch.tensor(list(img.getdata()), dtype=torch.float32).view(image_size, image_size, 3) / 255.0
     alpha = torch.tensor(list(mask_img.getdata()), dtype=torch.float32).view(image_size, image_size, 1) / 255.0

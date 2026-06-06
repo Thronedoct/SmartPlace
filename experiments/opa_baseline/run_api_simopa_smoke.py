@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+from typing import BinaryIO
 import urllib.request
 
 
@@ -33,18 +34,15 @@ def main() -> None:
 
     output_log = ROOT_DIR / "server.api-smoke.out.log"
     error_log = ROOT_DIR / "server.api-smoke.err.log"
-    process = start_server(output_log, error_log)
+    process, stdout, stderr = start_server(output_log, error_log)
     try:
         health = wait_for_health()
         payload = post_recommendation()
         write_outputs(health, payload, output_log, error_log)
     finally:
-        process.terminate()
-        try:
-            process.wait(timeout=10)
-        except subprocess.TimeoutExpired:
-            process.kill()
-            process.wait(timeout=10)
+        stop_server(process)
+        stdout.close()
+        stderr.close()
 
 
 def ensure_inputs() -> None:
@@ -54,10 +52,12 @@ def ensure_inputs() -> None:
         raise FileNotFoundError(f"Missing required smoke input:\n{formatted}")
 
 
-def start_server(output_log: Path, error_log: Path) -> subprocess.Popen:
+def start_server(output_log: Path, error_log: Path) -> tuple[subprocess.Popen, BinaryIO, BinaryIO]:
     env = normalized_environment()
-    with output_log.open("wb") as stdout, error_log.open("wb") as stderr:
-        return subprocess.Popen(
+    stdout = output_log.open("wb")
+    stderr = error_log.open("wb")
+    try:
+        process = subprocess.Popen(
             [
                 sys.executable,
                 "-m",
@@ -73,6 +73,20 @@ def start_server(output_log: Path, error_log: Path) -> subprocess.Popen:
             stdout=stdout,
             stderr=stderr,
         )
+    except Exception:
+        stdout.close()
+        stderr.close()
+        raise
+    return process, stdout, stderr
+
+
+def stop_server(process: subprocess.Popen) -> None:
+    process.terminate()
+    try:
+        process.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait(timeout=10)
 
 
 def normalized_environment() -> dict[str, str]:

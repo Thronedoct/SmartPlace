@@ -1,4 +1,4 @@
 case_id,rank,score,tier,x,y,w,h,model_version,runtime_ms,image_width,image_height
-opa_test_001,1,0.998,recommended,0.42,0.3,0.40958974358974365,0.49,simopa-rgb-mask-v1,3996,640,512
-opa_test_001,2,0.8495,recommended,0.5904102564102564,0.3,0.40958974358974365,0.49,simopa-rgb-mask-v1,3996,640,512
-opa_test_001,3,0.6471,acceptable,0.5904102564102564,0.12,0.40958974358974365,0.49,simopa-rgb-mask-v1,3996,640,512
+opa_test_001,1,0.998,recommended,0.42,0.3,0.40958974358974365,0.49,simopa-rgb-mask-v1,3821,640,512
+opa_test_001,2,0.8495,recommended,0.5904102564102564,0.3,0.40958974358974365,0.49,simopa-rgb-mask-v1,3821,640,512
+opa_test_001,3,0.6471,acceptable,0.5904102564102564,0.12,0.40958974358974365,0.49,simopa-rgb-mask-v1,3821,640,512
