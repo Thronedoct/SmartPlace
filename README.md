@@ -6,7 +6,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 
 ## 当前阶段
 
-目前已经完成 Web 工作台、FastAPI 后端、OPA/SimOPA 真实模型接入和主要模型证据。FastAPI 推荐接口可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3；18 组候选排序、RGB/mask ablation、分数校准、IoU 去重、代表案例和遮挡解释实验已经写入 `report/`。下一阶段升级为高标准工程线：补齐运行耗时表和模型改动说明表，扩展到 50/100 组评测，增加 Web 导出、内置样例、可信度提示、轻量推理/轻量 scorer 对比和鲁棒性 ablation。最终报告、PPT 和录屏由队友基于这些证据整理。
+目前已经完成 Web 工作台、FastAPI 后端、OPA/SimOPA 真实模型接入和主要模型证据。FastAPI 推荐接口可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3；18 组候选排序、RGB/mask ablation、分数校准、IoU 去重、代表案例和遮挡解释实验已经写入 `report/`。下一阶段升级为高标准工程线：补齐运行耗时表和模型改动说明表，扩展到 50/100 组评测，增加 Web 导出、内置样例、可信度提示、前端美化、轻量推理/轻量 scorer 对比和鲁棒性 ablation。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 - `web/`：当前主线前端，负责图片输入、参数控制、Top 3 候选展示和演示截图。
 - `server/`：后端推理服务，支持 mock scorer 和 SimOPA 真实 scorer。
