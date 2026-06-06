@@ -196,3 +196,28 @@ Current cases:
 - `opa_test_006`: dedup success.
 - `opa_test_052`: negative false-positive risk.
 - `opa_test_059`: clear negative rejection.
+
+## Occlusion Explainability
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_occlusion_explainability.py
+```
+
+This runs a 6x6 RGB occlusion sensitivity test on the five representative cases. The foreground mask is kept fixed while image cells are occluded, so the output explains which visual regions most affect the SimOPA score.
+
+Outputs:
+
+```text
+report/logs/occlusion_explainability_v1.txt
+report/tables/occlusion_explainability_v1.csv
+report/screenshots/explainability/
+```
+
+Current result:
+
+- 5 representative cases.
+- Mean max score drop: `0.5472`.
+- `opa_test_001`, `opa_test_002`, and `opa_test_052` show strong localized sensitivity.
+- `opa_test_059` stays at score `0.0`, supporting the clear rejection case.
