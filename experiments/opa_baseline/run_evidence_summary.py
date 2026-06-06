@@ -69,6 +69,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     robustness_rows = read_csv(TABLE_DIR / "robustness_ablation.csv")
     lite_rows = read_csv(TABLE_DIR / "lite_mode_comparison.csv")
     worker_rows = read_csv(TABLE_DIR / "persistent_worker_comparison.csv")
+    lightopa_rows = read_csv(TABLE_DIR / "lightopa_tiny_metrics.csv")
 
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
@@ -82,6 +83,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     robustness_log = parse_key_value_log(LOG_DIR / "robustness_ablation.txt")
     lite_log = parse_key_value_log(LOG_DIR / "lite_mode_comparison.txt")
     worker_log = parse_key_value_log(LOG_DIR / "persistent_worker_comparison.txt")
+    lightopa_log = parse_key_value_log(LOG_DIR / "lightopa_tiny_training.txt")
 
     calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
 
@@ -281,6 +283,26 @@ def build_runtime_rows() -> list[dict[str, object]]:
             runtime_source="candidate_ranking_v2_100.txt plus per-candidate runtime_ms",
             notes="Expanded worker-backed validation with 50 positive and 50 negative OPA cases.",
         ),
+        runtime_row(
+            stage_id="R014",
+            stage_name="Tiny LightOPA validation inference",
+            mode="lightopa-tiny",
+            model_version=first_value(lightopa_rows, "model_name", "tiny-lightopa-cnn-v1"),
+            device=lightopa_log.get("device", first_value(lightopa_rows, "device", "cuda:0")),
+            source_artifact="report/tables/lightopa_tiny_metrics.csv",
+            cases=int_value(lightopa_log.get("val_count"), 500),
+            candidate_rows=int_value(lightopa_log.get("val_count"), 500),
+            score_calls=int_value(lightopa_log.get("val_count"), 500),
+            elapsed_seconds=float_value(lightopa_log.get("avg_inference_ms_per_sample"))
+            * int_value(lightopa_log.get("val_count"), 500)
+            / 1000.0,
+            inner_runtimes_ms=[float_value(lightopa_log.get("avg_inference_ms_per_sample"))],
+            runtime_source="lightopa_tiny_training.txt avg_inference_ms_per_sample",
+            notes=(
+                "Tiny 4-channel CNN validation inference; training elapsed_seconds="
+                f"{lightopa_log.get('elapsed_seconds', '')}."
+            ),
+        ),
     ]
     return rows
 
@@ -467,6 +489,18 @@ def build_change_rows() -> list[dict[str, str]]:
             "Cuts 50-case full ranking time from 168.6s to 23.4s while keeping Top 1, Top 3, and assessment identical.",
             "Worker mode is local-process serving; production concurrency still needs queueing and lifecycle hardening.",
             "Use simopa-worker for live demo once startup is complete.",
+        ),
+        change_row(
+            "C013",
+            "Tiny LightOPA baseline",
+            "lightweight model exploration",
+            "Train a small 4-channel CNN on an OPA subset using composite RGB plus foreground mask.",
+            "experiments/lightopa/train_lightopa_tiny.py",
+            "report/tables/lightopa_tiny_metrics.csv; report/logs/lightopa_tiny_training.txt",
+            "completed",
+            "Adds a real trained lightweight-model baseline and removes ambiguity between lite serving mode and model-level lightweighting.",
+            "The tiny model is an exploratory baseline with modest accuracy, not a replacement for SimOPA.",
+            "If needed, scale this track to a stronger ResNet18/MobileNet LightOPA model.",
         ),
     ]
 

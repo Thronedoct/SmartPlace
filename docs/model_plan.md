@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组、50 组和 100 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、subprocess vs persistent worker 对比、运行耗时表和模型改动说明表。时间充裕后，下一阶段可以尝试 LightOPA 真轻量模型。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组、50 组和 100 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、`simopa-full` vs `simopa-lite` 对比、subprocess vs persistent worker 对比、LightOPA tiny 轻量模型探索、运行耗时表和模型改动说明表。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -48,8 +48,9 @@ OPA/libcom baseline
 | 鲁棒性 ablation | 可靠性/解释补强 | `report/tables/robustness_ablation.csv`、`report/logs/robustness_ablation.txt` |
 | `simopa-lite` 候选预算模式 | 轻量推理/工程对比 | `report/tables/lite_mode_comparison.csv`、`report/logs/lite_mode_comparison.txt` |
 | 常驻 SimOPA worker | 推理服务优化 | `report/tables/persistent_worker_comparison.csv`、`report/logs/persistent_worker_comparison.txt` |
+| LightOPA tiny baseline | 轻量模型探索/本体类补强 | `experiments/lightopa/train_lightopa_tiny.py`、`report/tables/lightopa_tiny_metrics.csv` |
 
-如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
+如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：主线 SimOPA 没有替换 backbone；另外我们补做了一个 4 通道 tiny LightOPA 小模型，作为真实训练过的轻量 baseline 和本体类补强证据，但它的质量不替代 SimOPA worker。
 
 ## 高标准补强计划
 
@@ -65,8 +66,9 @@ OPA/libcom baseline
 1. **`simopa-full`**：当前真实 SimOPA scorer，作为质量优先模式。
 2. **`simopa-lite`**：轻量应用模式，使用较小候选预算评估同一 SimOPA 权重，强调速度/质量取舍，不宣称是新网络。
 3. **`simopa-worker`**：常驻 SimOPA JSONL worker，模型只加载一次，解决子进程重复加载瓶颈。
-4. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
-4. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
+4. **`tiny-lightopa-cnn-v1`**：已训练一个 4 通道小 CNN baseline，输入为 composite RGB + foreground mask，在 2,000/500 OPA 小子集上达到验证准确率 `0.65`、ROC-AUC `0.6761`、平均验证推理 `12.36ms/sample`。
+5. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果继续加码，基于 tiny baseline 的脚本升级到更强轻量 backbone，比较准确性、排序质量和推理耗时。
+6. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
 
 暂不做：
 
@@ -127,9 +129,9 @@ Android 端接入
 
 ### V5 轻量模型版
 
-- 已实现 `simopa-full` 与 `simopa-lite` 对比，也已实现 subprocess 与 persistent worker 对比；可选继续做 `lightopa-resnet18` / `lightopa-mobilenet`。
+- 已实现 `simopa-full` 与 `simopa-lite` 对比，也已实现 subprocess 与 persistent worker 对比；并补做了 `tiny-lightopa-cnn-v1` 小模型训练。
 - `simopa-lite` 作为轻量应用模式，默认 Top 3 场景减少候选评分次数。
-- 如果时间允许，训练一个 OPA 小子集轻量 scorer，使用 composite + mask 作为输入，输出 0-1 合理性分数。
+- `tiny-lightopa-cnn-v1` 使用 composite + mask 作为 4 通道输入，输出 0-1 合理性分数；当前定位是轻量 baseline 探索，不替代主线 SimOPA。
 - 比较准确性、Top 3 排序、失败案例和推理耗时。当前 `simopa-lite` 50 组对比显示评分调用减少 `46.15%`，Top 1 一致 `45/50`，assessment 一致 `50/50`，但端到端加速只有约 `1.02x`；`simopa-worker` 进一步把同样 50 组 full ranking 从 `168.6s` 降到 `23.4s`，Top 1、Top 3 和 assessment 全一致，证明主要瓶颈是模型重复加载。
 
 目标：让前端可以选择质量优先或速度优先模式，同时补强“轻量化”和“模型本体改动”的答辩证据。
@@ -156,7 +158,7 @@ Android 端接入
 | C. 评分输出校准与三档标签 | 输出类改动 | 将模型 softmax/logit 分数校准成 0-1 分数，并映射为推荐、可接受、不推荐。 | 2 | 3 | 推荐，配合 A/B 做 |
 | D. Grad-CAM 或遮挡实验解释 | 解释类改动 | 为推荐/失败案例生成热力图或遮挡敏感性图，说明模型关注区域。 | 3 | 4 | 推荐，作为进阶亮点 |
 | E. 轻量推理/候选评估模式 | 工程与模型后处理 | 提供 `simopa-full` 与 `simopa-lite` 对比，减少候选数或复用轻量后处理，并记录耗时和排序变化。 | 2 | 3 | 推荐，先做 |
-| F. LightOPA 轻量 scorer | 本体类/轻量化 | 使用 ResNet18 或 MobileNetV3 适配 composite + mask 输入，在 OPA 小子集上训练或微调，并比较准确性、排序和耗时。 | 3 | 4 | 推荐，时间充裕时做 |
+| F. LightOPA 轻量 scorer | 本体类/轻量化 | 已完成 tiny 4 通道 CNN baseline；后续可升级 ResNet18 或 MobileNetV3 并比较准确性、排序和耗时。 | 3 | 4 | tiny 版已完成，升级版可选 |
 | G. 鲁棒性 ablation | 解释/可靠性 | 测试 mask 膨胀/腐蚀、候选平移、尺度扰动对分数和排序的影响。 | 2 | 4 | 推荐，证据丰富且风险低 |
 | H. FOPAHeatMapModel 替代规则候选生成 | 功能类/进阶 | 使用 libcom 的 FOPA 热力图预测背景-前景对的合理区域，再返回 Top 3。 | 4 | 4 | 中等推荐，作为附录对比 |
 | I. TopNet 接入候选生成 | 功能类/进阶 | 使用 TopNet 预测候选位置或尺度，替换规则网格候选。 | 5 | 4 | 谨慎推荐，依赖和权重风险较高 |
@@ -312,7 +314,7 @@ report/tables/rgb_vs_mask_comparison.csv
 
 ### 第 6 步：运行耗时、扩展评测、轻量模式与 worker 优化
 
-当前已经补齐运行耗时、100 组扩展评测、`simopa-lite` 候选预算对比和 `simopa-worker` 常驻模型 worker 对比。训练不做大规模主线，但如果时间继续充裕，可以做一个小子集 LightOPA scorer 作为高标准补强。
+当前已经补齐运行耗时、100 组扩展评测、`simopa-lite` 候选预算对比、`simopa-worker` 常驻模型 worker 对比和 `tiny-lightopa-cnn-v1` 小子集轻量模型探索。训练不做大规模主线；如继续加码，可以把 tiny LightOPA 升级到 ResNet18/MobileNetV3 级别。
 
 建议：
 
@@ -321,7 +323,7 @@ report/tables/rgb_vs_mask_comparison.csv
 - 候选排序评测已从 18 组扩展到 50 组和 100 组。
 - 第一版 `simopa-lite` 已通过减少候选数实现，不宣称训练新网络。
 - `simopa-worker` 已通过常驻模型进程证明加载开销是主要瓶颈。
-- 下一版可尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
+- `tiny-lightopa-cnn-v1` 已完成小子集训练和验证，下一版可尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`。
 - 增加 mask 膨胀/腐蚀、候选平移、尺度扰动等鲁棒性实验。
 
 输出：
@@ -336,6 +338,7 @@ report/tables/opa_100_case_summary.csv
 report/tables/robustness_ablation.csv
 report/tables/lite_mode_comparison.csv
 report/tables/persistent_worker_comparison.csv
+report/tables/lightopa_tiny_metrics.csv
 ```
 
 ## 本地推理与训练可行性
@@ -351,7 +354,7 @@ CPU 推理也可作为兜底，但耗时更高
 结论：
 
 - 当前硬件已经足够 OPA/SimOPA baseline 推理、候选排序、RGB/mask ablation、校准和遮挡解释。
-- 轻量模式先比较候选数量、后处理和推理耗时；时间充裕时再训练 LightOPA 级别的小模型。
+- 轻量模式已比较候选数量、后处理和推理耗时；LightOPA tiny 小模型也已完成，后续只需在想继续加码时升级 backbone。
 - 即使 GPU 充足，也不建议从零训练新模型或把 TopNet 训练作为主线。
 
 适合本地训练/推理：
@@ -362,8 +365,8 @@ CPU 推理也可作为兜底，但耗时更高
 | RGB/mask ablation | 可小规模 | 很适合 | 已完成 |
 | 分数校准与 IoU 去重 | 适合 | 很适合 | 已完成 |
 | 遮挡解释 | 较慢 | 很适合 | 已完成 |
-| 轻量推理/候选评估模式 | 适合 | 很适合 | 下一步 |
-| LightOPA 小子集训练/微调 | 较慢 | 可尝试 | 高标准补强 |
+| 轻量推理/候选评估模式 | 适合 | 很适合 | 已完成 |
+| LightOPA 小子集训练/微调 | 较慢 | 可尝试 | tiny 版已完成 |
 | 鲁棒性 ablation | 适合 | 很适合 | 已完成 |
 | FOPAHeatMapModel 推理 | 较慢 | 可尝试 | 可选 |
 | TopNet 推理 | 风险较高 | 可尝试 | 可选 |
