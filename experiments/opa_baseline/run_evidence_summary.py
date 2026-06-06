@@ -65,6 +65,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     rgb_mask_rows = read_csv(TABLE_DIR / "rgb_vs_mask_comparison.csv")
     calibration_rows = read_csv(TABLE_DIR / "score_calibration_v1.csv")
     occlusion_rows = read_csv(TABLE_DIR / "occlusion_explainability_v1.csv")
+    robustness_rows = read_csv(TABLE_DIR / "robustness_ablation.csv")
 
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
@@ -73,6 +74,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     rgb_log = parse_key_value_log(LOG_DIR / "rgb_vs_mask_comparison.txt")
     calibration_log = parse_key_value_log(LOG_DIR / "score_calibration_v1.txt")
     occlusion_log = parse_key_value_log(LOG_DIR / "occlusion_explainability_v1.txt")
+    robustness_log = parse_key_value_log(LOG_DIR / "robustness_ablation.txt")
 
     calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
 
@@ -196,6 +198,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
             inner_runtimes_ms=numeric_column(ranking_50_rows, "runtime_ms"),
             runtime_source="candidate_ranking_v2_50.txt plus per-candidate runtime_ms",
             notes="Expanded validation with 25 positive and 25 negative OPA cases.",
+        ),
+        runtime_row(
+            stage_id="R009",
+            stage_name="robustness ablation",
+            mode="simopa-full",
+            model_version=robustness_log.get("model_version", "simopa-robustness-v1"),
+            device=robustness_log.get("device", "cuda:0"),
+            source_artifact="report/tables/robustness_ablation.csv",
+            cases=int_value(robustness_log.get("cases"), count_unique(robustness_rows, "case_id")),
+            candidate_rows=len(robustness_rows),
+            score_calls=int_value(robustness_log.get("score_calls"), len(robustness_rows)),
+            elapsed_seconds=float_value(robustness_log.get("elapsed_seconds")),
+            inner_runtimes_ms=[],
+            runtime_source="robustness_ablation.txt",
+            notes="Perturbs mask shape, candidate position, and candidate scale on five representative cases.",
         ),
     ]
     return rows
@@ -365,12 +382,12 @@ def build_change_rows() -> list[dict[str, str]]:
             "Robustness ablation",
             "reliability",
             "Perturb mask shape, candidate position, and candidate scale to test score stability.",
-            "planned: experiments/robustness/",
-            "planned: report/tables/robustness_ablation.csv",
-            "planned_next",
+            "experiments/opa_baseline/run_robustness_ablation.py",
+            "report/tables/robustness_ablation.csv; report/logs/robustness_ablation.txt",
+            "completed",
             "Adds high-standard reliability evidence without replacing the main model.",
-            "Requires careful case selection so results are interpretable.",
-            "Run after runtime evidence and Web demo basics.",
+            "Current evidence is five representative cases, not a large statistical benchmark.",
+            "Optionally repeat on the 50-case split if runtime budget allows.",
         ),
     ]
 

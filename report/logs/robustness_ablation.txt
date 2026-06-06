@@ -1,0 +1,19 @@
+SmartPlace robustness ablation
+model_version=simopa-robustness-v1
+device=cuda:0
+cases=5
+rows=45
+score_calls=45
+elapsed_seconds=1.5
+mean_abs_delta=0.0820
+max_abs_delta=0.9455
+tier_changed_rows=5
+high_delta_ge_0.20_rows=5
+group_mask_mean_abs_delta=0.0812
+group_shift_mean_abs_delta=0.0816
+group_scale_mean_abs_delta=0.0834
+case opa_test_001 type=success_with_duplicate_cleanup candidate=opa_position baseline=0.9985 max_variant=shift_left_0.03 max_abs_delta=0.9455 variant_score=0.053 tier_changes=4
+case opa_test_002 type=score_saturation_boundary candidate=opa_position baseline=0.9987 max_variant=scale_up_0.10 max_abs_delta=0.0129 variant_score=0.9858 tier_changes=0
+case opa_test_006 type=dedup_success candidate=opa_position baseline=1.0 max_variant=mask_erode_7 max_abs_delta=0.0 variant_score=1.0 tier_changes=0
+case opa_test_052 type=negative_false_positive_risk candidate=prior_10 baseline=0.9756 max_variant=mask_dilate_7 max_abs_delta=0.4625 variant_score=0.5132 tier_changes=1
+case opa_test_059 type=clear_negative_rejection candidate=opa_position baseline=0.0 max_variant=shift_down_0.03 max_abs_delta=0.0001 variant_score=0.0001 tier_changes=0

@@ -4,7 +4,7 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、运行耗时表和模型改动说明表。时间充裕后，下一阶段升级为高标准模型工程线：扩大验证规模、轻量推理/轻量 scorer 对比、鲁棒性 ablation，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
+当前模型侧已完成 SimOPA baseline、18 组和 50 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图、遮挡解释实验、鲁棒性 ablation、运行耗时表和模型改动说明表。时间充裕后，下一阶段升级为高标准模型工程线：轻量推理/轻量 scorer 对比，可选继续扩大到 100 组评测，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
@@ -45,6 +45,7 @@ OPA/libcom baseline
 | 0-1 分数与三档标签 | 输出适配 | `server/recommender.py`、API 返回字段 |
 | 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
 | 遮挡热力图 | 模型解释进阶 | `report/tables/occlusion_explainability_v1.csv`、`report/screenshots/explainability/` |
+| 鲁棒性 ablation | 可靠性/解释补强 | `report/tables/robustness_ablation.csv`、`report/logs/robustness_ablation.txt` |
 
 如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
 
@@ -55,7 +56,7 @@ OPA/libcom baseline
 1. 扩大候选排序评测：50 组已完成；如还需要更强统计证据，可继续扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
 2. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
 3. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
-4. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
+4. 鲁棒性 ablation：已在 5 个代表案例上完成 mask 膨胀/腐蚀、候选平移、尺度扰动实验，输出 `robustness_ablation.csv`。
 
 轻量化路线：
 
@@ -326,8 +327,8 @@ report/tables/inference_runtime.csv
 report/tables/model_change_summary.csv
 report/tables/candidate_ranking_v2_50.csv
 report/tables/opa_50_case_summary.csv
-report/tables/lite_mode_comparison.csv
 report/tables/robustness_ablation.csv
+report/tables/lite_mode_comparison.csv
 ```
 
 ## 本地推理与训练可行性
@@ -356,7 +357,7 @@ CPU 推理也可作为兜底，但耗时更高
 | 遮挡解释 | 较慢 | 很适合 | 已完成 |
 | 轻量推理/候选评估模式 | 适合 | 很适合 | 下一步 |
 | LightOPA 小子集训练/微调 | 较慢 | 可尝试 | 高标准补强 |
-| 鲁棒性 ablation | 适合 | 很适合 | 高标准补强 |
+| 鲁棒性 ablation | 适合 | 很适合 | 已完成 |
 | FOPAHeatMapModel 推理 | 较慢 | 可尝试 | 可选 |
 | TopNet 推理 | 风险较高 | 可尝试 | 可选 |
 | TopNet 训练 | 不推荐 | 谨慎尝试 | 暂不做 |
@@ -433,9 +434,8 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 
 | 任务 | 负责人 | 输出物 |
 |---|---|---|
-| 扩展候选排序评测 | 成员 A、B | `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` |
 | 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
-| 鲁棒性 ablation | 成员 A | `robustness_ablation.csv` |
+| 可选 100 组候选排序评测 | 成员 A、B | `candidate_ranking_v2_100.csv` |
 | Web 展示模型证据与导出结果 | 成员 B、C | `request_id`、`model_version`、`runtime_ms`、JSON/CSV 导出 |
 | Web 内置代表案例 | 成员 C | 成功、边界、负例、拒绝案例一键加载 |
 | 可信度/失败提示 | 成员 A、B、C | 分数饱和、候选重叠、低可信等提示规则 |

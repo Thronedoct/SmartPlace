@@ -44,7 +44,8 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 - 分数校准和 IoU 去重已完成：温度缩放后生成 `score_calibration_v1.csv`，IoU 去重移除 11 条重复候选；`opa_test_002` 保留为分数饱和边界案例。
 - 代表案例图已完成：5 组成功/边界/负例案例写入 `failure_cases.csv`，案例图位于 `report/screenshots/cases/`。
 - 遮挡解释实验已完成：5 组代表案例生成 `occlusion_explainability_v1.csv` 和热力图，平均最大分数下降为 `0.5472`。
-- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 8 个运行阶段，`model_change_summary.csv` 汇总 9 个已完成改动和 2 个 planned_next 项。
+- 鲁棒性 ablation 已完成：5 个代表案例、45 次扰动评分；平均绝对分数变化 `0.0820`，5 条扰动造成三档标签变化。
+- 运行耗时表和模型改动说明表已完成：`inference_runtime.csv` 汇总 9 个运行阶段，`model_change_summary.csv` 汇总 10 个已完成改动和 1 个 planned_next 项。
 - Web 工作台已支持内置案例加载、当前结果 JSON/CSV 导出、可信度/失败提示、解释热力图入口、前端美化和课堂演示模式。
 
 当前候选排序结论：
@@ -63,7 +64,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 3. **模型本体类改动**：RGB/mask 对比或 mask ablation，证明 mask 对评分有影响。
 4. **分数可信度**：分数校准、候选去重、三档标签阈值说明。
 5. **案例展示**：3-5 组 Web 截图，包含成功、拒绝、失败/边界案例。
-6. **解释性加分**：遮挡实验或 Grad-CAM。
+6. **解释性和可靠性加分**：遮挡实验、热力图和鲁棒性扰动分析。
 
 不作为当前主线：
 
@@ -84,9 +85,8 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 模型侧升级顺序：
 
-3. **扩大验证规模**：从 18 组代表案例扩展到 50 或 100 组候选排序评测，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`，让结果不只依赖少量案例。
-4. **轻量推理对比**：增加 `simopa-full` 与轻量模式对比。轻量模式第一版可减少候选数或复用轻量后处理；如果时间允许，再训练或适配一个 ResNet18/MobileNetV3 级别的轻量 scorer，输出耗时、排序和失败案例对比。
-5. **鲁棒性 ablation**：在已有 object/bbox/blank mask 对比基础上，增加 mask 膨胀/腐蚀、尺度扰动、候选平移扰动等实验，输出 `robustness_ablation.csv`。
+3. **轻量推理对比**：增加 `simopa-full` 与轻量模式对比。轻量模式第一版可减少候选数或复用轻量后处理；如果时间允许，再训练或适配一个 ResNet18/MobileNetV3 级别的轻量 scorer，输出耗时、排序和失败案例对比。
+4. **可选扩大验证规模**：50 组候选排序已经完成；如还需要更强统计证据，再扩展到 100 组并输出 `candidate_ranking_v2_100.csv`。
 
 交付材料分工：
 
@@ -118,6 +118,8 @@ report/logs/occlusion_explainability_v1.txt
 report/logs/evidence_summary.txt
 report/tables/failure_cases.csv
 report/tables/occlusion_explainability_v1.csv
+report/logs/robustness_ablation.txt
+report/tables/robustness_ablation.csv
 report/screenshots/cases/
 report/screenshots/explainability/
 ```
@@ -127,7 +129,6 @@ report/screenshots/explainability/
 ```text
 report/tables/candidate_ranking_v2_100.csv
 report/tables/lite_mode_comparison.csv
-report/tables/robustness_ablation.csv
 report/videos/
 ```
 
