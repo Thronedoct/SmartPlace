@@ -66,6 +66,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     calibration_rows = read_csv(TABLE_DIR / "score_calibration_v1.csv")
     occlusion_rows = read_csv(TABLE_DIR / "occlusion_explainability_v1.csv")
     robustness_rows = read_csv(TABLE_DIR / "robustness_ablation.csv")
+    lite_rows = read_csv(TABLE_DIR / "lite_mode_comparison.csv")
 
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
@@ -75,6 +76,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     calibration_log = parse_key_value_log(LOG_DIR / "score_calibration_v1.txt")
     occlusion_log = parse_key_value_log(LOG_DIR / "occlusion_explainability_v1.txt")
     robustness_log = parse_key_value_log(LOG_DIR / "robustness_ablation.txt")
+    lite_log = parse_key_value_log(LOG_DIR / "lite_mode_comparison.txt")
 
     calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
 
@@ -213,6 +215,21 @@ def build_runtime_rows() -> list[dict[str, object]]:
             inner_runtimes_ms=[],
             runtime_source="robustness_ablation.txt",
             notes="Perturbs mask shape, candidate position, and candidate scale on five representative cases.",
+        ),
+        runtime_row(
+            stage_id="R010",
+            stage_name="SimOPA full-vs-lite comparison",
+            mode="simopa-lite",
+            model_version=lite_log.get("model_version", "simopa-lite-candidate-budget-v1"),
+            device="cuda:0",
+            source_artifact="report/tables/lite_mode_comparison.csv",
+            cases=int_value(lite_log.get("cases"), len(lite_rows)),
+            candidate_rows=sum_int_column(lite_rows, "lite_candidate_count"),
+            score_calls=int_value(lite_log.get("lite_score_calls"), sum_int_column(lite_rows, "lite_candidate_count")),
+            elapsed_seconds=float_value(lite_log.get("lite_elapsed_seconds")),
+            inner_runtimes_ms=[],
+            runtime_source="lite_mode_comparison.txt",
+            notes="Compares full 13-candidate SimOPA ranking with a reduced candidate-budget lite mode.",
         ),
     ]
     return rows
@@ -369,13 +386,13 @@ def build_change_rows() -> list[dict[str, str]]:
             "C010",
             "Lightweight inference track",
             "lightweight model/serving",
-            "Compare simopa-full, simopa-lite, and optional LightOPA ResNet18/MobileNet scorer.",
-            "planned: server/scorer.py; experiments/opa_lightweight/",
-            "planned: report/tables/lite_mode_comparison.csv",
-            "planned_next",
-            "Adds a speed/quality trade-off story and reduces model-change wording risk.",
-            "True lightweight scorer requires training or adaptation work.",
-            "Start with simopa-lite candidate-count reduction, then train LightOPA if time allows.",
+            "Compare simopa-full with simopa-lite, a candidate-budget mode that scores fewer placements.",
+            "server/scorer.py; server/recommender.py; web/index.html; experiments/opa_baseline/run_lite_mode_comparison.py",
+            "report/tables/lite_mode_comparison.csv; report/logs/lite_mode_comparison.txt",
+            "completed",
+            "Adds a speed/quality trade-off story without claiming a newly trained lightweight network.",
+            "Lite mode reduces candidate evaluations; it is not a separate trained backbone.",
+            "Optionally train LightOPA ResNet18/MobileNet if a true lightweight network is needed.",
         ),
         change_row(
             "C011",
@@ -505,6 +522,10 @@ def first_value(rows: list[dict[str, str]], key: str, fallback: str) -> str:
 
 def count_unique(rows: list[dict[str, str]], key: str) -> int:
     return len({row[key] for row in rows if row.get(key)})
+
+
+def sum_int_column(rows: list[dict[str, str]], key: str) -> int:
+    return sum(int_value(row.get(key), 0) for row in rows)
 
 
 def float_value(value: object, fallback: float = 0.0) -> float:

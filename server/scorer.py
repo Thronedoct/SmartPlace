@@ -10,9 +10,10 @@ import time
 
 
 DEFAULT_SCORER_MODE = os.getenv("SMARTPLACE_SCORER", "mock").strip().lower() or "mock"
-SUPPORTED_SCORER_MODES = {"mock", "simopa"}
+SUPPORTED_SCORER_MODES = {"mock", "simopa", "simopa-lite"}
 ROOT_DIR = Path(__file__).resolve().parents[1]
 SIMOPA_MODEL_VERSION = "simopa-rgb-mask-v1"
+SIMOPA_LITE_MODEL_VERSION = "simopa-lite-candidate-budget-v1"
 SIMOPA_SCRIPT = ROOT_DIR / "experiments" / "opa_baseline" / "score_candidates.py"
 SIMOPA_WEIGHT = (
     ROOT_DIR
@@ -41,12 +42,12 @@ class ScoreResult:
 
 def get_scorer_status(mode: str | None = None) -> dict[str, str]:
     selected_mode = resolve_scorer_mode(mode)
-    if selected_mode == "simopa":
+    if is_simopa_mode(selected_mode):
         ready = MODEL_PYTHON.exists() and SIMOPA_SCRIPT.exists() and SIMOPA_WEIGHT.exists()
         return {
             "mode": selected_mode,
             "status": "ready" if ready else "unavailable",
-            "model_version": SIMOPA_MODEL_VERSION,
+            "model_version": simopa_model_version(selected_mode),
         }
 
     return {
@@ -104,6 +105,7 @@ def score_candidate_boxes(
         foreground_bytes=foreground_bytes,
         mask_bytes=mask_bytes,
         candidates=candidates,
+        mode=selected_mode,
     )
 
 
@@ -144,6 +146,16 @@ def resolve_scorer_mode(mode: str | None = None) -> str:
     return selected_mode
 
 
+def is_simopa_mode(mode: str) -> bool:
+    return mode in {"simopa", "simopa-lite"}
+
+
+def simopa_model_version(mode: str) -> str:
+    if mode == "simopa-lite":
+        return SIMOPA_LITE_MODEL_VERSION
+    return SIMOPA_MODEL_VERSION
+
+
 def clamp_score(value: float) -> float:
     return min(1.0, max(0.0, float(value)))
 
@@ -154,8 +166,10 @@ def score_candidates_with_simopa(
     foreground_bytes: bytes,
     mask_bytes: bytes | None,
     candidates: list[dict],
+    mode: str = "simopa",
 ) -> list[ScoreResult]:
-    status = get_scorer_status("simopa")
+    selected_mode = resolve_scorer_mode(mode)
+    status = get_scorer_status(selected_mode)
     if status["status"] != "ready":
         raise RuntimeError(
             "SimOPA scorer is not ready. Expected study python, score script, and simopa.pth weight."
@@ -224,9 +238,9 @@ def score_candidates_with_simopa(
             results.append(
                 ScoreResult(
                     score=clamp_score(score_payload["score"]),
-                    model_version=payload.get("model_version", SIMOPA_MODEL_VERSION),
+                    model_version=simopa_model_version(selected_mode),
                     runtime_ms=score_payload.get("runtime_ms", total_runtime_ms),
-                    mode="simopa",
+                    mode=selected_mode,
                 )
             )
         return results

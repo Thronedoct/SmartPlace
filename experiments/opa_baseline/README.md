@@ -280,6 +280,33 @@ Current result:
 - `opa_test_002` remains high under small perturbations, supporting the score-saturation boundary analysis.
 - `opa_test_059` remains near `0.0`, supporting the clear rejection case.
 
+## Lite Mode Comparison
+
+Run:
+
+```powershell
+& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_lite_mode_comparison.py
+```
+
+This compares the existing 50-case `simopa-full` evidence with a real `simopa-lite` run. Lite mode uses the same SimOPA checkpoint, but scores a smaller candidate budget, so it is an application-level inference mode rather than a newly trained lightweight network.
+
+Outputs:
+
+```text
+report/logs/lite_mode_comparison.txt
+report/tables/lite_mode_comparison.csv
+```
+
+Current result:
+
+- 50 cases.
+- Full score calls: `650`; lite score calls: `350`.
+- Score-call reduction: `46.15%`.
+- Top 1 matches: `45/50`.
+- Mean Top 3 overlap ratio: `0.8800`.
+- Assessment matches: `50/50`.
+- End-to-end speedup: about `1.02x`, showing that subprocess model loading dominates current runtime.
+
 ## Evidence Summary
 
 Run:
@@ -300,5 +327,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 9 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, and robustness ablation.
-- 11 model-change rows: 10 completed evidence items and 1 planned high-standard upgrade.
+- 10 runtime rows covering mock, SimOPA smoke, FastAPI smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, and full-vs-lite comparison.
+- 11 model-change rows: all 11 evidence items completed.

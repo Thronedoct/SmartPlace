@@ -2,7 +2,7 @@
 
 本目录是 SmartPlace 的本地/局域网推理服务。
 
-当前 FastAPI 服务支持 mock 和 SimOPA 两种 scorer：mock 用于 Web 联调，SimOPA 用于真实 OPA/SimOPA 候选评分排序。
+当前 FastAPI 服务支持 mock、SimOPA 和 SimOPA Lite 三种 scorer：mock 用于 Web 联调，SimOPA 用于真实 OPA/SimOPA 候选评分排序，SimOPA Lite 使用较小候选预算做速度优先的现场演示模式。
 
 推荐逻辑位于 `recommender.py`，scorer 边界位于 `scorer.py`。响应字段必须保持兼容 `../docs/API.md`。
 
@@ -25,6 +25,15 @@ python -m uvicorn server.app:app --host 0.0.0.0 --port 8000
 
 ```powershell
 $env:SMARTPLACE_SCORER='simopa'
+$env:SMARTPLACE_MODEL_PYTHON='D:\DevTools\Anaconda\envs\study\python.exe'
+$env:SMARTPLACE_SIMOPA_DEVICE='auto'
+.\.venv\Scripts\python.exe -m uvicorn server.app:app --host 0.0.0.0 --port 8000
+```
+
+运行 SimOPA Lite 候选预算模式：
+
+```powershell
+$env:SMARTPLACE_SCORER='simopa-lite'
 $env:SMARTPLACE_MODEL_PYTHON='D:\DevTools\Anaconda\envs\study\python.exe'
 $env:SMARTPLACE_SIMOPA_DEVICE='auto'
 .\.venv\Scripts\python.exe -m uvicorn server.app:app --host 0.0.0.0 --port 8000

@@ -5,12 +5,13 @@ import time
 import uuid
 
 try:
-    from server.scorer import DEFAULT_SCORER_MODE, resolve_scorer_mode, score_candidate_boxes
+    from server.scorer import DEFAULT_SCORER_MODE, is_simopa_mode, resolve_scorer_mode, score_candidate_boxes
 except ModuleNotFoundError:
-    from scorer import DEFAULT_SCORER_MODE, resolve_scorer_mode, score_candidate_boxes
+    from scorer import DEFAULT_SCORER_MODE, is_simopa_mode, resolve_scorer_mode, score_candidate_boxes
 
 
 DEFAULT_MODEL_VERSION = "mock-v0"
+SIMOPA_LITE_MIN_CANDIDATE_BUDGET = 6
 
 
 def detect_image_size(data: bytes) -> tuple[int, int]:
@@ -53,7 +54,11 @@ def build_mock_recommendation(
         scale=scale,
         scorer_mode=selected_scorer_mode,
     )
-    candidates_to_score = candidate_boxes if selected_scorer_mode == "simopa" else candidate_boxes[:limit]
+    candidates_to_score = select_candidates_for_scoring(
+        candidate_boxes,
+        selected_scorer_mode,
+        limit,
+    )
     score_results = score_candidate_boxes(
         background_bytes=background_bytes,
         foreground_bytes=foreground_bytes,
@@ -63,7 +68,7 @@ def build_mock_recommendation(
     )
 
     scored_candidates = list(zip(candidates_to_score, score_results))
-    if selected_scorer_mode == "simopa":
+    if is_simopa_mode(selected_scorer_mode):
         scored_candidates.sort(key=lambda item: item[1].score, reverse=True)
 
     base_candidates = []
@@ -146,6 +151,15 @@ def build_candidate_pool(
     return candidate_pool
 
 
+def select_candidates_for_scoring(candidates: list[dict], scorer_mode: str, limit: int) -> list[dict]:
+    if scorer_mode == "simopa":
+        return candidates
+    if scorer_mode == "simopa-lite":
+        budget = min(len(candidates), max(limit, SIMOPA_LITE_MIN_CANDIDATE_BUDGET))
+        return candidates[:budget]
+    return candidates[:limit]
+
+
 def build_mock_candidate_templates(scale: float) -> list[dict]:
     candidate_templates = [
         (0.38, 0.58, 0.32, 0.86, "recommended", "\u63a8\u8350", "Mock: object is inside a stable support region."),
@@ -214,6 +228,8 @@ def score_to_tier(score: float) -> tuple[str, str]:
 def build_reason(mode: str, score: float, mock_reason: str) -> str:
     if mode == "mock":
         return mock_reason
+    if mode == "simopa-lite":
+        return f"SimOPA Lite: candidate scored {score:.2f} with a reduced candidate budget."
     return f"SimOPA: candidate scored {score:.2f} by RGB+mask placement assessment."
 
 

@@ -1,0 +1,65 @@
+SmartPlace SimOPA full-vs-lite comparison
+model_version=simopa-lite-candidate-budget-v1
+cases=50
+lite_budget=6
+full_score_calls=650
+lite_score_calls=350
+score_call_reduction_pct=46.15
+full_elapsed_seconds=168.6
+lite_elapsed_seconds=165.0
+speedup_factor=1.022
+top1_matches=45
+top1_match_rate=0.9000
+mean_top3_overlap_ratio=0.8800
+assessment_matches=50
+assessment_match_rate=1.0000
+case opa_test_001 top1_match=yes top3_overlap=2 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3417.04
+case opa_test_002 top1_match=yes top3_overlap=3 lite_assessment=review_positive_high_score_low_rank lite_elapsed_ms=3483.27
+case opa_test_003 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3283.67
+case opa_test_004 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3288.54
+case opa_test_005 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3375.24
+case opa_test_006 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3372.1
+case opa_test_007 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3213.87
+case opa_test_008 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3339.89
+case opa_test_009 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3401.03
+case opa_test_010 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3287.46
+case opa_test_011 top1_match=yes top3_overlap=2 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3326.83
+case opa_test_012 top1_match=yes top3_overlap=2 lite_assessment=review_positive_high_score_low_rank lite_elapsed_ms=3360.85
+case opa_test_013 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3339.42
+case opa_test_014 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3429.79
+case opa_test_015 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3473.4
+case opa_test_016 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3391.08
+case opa_test_017 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3388.01
+case opa_test_018 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3344.35
+case opa_test_019 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3404.37
+case opa_test_020 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3330.76
+case opa_test_021 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3319.26
+case opa_test_022 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3289.09
+case opa_test_023 top1_match=yes top3_overlap=2 lite_assessment=review_positive_high_score_low_rank lite_elapsed_ms=3314.7
+case opa_test_024 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3426.74
+case opa_test_025 top1_match=yes top3_overlap=3 lite_assessment=pass_positive_high_rank lite_elapsed_ms=3433.24
+case opa_test_051 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3245.4
+case opa_test_052 top1_match=no top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3199.06
+case opa_test_053 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3203.42
+case opa_test_054 top1_match=yes top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3297.61
+case opa_test_055 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3232.94
+case opa_test_056 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3183.93
+case opa_test_057 top1_match=yes top3_overlap=1 lite_assessment=pass_negative_rejected lite_elapsed_ms=3250.78
+case opa_test_058 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3258.47
+case opa_test_059 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3243.61
+case opa_test_060 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3218.41
+case opa_test_061 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3172.15
+case opa_test_062 top1_match=no top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3200.69
+case opa_test_063 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3189.9
+case opa_test_064 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3306.95
+case opa_test_065 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3283.98
+case opa_test_066 top1_match=no top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3243.66
+case opa_test_067 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3262.51
+case opa_test_068 top1_match=yes top3_overlap=1 lite_assessment=pass_negative_rejected lite_elapsed_ms=3225.18
+case opa_test_069 top1_match=yes top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3230.09
+case opa_test_070 top1_match=yes top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3259.64
+case opa_test_071 top1_match=yes top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3212.44
+case opa_test_072 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3237.27
+case opa_test_073 top1_match=no top3_overlap=1 lite_assessment=pass_negative_rejected lite_elapsed_ms=3268.51
+case opa_test_074 top1_match=yes top3_overlap=3 lite_assessment=pass_negative_rejected lite_elapsed_ms=3253.13
+case opa_test_075 top1_match=no top3_overlap=2 lite_assessment=pass_negative_rejected lite_elapsed_ms=3215.16

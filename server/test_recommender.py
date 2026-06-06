@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import unittest
 
-from server.recommender import build_mock_recommendation, detect_image_size
-from server.scorer import score_candidate_template, score_composite
+from server.recommender import build_mock_recommendation, detect_image_size, select_candidates_for_scoring
+from server.scorer import get_scorer_status, score_candidate_template, score_composite
 
 
 class RecommenderTest(unittest.TestCase):
@@ -53,6 +53,15 @@ class RecommenderTest(unittest.TestCase):
         self.assertEqual(composite_score.model_version, "mock-v0")
         self.assertGreaterEqual(composite_score.score, 0.0)
         self.assertLessEqual(composite_score.score, 1.0)
+
+    def test_simopa_lite_status_and_candidate_budget(self) -> None:
+        status = get_scorer_status("simopa-lite")
+        candidates = [{"rank": rank} for rank in range(1, 13)]
+
+        self.assertEqual(status["mode"], "simopa-lite")
+        self.assertEqual(status["model_version"], "simopa-lite-candidate-budget-v1")
+        self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite", 3)), 6)
+        self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite", 8)), 8)
 
 
 if __name__ == "__main__":

@@ -6,10 +6,10 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 
 ## 当前阶段
 
-目前已经完成 Web 工作台、FastAPI 后端、OPA/SimOPA 真实模型接入和主要模型证据。FastAPI 推荐接口可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3；18 组和 50 组候选排序、RGB/mask ablation、分数校准、IoU 去重、代表案例、遮挡解释、鲁棒性 ablation、运行耗时表和模型改动说明表已经写入 `report/`。Web 工作台已支持内置案例加载、结果 JSON/CSV 导出、可信度提示、解释图入口、前端美化和课堂演示模式。下一阶段继续按高标准工程线推进：增加轻量推理/轻量 scorer 对比，可选扩展到 100 组评测。最终报告、PPT 和录屏由队友基于这些证据整理。
+目前已经完成 Web 工作台、FastAPI 后端、OPA/SimOPA 真实模型接入和主要模型证据。FastAPI 推荐接口可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3，也可以通过 `simopa-lite` 使用候选预算模式；18 组和 50 组候选排序、RGB/mask ablation、分数校准、IoU 去重、代表案例、遮挡解释、鲁棒性 ablation、full-vs-lite 对比、运行耗时表和模型改动说明表已经写入 `report/`。Web 工作台已支持内置案例加载、结果 JSON/CSV 导出、可信度提示、解释图入口、前端美化和课堂演示模式。下一阶段可选继续扩展到 100 组评测，或优化持久化模型服务以减少子进程加载开销。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 - `web/`：当前主线前端，负责图片输入、参数控制、Top 3 候选展示和演示截图。
-- `server/`：后端推理服务，支持 mock scorer 和 SimOPA 真实 scorer。
+- `server/`：后端推理服务，支持 mock scorer、SimOPA 真实 scorer 和 SimOPA Lite 候选预算模式。
 - `docs/ROADMAP.md`：路线、当前状态、分工、下一步和 GitHub 流程。
 - `docs/API.md`：Web 前端与后端之间的接口约定。
 - `docs/model_plan.md`：模型细节、参考源码、实验方案和解释计划。
@@ -60,6 +60,15 @@ python -m venv .venv
 
 ```powershell
 $env:SMARTPLACE_SCORER='simopa'
+$env:SMARTPLACE_MODEL_PYTHON='D:\DevTools\Anaconda\envs\study\python.exe'
+$env:SMARTPLACE_SIMOPA_DEVICE='auto'
+.\.venv\Scripts\python.exe -m uvicorn server.app:app --host 127.0.0.1 --port 8000
+```
+
+运行轻量候选预算模式：
+
+```powershell
+$env:SMARTPLACE_SCORER='simopa-lite'
 $env:SMARTPLACE_MODEL_PYTHON='D:\DevTools\Anaconda\envs\study\python.exe'
 $env:SMARTPLACE_SIMOPA_DEVICE='auto'
 .\.venv\Scripts\python.exe -m uvicorn server.app:app --host 127.0.0.1 --port 8000
