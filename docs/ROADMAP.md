@@ -61,25 +61,38 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 5. **案例展示**：3-5 组 Web 截图，包含成功、拒绝、失败/边界案例。
 6. **解释性加分**：遮挡实验或 Grad-CAM。
 
-暂缓：
+不作为当前主线：
 
 - Android 接入。
-- TopNet 主线接入。
-- FOPAHeatMapModel 替代候选生成。
+- TopNet 主线接入，但可做附录级对比。
+- FOPAHeatMapModel 替代候选生成，但可做附录级对比。
 - 大规模 fine-tune。
 - 公网部署。
 
 ## 下一步
 
-最近三步：
+下一阶段目标从“稳交付”升级为“高标准完整应用”：继续丰富项目本体，让 Web 应用、后端推理、模型对比、运行证据和解释性材料形成一套可以现场演示、可以量化对比、可以回答追问的闭环。
 
-1. 汇总报告、PPT、演示录屏和分工说明。
-2. 如时间允许，做 Web 现场演示录屏。
-3. 如果答辩需要更强模型改动，再做轻量 fine-tune 或 FOPA 候选生成对比。
+工程侧优先顺序：
 
-随后做：
+1. **运行证据补齐**：生成 `report/tables/inference_runtime.csv` 和 `report/tables/model_change_summary.csv`，记录真实模型、本地推理、候选排序、RGB/mask、校准、解释实验的耗时和改动类型。
+2. **Web 结果导出**：在 Web 工作台增加导出当前推荐结果 JSON/CSV 的按钮，导出 `request_id`、`model_version`、`runtime_ms`、Top 3 分数、坐标和可信度提示。
+3. **Web 内置样例加载**：提供成功、边界、负例误报、清晰拒绝等稳定演示案例，一键加载背景、前景、mask 和推荐参数。
+4. **可信度/失败提示**：根据分数饱和、Top 3 分数差、候选重叠和低分情况显示“高可信推荐 / 需要人工复查 / 分数饱和 / 候选过于重叠”等提示。
+5. **前端美化与易用性增强**：把 Web 工作台升级成更像完整产品的界面，优化桌面/移动布局、图像画布、候选框视觉层级、模型状态 badge、Top 3 面板、按钮反馈、空状态、加载态和错误态。
+6. **前端演示增强**：增加课堂演示模式，突出模型状态、运行耗时、Top 3、解释热力图入口、导出证据和现场推理信息。
 
-4. 如果时间允许，再做轻量 fine-tune 或 FOPA 候选生成对比。
+模型侧升级顺序：
+
+7. **扩大验证规模**：从 18 组代表案例扩展到 50 或 100 组候选排序评测，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`，让结果不只依赖少量案例。
+8. **轻量推理对比**：增加 `simopa-full` 与轻量模式对比。轻量模式第一版可减少候选数或复用轻量后处理；如果时间允许，再训练或适配一个 ResNet18/MobileNetV3 级别的轻量 scorer，输出耗时、排序和失败案例对比。
+9. **鲁棒性 ablation**：在已有 object/bbox/blank mask 对比基础上，增加 mask 膨胀/腐蚀、尺度扰动、候选平移扰动等实验，输出 `robustness_ablation.csv`。
+10. **解释性集成**：把离线遮挡热力图接入 Web 案例区，答辩时可以在应用内直接看到模型关注区域。
+
+交付材料分工：
+
+11. 最终报告、PPT、演示录屏、AI 辅助说明和小组分工说明交给队友整理。工程侧先把脚本、表格、日志、截图和 Web 演示入口准备好，队友基于这些证据做最终排版和讲稿。
+12. FOPA/TopNet 只做附录级对比，不替代当前主线；大规模 fine-tune、Android 和公网部署仍不作为当前主线。
 
 ## 证据清单
 
@@ -107,16 +120,22 @@ report/screenshots/explainability/
 还需要补：
 
 ```text
+report/tables/inference_runtime.csv
+report/tables/model_change_summary.csv
+report/tables/candidate_ranking_v2_50.csv
+report/tables/lite_mode_comparison.csv
+report/tables/robustness_ablation.csv
 report/videos/
 ```
 
 ## 分工
 
-- 成员 A：模型改造、模型实验、RGB/mask 对比、解释实验。
-- 成员 B：FastAPI 后端、候选排序管线、模型调用证据。
-- 成员 C：Web 展示、截图录屏、报告和 PPT 材料整合。
+- 成员 A：模型改造、模型实验、RGB/mask 对比、轻量模型/轻量推理、鲁棒性 ablation、解释实验。
+- 成员 B：FastAPI 后端、候选排序管线、模型调用证据、运行耗时统计、导出接口。
+- 成员 C：Web 展示、前端美化、内置样例、可信度提示、解释热力图入口。
+- 队友/材料负责人：最终报告、PPT、演示录屏、AI 辅助说明、小组分工说明和最终排版。
 
-每个成员负责自己模块对应的报告和 PPT 内容，最终由成员 C 统一排版。
+工程侧每完成一块，都要留下可复用证据：脚本命令、输出表、日志、截图和一句话结论。最终材料负责人直接基于这些证据写报告和 PPT，工程侧不把主要时间花在排版上。
 
 ## GitHub 流程
 

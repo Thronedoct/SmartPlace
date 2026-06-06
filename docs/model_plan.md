@@ -4,20 +4,20 @@
 
 ## 结论先行
 
-当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图和遮挡解释实验。下一阶段优先级是：报告/PPT/演示材料整合；轻量 fine-tune 和 FOPA/TopNet 作为后续进阶项。
+当前模型侧已完成 SimOPA baseline、18 组候选排序、RGB/mask ablation、分数校准、候选 IoU 去重、代表案例图和遮挡解释实验。时间充裕后，下一阶段升级为高标准模型工程线：补充运行耗时表、模型改动说明表、扩大验证规模、轻量推理/轻量 scorer 对比、鲁棒性 ablation，并把解释证据接入 Web 演示。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 SmartPlace 不从零训练一个全新视觉模型。项目主线是：
 
-> 基于课程 PDF 推荐的 BCMI OPA/libcom 参考源码，围绕智能物体放置应用做模型输入、输出、候选排序、轻量微调、解释分析和后端服务化改造。
+> 基于课程 PDF 推荐的 BCMI OPA/libcom 参考源码，围绕智能物体放置应用做模型输入/输出适配、候选排序、分数校准、解释分析和后端服务化改造。
 
 高分组合建议：
 
 ```text
 OPA/libcom baseline
-+ RGB vs RGB+mask 本体改动
++ RGB/mask 输入与 mask ablation
 + Top 3 候选排序
-+ OPA 小子集 fine-tune
-+ Grad-CAM 或遮挡解释
++ 0-1 分数、三档标签、校准与去重
++ 遮挡解释
 + Web 交互闭环
 ```
 
@@ -27,6 +27,53 @@ OPA/libcom baseline
 从零训练新模型
 第一版就在手机端做真实模型推理
 把 TopNet 训练作为主线
+```
+
+## 模型改动口径
+
+答辩和报告中不要把当前工作夸大为“重写了 SimOPA 网络结构”。更稳妥的表述是：
+
+> 基于 OPA/SimOPA，我们完成了评分模型的应用适配：将候选合成图和 mask 输入封装为可服务化 scorer，输出 0-1 合理性分数和三档标签；通过 RGB/mask ablation 验证 mask 输入对模型判断的影响；通过候选排序、分数校准、IoU 去重和遮挡解释，使模型结果能服务于 Web 物体放置助手。
+
+按课程分类：
+
+| 工作 | 类型 | 当前证据 |
+|---|---|---|
+| SimOPA scorer 服务化 | 功能类改动 | `server/scorer.py`、`experiments/opa_baseline/score_candidates.py`、`report/tables/api_simopa_smoke.csv` |
+| Top 3 候选排序 | 功能类改动 | `report/tables/candidate_ranking_v1.csv` |
+| RGB/mask ablation | 输入适配/本体类证据 | `report/tables/rgb_vs_mask_comparison.csv` |
+| 0-1 分数与三档标签 | 输出适配 | `server/recommender.py`、API 返回字段 |
+| 温度缩放与 IoU 去重 | 后处理/可信度改动 | `report/tables/score_calibration_v1.csv` |
+| 遮挡热力图 | 模型解释进阶 | `report/tables/occlusion_explainability_v1.csv`、`report/screenshots/explainability/` |
+
+如果老师追问“具体改了哪一层网络结构”，当前版本应如实说明：没有替换 backbone，也没有训练新权重；当前重点是参考模型的输入/输出适配、服务化、排序与解释。若后续要彻底消除这类口径风险，优先做轻量模型对比或小子集 fine-tune，但这不是当前稳定交付的必要条件。
+
+## 高标准补强计划
+
+升级后优先做：
+
+1. `inference_runtime.csv`：比较 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡实验耗时。
+2. `model_change_summary.csv`：把输入适配、输出适配、候选排序、校准去重、解释实验逐项列清楚。
+3. 扩大候选排序评测：从 18 组扩展到 50 或 100 组，输出 `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv`。
+4. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
+5. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
+6. 鲁棒性 ablation：在 mask blank/bbox 对比之外，加入 mask 膨胀/腐蚀、候选平移、尺度扰动等实验，输出 `robustness_ablation.csv`。
+
+轻量化路线：
+
+1. **`simopa-full`**：当前真实 SimOPA scorer，作为质量优先模式。
+2. **`simopa-lite`**：轻量应用模式，减少候选数或复用校准后处理，强调速度与现场稳定性，不宣称是新网络。
+3. **`lightopa-resnet18` 或 `lightopa-mobilenet`**：如果时间允许，训练一个 OPA 小子集轻量 scorer，做真正的轻量模型对比。输入仍围绕 composite + mask，输出 0-1 合理性分数，比较准确性、排序质量和推理耗时。
+4. **FOPA/TopNet 对比**：只作为候选生成附录展示，不作为主线替换。
+
+暂不做：
+
+```text
+大规模 fine-tune
+TopNet 主线替换
+FOPAHeatMapModel 主线替换
+MindSpore/CANN 迁移
+Android 端接入
 ```
 
 ## 课程参考源码
@@ -60,13 +107,14 @@ OPA/libcom baseline
 
 目标：满足“至少一项模型本体类改动”的要求。mask 显式告诉模型哪个区域是前景物体，比只看 RGB composite 更贴合物体放置评分任务。
 
-### V3 训练版
+### V3 可信度与轻量推理版
 
-- 从 OPA 数据集抽取小训练子集和验证子集。
-- 冻结 ResNet backbone 前几层，只微调分类头或最后一个 block。
-- 对比微调前后候选排序、分数分布和推理耗时。
+- 对 SimOPA 分数做温度缩放和三档标签映射。
+- 对候选框做 IoU 去重，减少重复 Top 3。
+- 在 Web 中展示可信度/失败提示。
+- 如时间允许，提供 `simopa-full` 与 `simopa-lite` 两种推理模式；第一版 `simopa-lite` 定义为减少候选数或复用轻量后处理，不宣称训练了新网络。
 
-目标：证明项目不只是调用现成模型，也做了数据集驱动的训练适配。
+目标：让模型分数更适合交互应用展示，同时补充本地推理耗时和轻量模式对比证据。
 
 ### V4 解释版
 
@@ -75,12 +123,21 @@ OPA/libcom baseline
 
 目标：提升答辩说服力，解释模型不是随机打分。
 
-### V5 进阶候选版
+### V5 轻量模型版
+
+- 实现 `simopa-full`、`simopa-lite` 和可选 `lightopa-resnet18` / `lightopa-mobilenet` 对比。
+- `simopa-lite` 先作为轻量应用模式，减少候选数或重计算次数。
+- 如果时间允许，训练一个 OPA 小子集轻量 scorer，使用 composite + mask 作为输入，输出 0-1 合理性分数。
+- 比较准确性、Top 3 排序、失败案例和推理耗时。
+
+目标：让前端可以选择质量优先或速度优先模式，同时补强“轻量化”和“模型本体改动”的答辩证据。
+
+### V6 进阶候选版
 
 - 尝试 `FOPAHeatMapModel` 预测合理放置区域。
 - 或尝试 TopNet 做候选生成对比。
 
-目标：作为冲高分项。此项依赖和时间风险较高，不应阻塞 V1-V4。
+目标：作为附录级冲高分项。此项依赖和时间风险较高，不应替代 V1-V5。
 
 ## 改动推荐程度
 
@@ -96,10 +153,12 @@ OPA/libcom baseline
 | B. RGB 与 RGB+mask 输入对比 | 本体类改动 | 保留 RGB baseline，再实现或适配 `RGB + foreground mask` 输入，比较两种模型在候选排序和分数上的差异。 | 3 | 5 | 强烈推荐，主打模型改动 |
 | C. 评分输出校准与三档标签 | 输出类改动 | 将模型 softmax/logit 分数校准成 0-1 分数，并映射为推荐、可接受、不推荐。 | 2 | 3 | 推荐，配合 A/B 做 |
 | D. Grad-CAM 或遮挡实验解释 | 解释类改动 | 为推荐/失败案例生成热力图或遮挡敏感性图，说明模型关注区域。 | 3 | 4 | 推荐，作为进阶亮点 |
-| E. OPA 小子集轻量 fine-tune | 训练适配 | 冻结大部分 backbone，只微调分类头或最后一个 block，并记录改动前后差异。 | 3 | 4 | 推荐，16GB 显卡可支撑 |
-| F. FOPAHeatMapModel 替代规则候选生成 | 功能类/进阶 | 使用 libcom 的 FOPA 热力图预测背景-前景对的合理区域，再返回 Top 3。 | 4 | 4 | 中等推荐，时间足够再做 |
-| G. TopNet 接入候选生成 | 功能类/进阶 | 使用 TopNet 预测候选位置或尺度，替换规则网格候选。 | 5 | 4 | 谨慎推荐，依赖和权重风险较高 |
-| H. 从零设计新网络并完整训练 | 本体类大改 | 自己定义网络结构，从数据集训练物体放置评分模型。 | 5 | 2 | 不推荐，风险远高于收益 |
+| E. 轻量推理/候选评估模式 | 工程与模型后处理 | 提供 `simopa-full` 与 `simopa-lite` 对比，减少候选数或复用轻量后处理，并记录耗时和排序变化。 | 2 | 3 | 推荐，先做 |
+| F. LightOPA 轻量 scorer | 本体类/轻量化 | 使用 ResNet18 或 MobileNetV3 适配 composite + mask 输入，在 OPA 小子集上训练或微调，并比较准确性、排序和耗时。 | 3 | 4 | 推荐，时间充裕时做 |
+| G. 鲁棒性 ablation | 解释/可靠性 | 测试 mask 膨胀/腐蚀、候选平移、尺度扰动对分数和排序的影响。 | 2 | 4 | 推荐，证据丰富且风险低 |
+| H. FOPAHeatMapModel 替代规则候选生成 | 功能类/进阶 | 使用 libcom 的 FOPA 热力图预测背景-前景对的合理区域，再返回 Top 3。 | 4 | 4 | 中等推荐，作为附录对比 |
+| I. TopNet 接入候选生成 | 功能类/进阶 | 使用 TopNet 预测候选位置或尺度，替换规则网格候选。 | 5 | 4 | 谨慎推荐，依赖和权重风险较高 |
+| J. 从零设计新网络并完整训练 | 本体类大改 | 自己定义网络结构，从数据集训练物体放置评分模型。 | 5 | 2 | 不推荐，风险远高于收益 |
 
 ## 数据集方案
 
@@ -248,55 +307,59 @@ report/tables/rgb_vs_mask_comparison.csv
 - 明显悬空/越界案例是否被压低分。
 - 推理耗时变化。
 
-### 第 6 步：轻量 fine-tune
+### 第 6 步：运行耗时、扩展评测与轻量模式
 
-训练目标不是刷榜，而是得到可展示的对比证据。
+下一步优先补充运行耗时、扩展评测和轻量模式对比。训练不做大规模主线，但可以做一个小子集轻量 scorer 作为高标准补强。
 
 建议：
 
-- OPA 子集 100 到 500 组起步。
-- 图像尺寸 256。
-- batch size 16 起步，16GB 显存可尝试 32。
-- 冻结 backbone，先只训练分类头。
-- 稳定后解冻最后一个 block。
-- epoch 3 到 10。
-- 使用 fp16 或 mixed precision。
+- 记录 mock、SimOPA API、候选排序、RGB/mask、校准、遮挡解释的耗时。
+- 记录候选数量、设备、模型版本、平均耗时和备注。
+- 将候选排序评测从 18 组扩展到 50 或 100 组。
+- 第一版 `simopa-lite` 可通过减少候选数或跳过重计算实现，不宣称训练新网络。
+- 第二版尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`，在 OPA 小子集上训练或微调轻量 scorer。
+- 增加 mask 膨胀/腐蚀、候选平移、尺度扰动等鲁棒性实验。
 
 输出：
 
 ```text
-report/tables/finetune_comparison.csv
-report/logs/opa_finetune_log.txt
+report/tables/inference_runtime.csv
+report/tables/model_change_summary.csv
+report/tables/candidate_ranking_v2_50.csv
+report/tables/lite_mode_comparison.csv
+report/tables/robustness_ablation.csv
 ```
 
-## 本地训练可行性
+## 本地推理与训练可行性
 
 当前可用硬件：
 
 ```text
-本机已检测到: NVIDIA GeForce RTX 5070 Laptop GPU, 约 8GB 显存
-额外可用: 16GB 显存的 RTX 4070 TiS
-当前普通 Python 环境: 尚未安装 PyTorch
+study 环境已跑通 PyTorch 与 CUDA
+本地 GPU: NVIDIA GeForce RTX 4070 Ti SUPER
+CPU 推理也可作为兜底，但耗时更高
 ```
 
 结论：
 
-- 8GB 显存已经足够 OPA/SimOPA baseline 推理、RGB+mask 推理、小 batch 微调。
-- 16GB RTX 4070 TiS 更适合做稳定 fine-tune，可用更大 batch size、更快跑完对比实验，也更适合尝试 FOPAHeatMapModel 推理。
-- 即使有 16GB 显存，也不建议从零训练新模型或把 TopNet 训练作为主线。
+- 当前硬件已经足够 OPA/SimOPA baseline 推理、候选排序、RGB/mask ablation、校准和遮挡解释。
+- 轻量模式先比较候选数量、后处理和推理耗时；时间充裕时再训练 LightOPA 级别的小模型。
+- 即使 GPU 充足，也不建议从零训练新模型或把 TopNet 训练作为主线。
 
 适合本地训练/推理：
 
-| 任务 | 8GB Laptop GPU | 16GB 4070 TiS | 建议 |
+| 任务 | CPU | RTX 4070 Ti SUPER | 建议 |
 |---|---|---|---|
-| OPA/SimOPA baseline 推理 | 适合 | 很适合 | P0 |
-| RGB+mask 4 通道模型推理 | 适合 | 很适合 | P0 |
-| 冻结 backbone 微调分类头 | 适合 | 很适合 | P1 |
-| 微调 ResNet 最后一两个 block | 基本适合 | 适合 | P1 |
-| Grad-CAM/遮挡解释 | 适合 | 很适合 | P1 |
-| FOPAHeatMapModel 推理 | 可能可行 | 更适合 | P2 |
-| TopNet 推理 | 风险较高 | 可尝试 | P2 |
-| TopNet 训练 | 不推荐 | 谨慎尝试 | P3 |
+| OPA/SimOPA baseline 推理 | 可兜底 | 很适合 | 已完成 |
+| RGB/mask ablation | 可小规模 | 很适合 | 已完成 |
+| 分数校准与 IoU 去重 | 适合 | 很适合 | 已完成 |
+| 遮挡解释 | 较慢 | 很适合 | 已完成 |
+| 轻量推理/候选评估模式 | 适合 | 很适合 | 下一步 |
+| LightOPA 小子集训练/微调 | 较慢 | 可尝试 | 高标准补强 |
+| 鲁棒性 ablation | 适合 | 很适合 | 高标准补强 |
+| FOPAHeatMapModel 推理 | 较慢 | 可尝试 | 可选 |
+| TopNet 推理 | 风险较高 | 可尝试 | 可选 |
+| TopNet 训练 | 不推荐 | 谨慎尝试 | 暂不做 |
 | 从零训练新网络 | 不推荐 | 不推荐 | 不做 |
 
 推荐模型实验环境单独放在：
@@ -306,6 +369,8 @@ experiments/
 |-- opa_baseline/
 |-- opa_rgb_mask/
 |-- opa_finetune/
+|-- opa_lightweight/
+|-- robustness/
 |-- explainability/
 `-- README.md
 ```
@@ -351,28 +416,35 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 - 课程 PDF 参考 GitHub 源码链接和阅读记录。
 - 数据集下载说明和样例审计表。
 - 权重加载代码位置。
-- 改造前后的输入张量形状。
+- 输入/输出适配说明。
 - 一张全新图片的实时推理日志。
 - 候选排序对比表。
 - RGB vs RGB+mask 对比表。
-- fine-tune 前后对比表。
+- 分数校准与 IoU 去重表。
 - 推理时间对比表。
+- 50/100 组扩展候选排序表。
+- 轻量模式或轻量 scorer 对比表。
+- mask 和候选扰动鲁棒性表。
 - 成功案例和失败案例。
-- Grad-CAM、遮挡实验或其他模型解释结果。
+- 遮挡实验或其他模型解释结果。
+- 可选：FOPA/TopNet 候选生成对比表。
 
 ## 下一轮模型任务
 
 | 任务 | 负责人 | 输出物 |
 |---|---|---|
-| 下载并审计 OPA 小子集 | 成员 A | `assets/datasets/opa/notes.md`、`opa_sample_audit.csv` |
-| 跑通 `libcom.OPAScoreModel` 或 OPA `simopa.py` | 成员 A | 终端日志、输入图片、分数截图、依赖记录 |
-| 定义 scorer 函数签名 | 成员 A、B | `score_composite(composite, mask) -> score` |
-| 后端接入 mock/真实模型开关 | 成员 B | `model_version`、耗时日志、错误处理 |
-| 生成候选评分表 | 成员 A、B | `candidate_ranking_v1.csv` |
-| Web 展示模型字段 | 成员 C | Top 3、分数、标签、耗时、模型版本 |
+| 生成推理耗时表 | 成员 A、B | `report/tables/inference_runtime.csv` |
+| 生成模型改动说明表 | 成员 A | `report/tables/model_change_summary.csv` |
+| 扩展候选排序评测 | 成员 A、B | `candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` |
+| 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
+| 鲁棒性 ablation | 成员 A | `robustness_ablation.csv` |
+| Web 展示模型证据与导出结果 | 成员 B、C | `request_id`、`model_version`、`runtime_ms`、JSON/CSV 导出 |
+| Web 内置代表案例 | 成员 C | 成功、边界、负例、拒绝案例一键加载 |
+| 可信度/失败提示 | 成员 A、B、C | 分数饱和、候选重叠、低可信等提示规则 |
+| 最终材料整理 | 队友/材料负责人 | 报告、PPT、录屏、AI 辅助说明、分工说明 |
 
 ## 答辩表述
 
 可以这样说：
 
-> 我们没有从零发明一个视觉模型，而是基于课程推荐的 OPA/libcom 评分模型，围绕智能物体放置应用做了 RGB+mask 输入适配、候选排序、轻量微调和解释分析。Web 端负责交互和展示，真实推理由本地 FastAPI 后端完成，课堂演示时可以用全新图片展示权重加载、张量推理、候选评分和 Top 3 返回过程。
+> 我们没有从零发明一个视觉模型，而是基于课程推荐的 OPA/libcom 评分模型，围绕智能物体放置应用做了 RGB/mask 输入适配、候选排序、分数校准、IoU 去重和遮挡解释。Web 端负责交互和展示，真实推理由本地 FastAPI 后端完成，课堂演示时可以用全新图片展示权重加载、候选评分、Top 3 返回和运行耗时。

@@ -6,7 +6,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 
 ## 当前阶段
 
-目前处于 Phase 0 到 Phase 1 的衔接：协作环境、Web 工作台、后端服务和 OPA/SimOPA baseline 已搭建，FastAPI 推荐接口已经可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3。
+目前已经完成 Web 工作台、FastAPI 后端、OPA/SimOPA 真实模型接入和主要模型证据。FastAPI 推荐接口可以通过 `SMARTPLACE_SCORER=simopa` 返回真实模型评分后的 Top 3；18 组候选排序、RGB/mask ablation、分数校准、IoU 去重、代表案例和遮挡解释实验已经写入 `report/`。下一阶段升级为高标准工程线：补齐运行耗时表和模型改动说明表，扩展到 50/100 组评测，增加 Web 导出、内置样例、可信度提示、前端美化、轻量推理/轻量 scorer 对比和鲁棒性 ablation。最终报告、PPT 和录屏由队友基于这些证据整理。
 
 - `web/`：当前主线前端，负责图片输入、参数控制、Top 3 候选展示和演示截图。
 - `server/`：后端推理服务，支持 mock scorer 和 SimOPA 真实 scorer。
@@ -16,7 +16,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 - `docs/TEST_CASES.md`：测试案例和工程验证记录。
 - `OPAAndroidDemoSimp/`：课程提供的 Android 参考骨架，仅作为参考和素材来源，不作为本项目交付主线。
 
-阶段 0 的核心原则是：先用 mock 数据打通 Web 到后端的链路，再把同一套接口切换到真实 OPA/SimOPA 模型推理。
+当前核心原则是：保持 Web + FastAPI + SimOPA 的稳定闭环，在不破坏主线的前提下继续丰富项目本体；工程侧优先留下脚本、表格、日志、截图和 Web 演示入口，最终材料交给队友整合。
 
 课程 PDF 明确允许 Web 应用、手机 App 原型或电脑端应用软件。SmartPlace 选择 Web 应用作为交付形态，不再开发 Android 端。
 

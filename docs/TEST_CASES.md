@@ -44,9 +44,15 @@
 | 表格 | 位置 | 用途 |
 |---|---|---|
 | 候选排序表 | `report/tables/candidate_ranking_v1.csv` | 说明 Top 3 排序是否符合人工判断。 |
+| 扩展候选排序表 | `report/tables/candidate_ranking_v2_50.csv` 或 `candidate_ranking_v2_100.csv` | 用更多案例验证排序稳定性。 |
 | RGB vs RGB+mask 对比表 | `report/tables/rgb_vs_mask_comparison.csv` | 证明本体类模型改动的效果和限制。 |
+| 分数校准与去重表 | `report/tables/score_calibration_v1.csv` | 解释分数饱和和重复候选问题。 |
 | 推理耗时表 | `report/tables/inference_runtime.csv` | 证明本地推理可运行，并比较不同模型版本。 |
+| 轻量模式对比表 | `report/tables/lite_mode_comparison.csv` | 比较 `simopa-full`、`simopa-lite` 和可选轻量 scorer。 |
+| 鲁棒性 ablation 表 | `report/tables/robustness_ablation.csv` | 比较 mask 扰动、候选平移、尺度变化对评分的影响。 |
+| 模型改动说明表 | `report/tables/model_change_summary.csv` | 统一说明输入适配、输出适配、排序、校准、解释和轻量模式。 |
 | 失败案例表 | `report/tables/failure_cases.csv` | 说明系统边界和失败原因。 |
+| 遮挡解释表 | `report/tables/occlusion_explainability_v1.csv` | 证明模型对局部区域有可解释响应。 |
 
 ## 阶段 0 工程验证
 
