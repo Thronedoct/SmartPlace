@@ -49,6 +49,10 @@ def main() -> None:
     report_csv.parent.mkdir(parents=True, exist_ok=True)
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
+    require_existing_dir(dataset_root, "dataset root")
+    require_existing_dir(dataset_root / "background", "OPA background directory")
+    require_existing_dir(dataset_root / "foreground", "OPA foreground directory")
+
     selected_cases = select_cases(smoke_csv, args.positive_count, args.negative_count)
     background_index = index_images(dataset_root / "background")
     foreground_index = index_images(dataset_root / "foreground", include_masks=True)
@@ -108,6 +112,11 @@ def index_images(root: Path, *, include_masks: bool = False) -> dict[str, Path]:
             continue
         index[stem] = path
     return index
+
+
+def require_existing_dir(path: Path, label: str) -> None:
+    if not path.is_dir():
+        raise FileNotFoundError(f"Missing {label}: {path}")
 
 
 def score_case(
@@ -232,7 +241,8 @@ def parse_position(position: str) -> tuple[int, int, int, int]:
     parsed = ast.literal_eval(position)
     if not isinstance(parsed, list) or len(parsed) != 4:
         raise ValueError(f"Invalid OPA position: {position}")
-    return tuple(int(value) for value in parsed)  # type: ignore[return-value]
+    x_px, y_px, w_px, h_px = parsed
+    return int(x_px), int(y_px), int(w_px), int(h_px)
 
 
 def expected_case_result(dataset_label: str, score: float, rank: int) -> str:

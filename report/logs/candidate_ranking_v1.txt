@@ -3,7 +3,7 @@ cases=18
 candidate_rows=234
 positive_cases=9
 negative_cases=9
-elapsed_seconds=65.1
+elapsed_seconds=66.6
 positive_pass=8
 negative_pass=9
 case opa_test_001 label=1 dataset_score=0.9985 dataset_rank=1 top1=opa_position:0.9985 assessment=pass_positive_high_rank
