@@ -23,6 +23,7 @@ const confidenceTier = document.querySelector("#confidence-tier");
 const confidenceList = document.querySelector("#confidence-list");
 const caseLinks = document.querySelector("#case-links");
 const modelBadge = document.querySelector("#model-badge");
+const presentationToggle = document.querySelector("#presentation-toggle");
 const stageTitle = document.querySelector("#stage-title");
 const coordType = document.querySelector("#coord-type");
 const runtime = document.querySelector("#runtime");
@@ -81,6 +82,7 @@ maskInput.addEventListener("change", () => {
 
 exportJsonButton.addEventListener("click", () => exportResult("json"));
 exportCsvButton.addEventListener("click", () => exportResult("csv"));
+presentationToggle.addEventListener("click", togglePresentationMode);
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -125,6 +127,7 @@ backgroundPreview.addEventListener("load", () => renderOverlay());
 
 function setLoading(isLoading) {
   form.querySelector("button").disabled = isLoading;
+  presentationToggle.disabled = isLoading;
   demoCaseList.querySelectorAll("button").forEach((button) => {
     button.disabled = isLoading || button.dataset.available !== "true";
   });
@@ -218,8 +221,10 @@ function renderDemoCases() {
   demoCases.forEach((demoCase) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `demo-case-button ${demoCase.case_type}`;
+    const isActive = activeDemoCase?.case_id === demoCase.case_id;
+    button.className = `demo-case-button ${demoCase.case_type}${isActive ? " active" : ""}`;
     button.dataset.available = String(demoCase.available);
+    button.setAttribute("aria-pressed", String(isActive));
     button.disabled = !demoCase.available;
     button.innerHTML = `
       <strong>${demoCase.title}</strong>
@@ -251,6 +256,8 @@ async function loadDemoCase(demoCase) {
       mask: maskFile,
     };
     activeDemoCase = demoCase;
+    renderDemoCases();
+    setLoading(true);
 
     setBackgroundPreview(backgroundFile);
     await setForegroundPreview(foregroundFile, maskFile);
@@ -291,6 +298,14 @@ async function buildErrorMessage(response) {
 function selectCandidate(index) {
   activeIndex = index;
   renderResults();
+}
+
+function togglePresentationMode() {
+  const enabled = !document.body.classList.contains("presentation-mode");
+  document.body.classList.toggle("presentation-mode", enabled);
+  presentationToggle.setAttribute("aria-pressed", String(enabled));
+  presentationToggle.textContent = enabled ? "退出演示" : "演示模式";
+  window.setTimeout(renderOverlay, 180);
 }
 
 function getActiveFile(kind) {
@@ -553,7 +568,7 @@ function renderOverlay() {
   const rect = getRenderedImageRect();
   responsePayload.candidates.forEach((candidate, index) => {
     const box = document.createElement("div");
-    box.className = `candidate-box${index === activeIndex ? " active" : ""}`;
+    box.className = `candidate-box ${candidate.tier}${index === activeIndex ? " active" : ""}`;
     box.style.left = `${rect.left + candidate.x * rect.width}px`;
     box.style.top = `${rect.top + candidate.y * rect.height}px`;
     box.style.width = `${candidate.w * rect.width}px`;
