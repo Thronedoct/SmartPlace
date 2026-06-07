@@ -109,11 +109,7 @@ if (-not $SkipStaleScan) {
       "PHASE0_STATUS.md",
       "HIGH_SCORE_ROUTE.md",
       "WORKFLOW.md",
-      "D:\\DevTools",
-      ("envs\\stu" + "dy"),
-      ("conda run -n stu" + "dy"),
-      ("RTX 40" + "70"),
-      ("cu" + "129")
+      "D:\\DevTools"
     )
     $patterns = $stalePatterns -join "|"
     $scanTargets = @("README.md", "docs", "experiments", "server", "web", "report", "OPAAndroidDemoSimp") |

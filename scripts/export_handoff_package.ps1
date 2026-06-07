@@ -2,7 +2,8 @@ param(
   [string]$OutputRoot = "report/exports",
   [string]$PackageName = "smartplace_handoff",
   [switch]$RequireVideos,
-  [switch]$NoZip
+  [switch]$NoZip,
+  [switch]$KeepFolder
 )
 
 $ErrorActionPreference = "Stop"
@@ -97,10 +98,15 @@ if (-not $NoZip) {
     Remove-Item -LiteralPath $zipPath -Force
   }
   Compress-Archive -Path (Join-Path $packagePath "*") -DestinationPath $zipPath -Force
+  if (-not $KeepFolder) {
+    Remove-Item -LiteralPath $packagePath -Recurse -Force
+  }
 }
 
 Write-Host "Handoff package exported." -ForegroundColor Green
-Write-Host "  folder: $packagePath"
+if ($NoZip -or $KeepFolder) {
+  Write-Host "  folder: $packagePath"
+}
 if (-not $NoZip) {
   Write-Host "  zip:    $zipPath"
 }
