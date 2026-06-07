@@ -137,7 +137,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 
 交付给队友：
 
-1. **证据索引**：列出最重要的表格、日志、截图和每个证据的一句话结论。
+1. **证据索引**：已新增 `report/README.md`，列出最重要的表格、日志、截图和每个证据的一句话结论。
 2. **演示脚本**：给出启动后端、打开 Web、选择 demo case、运行推荐、导出结果、切演示模式的步骤。
 3. **截图/录屏清单**：明确哪些页面需要截图、哪些流程需要录屏，避免队友临时找素材。
 4. **报告口径**：明确主线是 `Web + FastAPI + simopa-worker`，LightOPA tiny/stronger 是轻量模型补强，FOPA/TopNet 若做只作为附录。
@@ -185,6 +185,7 @@ report/tables/persistent_worker_comparison.csv
 report/tables/lightopa_tiny_metrics.csv
 report/tables/lightopa_residual_metrics.csv
 report/tables/lightopa_model_comparison.csv
+report/README.md
 report/screenshots/cases/
 report/screenshots/explainability/
 ```
