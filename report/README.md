@@ -26,9 +26,15 @@ Run the backend in the stable live-demo mode:
 
 ```powershell
 $env:SMARTPLACE_SCORER='simopa-worker'
-$env:SMARTPLACE_MODEL_PYTHON='D:\DevTools\Anaconda\envs\study\python.exe'
+$env:SMARTPLACE_MODEL_PYTHON='<path-to-study-conda-env-python.exe>'
 $env:SMARTPLACE_SIMOPA_DEVICE='auto'
 .\.venv\Scripts\python.exe -m uvicorn server.app:app --host 127.0.0.1 --port 8000
+```
+
+To find the `study` environment Python path on a teammate machine:
+
+```powershell
+conda run -n study python -c "import sys; print(sys.executable)"
 ```
 
 Open:
