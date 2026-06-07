@@ -25,12 +25,16 @@ $requiredFiles = @(
   "report/logs/candidate_ranking_v2_100.txt",
   "report/logs/persistent_worker_comparison.txt",
   "report/logs/evidence_summary.txt",
-  "report/logs/lightopa_residual_training.txt"
+  "report/logs/lightopa_residual_training.txt",
+  "report/screenshots/web/web_demo_desktop.png",
+  "report/screenshots/web/web_demo_presentation.png",
+  "report/screenshots/web/web_demo_mobile.png"
 )
 
 $requiredDirs = @(
   "report/screenshots/cases",
   "report/screenshots/explainability",
+  "report/screenshots/web",
   "report/videos"
 )
 

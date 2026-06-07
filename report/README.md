@@ -96,12 +96,22 @@ Use these for report and slides:
 ```text
 report/screenshots/cases/
 report/screenshots/explainability/
+report/screenshots/web/
+```
+
+Refresh the Web screenshots after UI changes:
+
+```powershell
+.\scripts\capture_web_demo.ps1
 ```
 
 Suggested slide mapping:
 
 | Slide topic | Figure source |
 |---|---|
+| Web workspace | `report/screenshots/web/web_demo_desktop.png` |
+| Presentation mode | `report/screenshots/web/web_demo_presentation.png` |
+| Mobile layout | `report/screenshots/web/web_demo_mobile.png` |
 | Success case | `report/screenshots/cases/opa_test_001_case_panel.png` |
 | Boundary/saturation case | `report/screenshots/cases/opa_test_002_case_panel.png` |
 | Clear rejection case | `report/screenshots/cases/opa_test_059_case_panel.png` |
