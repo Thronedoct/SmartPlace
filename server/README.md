@@ -6,9 +6,9 @@
 
 推荐逻辑位于 `recommender.py`，scorer 边界位于 `scorer.py`。响应字段必须保持兼容 `../docs/API.md`。
 
-## 无额外依赖运行
+## 无额外依赖 mock 运行
 
-用于阶段 0 的 Web/后端连通性 Demo：
+用于 Web/后端连通性调试，不加载真实模型：
 
 ```bash
 python mock_stdlib.py --host 0.0.0.0 --port 8000

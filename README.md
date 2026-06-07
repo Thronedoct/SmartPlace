@@ -16,7 +16,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 - `docs/TEST_CASES.md`：测试案例和工程验证记录。
 - `OPAAndroidDemoSimp/`：课程提供的 Android 参考骨架，仅作为参考和素材来源，不作为本项目交付主线。
 
-当前核心原则是：保持 Web + FastAPI + SimOPA 的稳定闭环，在不破坏主线的前提下继续丰富项目本体；工程侧优先留下脚本、表格、日志、截图和 Web 演示入口，最终材料交给队友整合。
+当前核心原则是：保持 Web + FastAPI + `simopa-worker` 的稳定闭环，在不破坏主线的前提下继续做低风险加码；随后进行前端重构级美化和项目结构深度整理，最后把脚本、表格、日志、截图、演示流程和证据索引整理成队友可直接接手的交付包。
 
 课程 PDF 明确允许 Web 应用、手机 App 原型或电脑端应用软件。SmartPlace 选择 Web 应用作为交付形态，不再开发 Android 端。
 
@@ -33,9 +33,9 @@ SmartPlace/
 `-- README.md
 ```
 
-## 阶段 0 快速运行
+## 快速运行
 
-优先运行无额外依赖的 mock 后端：
+仅做前端连通性调试时，可以运行无额外依赖的 mock 后端：
 
 ```bash
 python server/mock_stdlib.py --host 0.0.0.0 --port 8000

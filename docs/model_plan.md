@@ -54,12 +54,20 @@ OPA/libcom baseline
 
 ## 高标准补强计划
 
-升级后优先做：
+当前主线模型证据已经完整，后续模型侧只做“可控加码”，不再让探索项影响 Web + `simopa-worker` 的稳定交付。
+
+已完成：
 
 1. 扩大候选排序评测：100 组已完成，输出 `candidate_ranking_v2_100.csv` 和 `opa_100_case_summary.csv`。
 2. Web 模型证据展示：在前端显示 `request_id`、`model_version`、`runtime_ms`、scorer 状态和导出结果按钮。
 3. Web 内置案例：把 3-5 个代表案例接入页面，保证现场演示稳定。
 4. 鲁棒性 ablation：已在 5 个代表案例上完成 mask 膨胀/腐蚀、候选平移、尺度扰动实验，输出 `robustness_ablation.csv`。
+
+可继续加码：
+
+1. **LightOPA stronger baseline**：基于 `tiny-lightopa-cnn-v1` 的数据读取和训练脚本，尝试 ResNet18/MobileNetV3 级别轻量 scorer。该项只作为轻量模型补强，不替代 SimOPA。
+2. **FOPA/TopNet 附录级对比**：若依赖顺利，尝试候选生成对比，重点解释为什么主线仍使用规则候选 + SimOPA 排序。
+3. **更大规模验证**：100 组评测已经足够支撑主线；只有在脚本复用成本很低时再扩大。
 
 轻量化路线：
 
@@ -373,20 +381,17 @@ CPU 推理也可作为兜底，但耗时更高
 | TopNet 训练 | 不推荐 | 谨慎尝试 | 暂不做 |
 | 从零训练新网络 | 不推荐 | 不推荐 | 不做 |
 
-推荐模型实验环境单独放在：
+当前模型实验目录：
 
 ```text
 experiments/
 |-- opa_baseline/
-|-- opa_rgb_mask/
-|-- opa_finetune/
-|-- opa_lightweight/
-|-- robustness/
-|-- explainability/
+|-- lightopa/
+|-- requirements-model-min.txt
 `-- README.md
 ```
 
-权重、原始数据集和训练输出不要提交 GitHub，只提交脚本、配置、少量样例和结果表。
+RGB/mask ablation、鲁棒性、遮挡解释、worker 对比等都已收在 `opa_baseline/`，避免为了每个实验单独扩散目录。权重、原始数据集和训练输出不要提交 GitHub，只提交脚本、配置、少量样例和结果表。
 
 ## 本地推理与真实性证据
 
