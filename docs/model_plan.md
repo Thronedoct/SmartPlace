@@ -334,7 +334,7 @@ report/tables/rgb_vs_mask_comparison.csv
 - 第一版 `simopa-lite` 已通过减少候选数实现，不宣称训练新网络。
 - `simopa-worker` 已通过常驻模型进程证明加载开销是主要瓶颈。
 - `tiny-lightopa-cnn-v1` 和 `residual-lightopa-cnn-v1` 已完成小子集训练和验证，下一版可尝试 `lightopa-resnet18` 或 `lightopa-mobilenet`。
-- 增加 mask 膨胀/腐蚀、候选平移、尺度扰动等鲁棒性实验。
+- 鲁棒性实验已完成，包含 mask 膨胀/腐蚀、候选平移、尺度扰动等扰动。
 
 输出：
 
@@ -449,16 +449,18 @@ Web 前端不需要关心模型细节，只按 `docs/API.md` 展示结果。
 - 遮挡实验或其他模型解释结果。
 - 可选：FOPA/TopNet 候选生成对比表。
 
-## 下一轮模型任务
+## 后续模型侧判断
 
-| 任务 | 负责人 | 输出物 |
+模型侧主线证据已经完整。后续不要再把已完成项写成待办，避免报告引用时产生口径混乱。
+
+| 状态 | 内容 | 输出物 |
 |---|---|---|
-| 轻量模式与轻量 scorer 对比 | 成员 A、B | `lite_mode_comparison.csv` |
-| 100 组候选排序评测 | 成员 A、B | `candidate_ranking_v2_100.csv` |
-| Web 展示模型证据与导出结果 | 成员 B、C | `request_id`、`model_version`、`runtime_ms`、JSON/CSV 导出 |
-| Web 内置代表案例 | 成员 C | 成功、边界、负例、拒绝案例一键加载 |
-| 可信度/失败提示 | 成员 A、B、C | 分数饱和、候选重叠、低可信等提示规则 |
-| 最终材料整理 | 队友/材料负责人 | 报告、PPT、录屏、AI 辅助说明、分工说明 |
+| 已完成 | 轻量模式与轻量 scorer 对比 | `lite_mode_comparison.csv`、`lightopa_model_comparison.csv` |
+| 已完成 | 100 组候选排序评测 | `candidate_ranking_v2_100.csv`、`opa_100_case_summary.csv` |
+| 已完成 | Web 展示模型证据、导出结果、内置案例和可信度提示 | `web/`、`docs/API.md` |
+| 可选探索 | ResNet18/MobileNetV3 级 LightOPA | 只在依赖和训练质量稳定时追加，不替代 `simopa-worker` |
+| 可选附录 | FOPA/TopNet 候选生成对比 | 只用于说明取舍，不替换当前规则候选 + SimOPA 排序主线 |
+| 交付侧 | 最终材料整理 | 报告、PPT、录屏、AI 辅助说明和分工说明由材料负责人整合 |
 
 ## 答辩表述
 
