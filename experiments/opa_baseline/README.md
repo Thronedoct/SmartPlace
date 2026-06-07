@@ -394,5 +394,5 @@ report/tables/model_change_summary.csv
 
 Current result:
 
-- 14 runtime rows covering mock, SimOPA smoke, FastAPI smoke, FastAPI worker smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, full-vs-lite comparison, persistent worker comparison, 100-case worker ranking, and Tiny LightOPA validation inference.
-- 13 model-change rows: all 13 evidence items completed.
+- 15 runtime rows covering mock, SimOPA smoke, FastAPI smoke, FastAPI worker smoke, 18-case ranking, RGB/mask ablation, calibration/dedup, occlusion explainability, 50-case ranking, robustness ablation, full-vs-lite comparison, persistent worker comparison, 100-case worker ranking, Tiny LightOPA validation inference, and Residual LightOPA validation inference.
+- 14 model-change rows: all 14 evidence items completed.

@@ -1,0 +1,28 @@
+SmartPlace Residual LightOPA training
+model_name=residual-lightopa-cnn-v1
+model_type=4-channel residual CNN
+device=cuda:0
+image_size=128
+train_count=3000
+val_count=600
+epochs=5
+batch_size=64
+learning_rate=0.0005
+param_count=1113377
+elapsed_seconds=234.69
+best_epoch=2
+checkpoint_path=models\lightopa\residual_lightopa_smoke.pth
+checkpoint_sha256=fd8009874ccb4389551c9038e51a23123d0653748337ae9160599dec0ead9847
+best_epoch_accuracy=0.671667
+best_epoch_balanced_accuracy=0.671667
+best_epoch_f1=0.61144
+best_epoch_roc_auc=0.708444
+best_threshold=0.301865
+best_balanced_accuracy=0.681667
+best_threshold_f1=0.673504
+avg_inference_ms_per_sample=11.502976
+epoch 1 train_loss=0.631444 val_loss=0.714735 accuracy=0.606667 roc_auc=0.631644
+epoch 2 train_loss=0.498418 val_loss=0.858093 accuracy=0.671667 roc_auc=0.708444
+epoch 3 train_loss=0.416833 val_loss=0.806408 accuracy=0.555 roc_auc=0.641956
+epoch 4 train_loss=0.350557 val_loss=0.738535 accuracy=0.653333 roc_auc=0.685833
+epoch 5 train_loss=0.30375 val_loss=0.820375 accuracy=0.59 roc_auc=0.675389
