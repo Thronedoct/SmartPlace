@@ -145,3 +145,9 @@ Before handing the project to teammates, run:
 ```
 
 This is the lightweight final check. It does not rerun GPU-heavy ranking, occlusion, robustness, or LightOPA training jobs unless those artifacts are being regenerated.
+
+After the materials team records the demo video, run the handoff asset check with video files required:
+
+```powershell
+.\scripts\verify_handoff_assets.ps1 -RequireVideos
+```

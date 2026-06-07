@@ -103,7 +103,7 @@ curl http://127.0.0.1:8000/api/health
 .\scripts\verify_core.ps1
 ```
 
-该脚本会覆盖后端单测、Python 编译、Web 模块语法、证据汇总刷新、旧阶段口径扫描和 Git whitespace 检查。真实 SimOPA API smoke 仍按需单独运行，避免每次检查都启动重模型。
+该脚本会覆盖后端单测、Python 编译、Web 模块语法、交付包资产检查、证据汇总刷新、旧阶段口径扫描和 Git whitespace 检查。真实 SimOPA API smoke 仍按需单独运行，避免每次检查都启动重模型。
 
 Web 工作台访问：
 
