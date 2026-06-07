@@ -111,7 +111,7 @@ if (-not $SkipStaleScan) {
     if (-not $scanTargets) {
       throw "Stale wording scan has no existing targets."
     }
-    $matches = & rg -n $patterns @scanTargets -S
+    $matches = & rg -n -S --glob "!report/exports/**" $patterns @scanTargets
     if ($LASTEXITCODE -eq 0) {
       $matches | ForEach-Object { Write-Host $_ }
       throw "Stale wording scan found outdated project wording."

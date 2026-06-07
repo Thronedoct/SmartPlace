@@ -70,6 +70,12 @@ python -m venv .venv
 .\scripts\capture_web_demo.ps1
 ```
 
+导出队友交付包：
+
+```powershell
+.\scripts\export_handoff_package.ps1
+```
+
 运行真实 SimOPA scorer：
 
 ```powershell

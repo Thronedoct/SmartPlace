@@ -157,6 +157,14 @@ Before handing the project to teammates, run:
 This is the lightweight final check. It does not rerun GPU-heavy ranking, occlusion, robustness, or LightOPA training jobs unless those artifacts are being regenerated.
 It also checks repository hygiene, including common temporary files, raw dataset/model artifacts, and unexpectedly large tracked files.
 
+Export a teammate handoff package:
+
+```powershell
+.\scripts\export_handoff_package.ps1
+```
+
+The package is written to ignored `report/exports/` output and intentionally excludes raw datasets, model weights, external source trees, virtualenvs, and local dependency caches.
+
 After the materials team records the demo video, run the handoff asset check with video files required:
 
 ```powershell

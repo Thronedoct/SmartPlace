@@ -92,3 +92,4 @@
 | V028 | 交付包资产完整性检查 | `.\scripts\verify_handoff_assets.ps1` | 通过 | 检查报告索引、关键表格、关键日志、5 张案例图、5 张解释热力图和 `report/videos/` 目录；录屏文件可在最终材料阶段用 `-RequireVideos` 额外要求。 |
 | V029 | Web 最终演示截图 | `.\scripts\capture_web_demo.ps1` | 通过 | `simopa-worker` 模式下加载内置案例、运行推荐、确认 Top 3 和导出按钮，生成桌面、演示模式和移动端截图到 `report/screenshots/web/`。 |
 | V030 | 仓库卫生检查 | `.\scripts\verify_repo_hygiene.ps1` | 通过 | 检查本地临时产物、被误提交的权重/raw 数据/external 源码和超过 2MB 的跟踪文件；配合 `.editorconfig` 与 `.gitattributes` 固定换行和二进制规则。 |
+| V031 | 队友交付包导出 | `.\scripts\export_handoff_package.ps1` | 通过 | 在已忽略的 `report/exports/` 中生成交付文件夹和 zip，包含文档索引、关键表格、日志、截图和演示/验证脚本，不包含 raw 数据、模型权重、external 源码和本地依赖缓存。 |
