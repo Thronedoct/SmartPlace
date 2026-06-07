@@ -1,0 +1,7 @@
+SmartPlace LightOPA model comparison
+models=tiny-lightopa-cnn-v1,residual-lightopa-cnn-v1
+accuracy_delta=0.021667
+roc_auc_delta=0.032380
+tiny_param_count=79425
+residual_param_count=1113377
+output_csv=report\tables\lightopa_model_comparison.csv

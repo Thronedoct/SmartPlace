@@ -70,6 +70,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     lite_rows = read_csv(TABLE_DIR / "lite_mode_comparison.csv")
     worker_rows = read_csv(TABLE_DIR / "persistent_worker_comparison.csv")
     lightopa_rows = read_csv(TABLE_DIR / "lightopa_tiny_metrics.csv")
+    lightopa_residual_rows = read_csv(TABLE_DIR / "lightopa_residual_metrics.csv")
 
     baseline_log = parse_key_value_log(LOG_DIR / "opa_baseline_smoke.txt")
     api_log = parse_key_value_log(LOG_DIR / "api_simopa_smoke.txt")
@@ -84,6 +85,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     lite_log = parse_key_value_log(LOG_DIR / "lite_mode_comparison.txt")
     worker_log = parse_key_value_log(LOG_DIR / "persistent_worker_comparison.txt")
     lightopa_log = parse_key_value_log(LOG_DIR / "lightopa_tiny_training.txt")
+    lightopa_residual_log = parse_key_value_log(LOG_DIR / "lightopa_residual_training.txt")
 
     calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
 
@@ -303,6 +305,37 @@ def build_runtime_rows() -> list[dict[str, object]]:
                 f"{lightopa_log.get('elapsed_seconds', '')}."
             ),
         ),
+        runtime_row(
+            stage_id="R015",
+            stage_name="Residual LightOPA validation inference",
+            mode="lightopa-residual",
+            model_version=first_value(
+                lightopa_residual_rows,
+                "model_name",
+                "residual-lightopa-cnn-v1",
+            ),
+            device=lightopa_residual_log.get(
+                "device",
+                first_value(lightopa_residual_rows, "device", "cuda:0"),
+            ),
+            source_artifact="report/tables/lightopa_residual_metrics.csv",
+            cases=int_value(lightopa_residual_log.get("val_count"), 600),
+            candidate_rows=int_value(lightopa_residual_log.get("val_count"), 600),
+            score_calls=int_value(lightopa_residual_log.get("val_count"), 600),
+            elapsed_seconds=float_value(
+                lightopa_residual_log.get("avg_inference_ms_per_sample")
+            )
+            * int_value(lightopa_residual_log.get("val_count"), 600)
+            / 1000.0,
+            inner_runtimes_ms=[
+                float_value(lightopa_residual_log.get("avg_inference_ms_per_sample"))
+            ],
+            runtime_source="lightopa_residual_training.txt avg_inference_ms_per_sample",
+            notes=(
+                "Residual 4-channel CNN validation inference; training elapsed_seconds="
+                f"{lightopa_residual_log.get('elapsed_seconds', '')}."
+            ),
+        ),
     ]
     return rows
 
@@ -500,7 +533,19 @@ def build_change_rows() -> list[dict[str, str]]:
             "completed",
             "Adds a real trained lightweight-model baseline and removes ambiguity between lite serving mode and model-level lightweighting.",
             "The tiny model is an exploratory baseline with modest accuracy, not a replacement for SimOPA.",
-            "If needed, scale this track to a stronger ResNet18/MobileNet LightOPA model.",
+            "Use C014 residual LightOPA as the stronger lightweight baseline comparison.",
+        ),
+        change_row(
+            "C014",
+            "Residual LightOPA baseline",
+            "lightweight model exploration",
+            "Train a stronger residual 4-channel CNN on a larger OPA subset and compare it with the tiny LightOPA baseline.",
+            "experiments/lightopa/train_lightopa_residual.py; experiments/lightopa/compare_lightopa_models.py",
+            "report/tables/lightopa_residual_metrics.csv; report/tables/lightopa_model_comparison.csv; report/logs/lightopa_residual_training.txt",
+            "completed",
+            "Adds a stronger model-level lightweight baseline: accuracy rises from 0.65 to 0.6717 and ROC-AUC from 0.6761 to 0.7084.",
+            "Residual LightOPA is still an exploratory scorer and has not replaced the production SimOPA worker route.",
+            "Use this result to justify future ResNet18/MobileNet experiments only if more model work is needed.",
         ),
     ]
 

@@ -12,7 +12,7 @@ in `docs/model_plan.md`. Keep this file as a concise experiment index.
 | Directory | Status | Purpose |
 |---|---|---|
 | `opa_baseline/` | active, mainline | SimOPA smoke tests, API smoke tests, candidate ranking, RGB/mask ablation, calibration, case gallery, explainability, robustness, lite mode, worker comparison, and evidence summary. |
-| `lightopa/` | active, exploratory | Tiny LightOPA 4-channel CNN baseline trained on a small OPA subset. It is model-level lightweight evidence, not a replacement for `simopa-worker`. |
+| `lightopa/` | active, exploratory | Tiny and residual LightOPA 4-channel CNN baselines trained on small OPA subsets. They are model-level lightweight evidence, not replacements for `simopa-worker`. |
 
 ## Main Evidence Outputs
 
@@ -22,6 +22,8 @@ report/tables/inference_runtime.csv
 report/tables/model_change_summary.csv
 report/tables/persistent_worker_comparison.csv
 report/tables/lightopa_tiny_metrics.csv
+report/tables/lightopa_residual_metrics.csv
+report/tables/lightopa_model_comparison.csv
 report/screenshots/cases/
 report/screenshots/explainability/
 ```
