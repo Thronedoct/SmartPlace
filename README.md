@@ -14,6 +14,7 @@ SmartPlace 是本课程方向 A 的项目：智能物体放置与合成图质量
 - `docs/API.md`：Web 前端与后端之间的接口约定。
 - `docs/model_plan.md`：模型细节、参考源码、实验方案和解释计划。
 - `docs/TEST_CASES.md`：测试案例和工程验证记录。
+- `report/README.md`：给队友写报告、做 PPT、录屏用的证据交接索引。
 - `OPAAndroidDemoSimp/`：课程提供的 Android 参考骨架，仅作为参考和素材来源，不作为本项目交付主线。
 
 当前核心原则是：保持 Web + FastAPI + `simopa-worker` 的稳定闭环，在不破坏主线的前提下继续做低风险加码；随后进行前端重构级美化和项目结构深度整理，最后把脚本、表格、日志、截图、演示流程和证据索引整理成队友可直接接手的交付包。
