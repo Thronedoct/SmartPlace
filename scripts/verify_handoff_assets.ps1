@@ -11,6 +11,8 @@ Set-Location $repoRoot
 $requiredFiles = @(
   "report/README.md",
   "HANDOFF_FULL_PROJECT.md",
+  "requirements.txt",
+  "requirements-model.txt",
   "report/tables/model_change_summary.csv",
   "report/tables/inference_runtime.csv",
   "report/tables/candidate_ranking_v2_100.csv",
@@ -46,6 +48,7 @@ $requiredDirs = @(
   "report/screenshots/cases",
   "report/screenshots/explainability",
   "report/screenshots/web",
+  "assets/demo_cases",
   "report/videos"
 )
 
@@ -73,6 +76,20 @@ if ($heatmaps.Count -lt 5) {
   $missing += "expected at least 5 explainability PNGs; found $($heatmaps.Count)"
 }
 
+$demoCaseDirs = @(Get-ChildItem -Path "assets/demo_cases" -Directory -ErrorAction SilentlyContinue)
+if ($demoCaseDirs.Count -lt 5) {
+  $missing += "expected at least 5 packaged demo case directories; found $($demoCaseDirs.Count)"
+}
+
+foreach ($demoCaseDir in $demoCaseDirs) {
+  foreach ($assetName in @("background.jpg", "foreground.jpg", "mask.jpg")) {
+    $assetPath = Join-Path $demoCaseDir.FullName $assetName
+    if (-not (Test-Path $assetPath -PathType Leaf)) {
+      $missing += "missing packaged demo asset: $($demoCaseDir.Name)/$assetName"
+    }
+  }
+}
+
 if ($RequireVideos) {
   $videos = @(Get-ChildItem -Path "report/videos" -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -ne ".gitkeep" })
   if ($videos.Count -eq 0) {
@@ -89,6 +106,7 @@ Write-Host "Handoff artifact check passed."
 Write-Host "  required_files: $($requiredFiles.Count)"
 Write-Host "  case_panels:    $($casePanels.Count)"
 Write-Host "  heatmaps:       $($heatmaps.Count)"
+Write-Host "  demo_cases:     $($demoCaseDirs.Count)"
 if ($RequireVideos) {
   Write-Host "  videos:         $($videos.Count)"
 }

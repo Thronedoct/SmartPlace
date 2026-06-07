@@ -12,6 +12,23 @@
 .\stop_demo.ps1
 ```
 
+## 环境
+
+App 环境安装 FastAPI 依赖：
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+真实模型推理使用单独的 model 环境。先按机器情况安装 PyTorch/torchvision，再安装：
+
+```powershell
+conda run -n <model-env> python -m pip install -r requirements-model.txt
+```
+
+Web 内置案例图片位于 `assets/demo_cases/`，不依赖完整 OPA raw 数据集。
+
 ## Scorer 模式
 
 | 模式 | 用途 |
@@ -27,7 +44,7 @@
 ```powershell
 .\start_demo.ps1 -Scorer mock
 .\start_demo.ps1 -Scorer simopa-worker
-.\start_demo.ps1 -ModelPython "D:\DevTools\Anaconda\envs\study\python.exe"
+.\start_demo.ps1 -ModelPython "<model-python>"
 ```
 
 ## 接口

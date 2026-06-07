@@ -35,12 +35,8 @@ SIMOPA_WEIGHT = (
     / "checkpoints"
     / "simopa.pth"
 )
-MODEL_PYTHON = Path(
-    os.getenv(
-        "SMARTPLACE_MODEL_PYTHON",
-        r"D:\DevTools\Anaconda\envs\study\python.exe",
-    )
-)
+MODEL_PYTHON_TEXT = os.getenv("SMARTPLACE_MODEL_PYTHON", "").strip()
+MODEL_PYTHON = Path(MODEL_PYTHON_TEXT) if MODEL_PYTHON_TEXT else None
 SIMOPA_DEVICE = os.getenv("SMARTPLACE_SIMOPA_DEVICE", "auto")
 _SIMOPA_WORKER: SimopaWorker | None = None
 _SIMOPA_WORKER_GUARD = threading.Lock()
@@ -58,7 +54,7 @@ def get_scorer_status(mode: str | None = None) -> dict[str, str]:
     selected_mode = resolve_scorer_mode(mode)
     if is_simopa_mode(selected_mode):
         script = SIMOPA_WORKER_SCRIPT if is_simopa_worker_mode(selected_mode) else SIMOPA_SCRIPT
-        ready = MODEL_PYTHON.exists() and script.exists() and SIMOPA_WEIGHT.exists()
+        ready = MODEL_PYTHON is not None and MODEL_PYTHON.exists() and script.exists() and SIMOPA_WEIGHT.exists()
         return {
             "mode": selected_mode,
             "status": "ready" if ready else "unavailable",
@@ -199,7 +195,8 @@ def score_candidates_with_simopa(
     status = get_scorer_status(selected_mode)
     if status["status"] != "ready":
         raise RuntimeError(
-            "SimOPA scorer is not ready. Expected study python, score script, and simopa.pth weight."
+            "SimOPA scorer is not ready. Set SMARTPLACE_MODEL_PYTHON or pass -ModelPython, "
+            "and ensure the score script and simopa.pth weight exist."
         )
     if is_simopa_worker_mode(selected_mode):
         return score_candidates_with_simopa_worker(

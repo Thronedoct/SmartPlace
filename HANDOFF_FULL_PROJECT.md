@@ -6,7 +6,7 @@
 
 项目交付包面向需要自己打开源码、运行 Web 演示、录屏或继续改材料的队友。它不是只包含报告素材的小包，而是把当前本机项目中可复用的代码、模型、外部参考源码和证据放在一起。
 
-默认包**不包含 OPA raw 数据集**，因为 `new_OPA/` 约 4.6GB 且包含十几万张小图，复制和压缩会很慢。队友只写报告/PPT/录屏时，默认包已经够用；如果确实要重跑 OPA 内置案例或大规模实验，再单独复制数据集。
+默认包**不包含 OPA raw 数据集**，因为 `new_OPA/` 约 4.6GB 且包含十几万张小图，复制和压缩会很慢。5 个 Web 内置案例已经单独抽到 `assets/demo_cases/`，所以队友不需要完整数据集也能加载内置案例。只有要重跑 18/50/100 组评测或重新训练 LightOPA 时，才需要单独复制完整数据集。
 
 默认导出位置：
 
@@ -42,6 +42,7 @@ report/exports/smartplace_project_no_dataset.zip
 | 根目录启动脚本 | `start_demo.ps1`、`stop_demo.ps1` | 一键启动/停止演示服务。 |
 | 项目文档 | `README.md`、`docs/`、`server/README.md`、`experiments/README.md` | 查看项目定位、接口、模型路线和验证记录。 |
 | 交付证据 | `report/` | 报告/PPT/录屏所需的表格、日志、截图和交接索引。 |
+| 内置案例小图 | `assets/demo_cases/` | 5 个 Web demo case 的 background/foreground/mask。 |
 | 数据 split 和说明 | `assets/datasets/opa/splits/`、`assets/datasets/opa/notes.md` | 18/50/100 组案例和数据审计记录。 |
 | SimOPA 权重 | `models/opa/`、`models/libcom/pretrained_models/` | 真实 OPA/SimOPA scorer 运行所需权重。 |
 | LightOPA 权重 | `models/lightopa/` | tiny/residual 轻量 baseline 的训练结果。 |
@@ -81,7 +82,14 @@ report/README.md
 
 `README.md` 负责运行项目；`report/README.md` 负责报告、PPT 和录屏怎么取证。
 
-3. 快速确认 Web 可以打开：
+3. 准备 App 环境：
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+4. 快速确认 Web 可以打开：
 
 ```powershell
 .\start_demo.ps1 -Scorer mock
@@ -99,37 +107,47 @@ http://127.0.0.1:8000/
 .\stop_demo.ps1
 ```
 
-4. 跑最终真实模型演示：
+5. 准备真实模型环境。
+
+推荐使用自定义 conda 环境。先根据队友机器的 CUDA/CPU 情况安装 PyTorch 和 torchvision，再安装：
+
+```powershell
+conda run -n <model-env> python -m pip install -r requirements-model.txt
+```
+
+参考要求：
+
+```text
+Python 3.10+
+PyTorch + torchvision
+CUDA GPU preferred, CPU fallback is possible but slower
+```
+
+6. 跑最终真实模型演示：
 
 ```powershell
 .\start_demo.ps1
 ```
 
-默认 scorer 是 `simopa-worker`。如果没有 OPA raw 数据集，Web 仍可启动，真实模型也可对用户手动上传的图片评分；但内置 OPA demo case 会因为缺少图片而不可用。若要使用内置案例，请把数据集复制到：
-
-```text
-assets/datasets/opa/raw/new_OPA/
-```
-
-如果脚本找不到 `study` conda 环境里的 Python，先查询：
+查询模型环境 Python 路径：
 
 ```powershell
-conda run -n study python -c "import sys; print(sys.executable)"
+conda run -n <model-env> python -c "import sys; print(sys.executable)"
 ```
 
 再显式传入：
 
 ```powershell
-.\start_demo.ps1 -ModelPython "<path-to-study-conda-env-python.exe>"
+.\start_demo.ps1 -ModelPython "<path-to-model-python.exe>"
 ```
 
-5. 录屏流程按 `report/README.md` 走。录屏文件放到：
+7. 录屏流程按 `report/README.md` 走。录屏文件放到：
 
 ```text
 report/videos/
 ```
 
-6. 录屏后检查材料是否齐：
+8. 录屏后检查材料是否齐：
 
 ```powershell
 .\scripts\verify_handoff_assets.ps1 -RequireVideos
@@ -174,11 +192,11 @@ external/Object-Placement-Assessment-Dataset-OPA/
 .model-packages/
 ```
 
-以及 `study` 环境是否有 PyTorch、torchvision、Pillow 等依赖。
+以及模型环境是否有 PyTorch、torchvision、Pillow 等依赖。
 
 ### 内置案例不可用
 
-默认交付包不含 OPA raw 数据，所以内置案例按钮可能不可用。这不是代码坏了。要恢复内置案例，把数据集单独放回：
+默认交付包已经包含 `assets/demo_cases/`，所以 Web 内置案例应该可用。只有当队友要重跑大规模 OPA 实验时，才需要把完整数据集单独放回：
 
 ```text
 assets/datasets/opa/raw/new_OPA/

@@ -5,11 +5,10 @@ This experiment verifies that the released SimOPA model can load locally and sco
 Environment:
 
 ```text
-Python: D:\DevTools\Anaconda\envs\study\python.exe
+Python: <model-python>
 Local packages: .model-packages
-Torch: 2.8.0+cu129
-CUDA: available
-GPU: NVIDIA GeForce RTX 4070 Ti SUPER
+PyTorch + torchvision: install for the teammate machine's CUDA/CPU setup
+CUDA: preferred, CPU fallback is possible but slower
 ```
 
 Required local files:
@@ -23,19 +22,19 @@ external/Object-Placement-Assessment-Dataset-OPA/eval_opascore/checkpoints/simop
 Install local packages if `.model-packages/` is missing:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' -m pip install --target .model-packages --no-deps -r experiments\requirements-model-min.txt
+& '<model-python>' -m pip install --target .model-packages --no-deps -r experiments\requirements-model-min.txt
 ```
 
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_simopa_smoke.py
+& '<model-python>' experiments\opa_baseline\run_simopa_smoke.py
 ```
 
 Known issue:
 
 - The upstream `eval_opascore/simopa.py` main block hardcodes `cuda:1`; this project wrapper uses `cuda:0` or CPU explicitly.
-- The current torch/numpy binding in `study` rejects `torch.from_numpy(...)`, so the wrapper builds tensors from Pillow pixel lists without numpy.
+- Some PyTorch/numpy environment combinations reject `torch.from_numpy(...)`, so the wrapper builds tensors from Pillow pixel lists without numpy.
 
 Outputs:
 
@@ -50,7 +49,7 @@ report/tables/opa_baseline_scores.csv
 After downloading the full OPA dataset to `assets/datasets/opa/raw/new_OPA`, run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\audit_opa_dataset.py
+& '<model-python>' experiments\opa_baseline\audit_opa_dataset.py
 ```
 
 Outputs:
@@ -159,7 +158,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_candidate_ranking.py --positive-count 50 --negative-count 50 --scorer-mode simopa-worker --run-name "SmartPlace candidate ranking v2 100-case worker" --report-csv assets\datasets\opa\splits\report_100.csv --ranking-csv report\tables\candidate_ranking_v2_100.csv --summary-csv report\tables\opa_100_case_summary.csv --log-path report\logs\candidate_ranking_v2_100.txt
+& '<model-python>' experiments\opa_baseline\run_candidate_ranking.py --positive-count 50 --negative-count 50 --scorer-mode simopa-worker --run-name "SmartPlace candidate ranking v2 100-case worker" --report-csv assets\datasets\opa\splits\report_100.csv --ranking-csv report\tables\candidate_ranking_v2_100.csv --summary-csv report\tables\opa_100_case_summary.csv --log-path report\logs\candidate_ranking_v2_100.txt
 ```
 
 This expands the candidate-ranking evidence to all 100 audited smoke cases and uses the persistent SimOPA worker to keep the runtime practical.
@@ -188,7 +187,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_rgb_mask_comparison.py
+& '<model-python>' experiments\opa_baseline\run_rgb_mask_comparison.py
 ```
 
 This reuses the 234 candidates from `candidate_ranking_v1.csv` and compares three scoring inputs:
@@ -243,7 +242,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_case_gallery.py
+& '<model-python>' experiments\opa_baseline\run_case_gallery.py
 ```
 
 This selects five report cases and renders three-panel images: OPA composite, raw SimOPA Top 3, and calibrated + dedup Top 3.
@@ -268,7 +267,7 @@ Current cases:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_occlusion_explainability.py
+& '<model-python>' experiments\opa_baseline\run_occlusion_explainability.py
 ```
 
 This runs a 6x6 RGB occlusion sensitivity test on the five representative cases. The foreground mask is kept fixed while image cells are occluded, so the output explains which visual regions most affect the SimOPA score.
@@ -293,7 +292,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_robustness_ablation.py
+& '<model-python>' experiments\opa_baseline\run_robustness_ablation.py
 ```
 
 This tests five representative cases under controlled perturbations:
@@ -324,7 +323,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_lite_mode_comparison.py
+& '<model-python>' experiments\opa_baseline\run_lite_mode_comparison.py
 ```
 
 This compares the existing 50-case `simopa-full` evidence with a real `simopa-lite` run. Lite mode uses the same SimOPA checkpoint, but scores a smaller candidate budget, so it is an application-level inference mode rather than a newly trained lightweight network.
@@ -351,7 +350,7 @@ Current result:
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\opa_baseline\run_worker_comparison.py
+& '<model-python>' experiments\opa_baseline\run_worker_comparison.py
 ```
 
 This compares the existing 50-case subprocess SimOPA evidence with `simopa-worker`, a JSONL worker that loads the same SimOPA checkpoint once and reuses it across scoring requests.

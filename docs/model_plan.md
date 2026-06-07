@@ -355,12 +355,12 @@ report/tables/lightopa_model_comparison.csv
 
 ## 本地推理与训练可行性
 
-当前可用硬件：
+运行环境要求：
 
 ```text
-study 环境已跑通 PyTorch 与 CUDA
-本地 GPU: NVIDIA GeForce RTX 4070 Ti SUPER
-CPU 推理也可作为兜底，但耗时更高
+Python model environment with PyTorch and torchvision
+CUDA GPU is preferred for fast SimOPA/LightOPA experiments
+CPU inference can be used as a fallback, but it is slower
 ```
 
 结论：
@@ -371,7 +371,7 @@ CPU 推理也可作为兜底，但耗时更高
 
 适合本地训练/推理：
 
-| 任务 | CPU | RTX 4070 Ti SUPER | 建议 |
+| 任务 | CPU | CUDA GPU | 建议 |
 |---|---|---|---|
 | OPA/SimOPA baseline 推理 | 可兜底 | 很适合 | 已完成 |
 | RGB/mask ablation | 可小规模 | 很适合 | 已完成 |

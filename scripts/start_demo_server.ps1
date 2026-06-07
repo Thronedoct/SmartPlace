@@ -20,33 +20,15 @@ if (-not (Test-Path $Python)) {
   $Python = "python"
 }
 
-function Resolve-StudyPython {
-  $conda = Get-Command conda -ErrorAction SilentlyContinue
-  if (-not $conda) {
-    return $null
-  }
-
-  $detected = & conda run -n study python -c "import sys; print(sys.executable)" 2>$null
-  if ($LASTEXITCODE -ne 0 -or -not $detected) {
-    return $null
-  }
-
-  return ($detected | Select-Object -First 1).Trim()
-}
-
 $env:SMARTPLACE_SCORER = $Scorer
 $env:SMARTPLACE_SIMOPA_DEVICE = $Device
 
 if ($Scorer.StartsWith("simopa")) {
-  if (-not $ModelPython) {
-    $ModelPython = Resolve-StudyPython
-  }
-
   if ($ModelPython) {
     $env:SMARTPLACE_MODEL_PYTHON = $ModelPython
   } else {
-    Write-Host "SMARTPLACE_MODEL_PYTHON is not set and the study conda env was not detected." -ForegroundColor Yellow
-    Write-Host "Set it manually if SimOPA model loading fails." -ForegroundColor Yellow
+    Write-Host "SMARTPLACE_MODEL_PYTHON is not set." -ForegroundColor Yellow
+    Write-Host "Pass -ModelPython <path-to-model-python.exe> if SimOPA model loading fails." -ForegroundColor Yellow
   }
 }
 
