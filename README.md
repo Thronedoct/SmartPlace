@@ -37,11 +37,13 @@ http://127.0.0.1:8000/
 .\scripts\verify_core.ps1
 .\scripts\capture_web_demo.ps1
 .\scripts\export_handoff_package.ps1
+.\scripts\export_full_project_package.ps1
 ```
 
 - `verify_core.ps1`：核心验证，覆盖后端单测、Python 编译、Web/PowerShell 语法、交付资产、仓库卫生、证据汇总和旧口径扫描。
 - `capture_web_demo.ps1`：重新生成桌面、演示模式和移动端 Web 截图。
-- `export_handoff_package.ps1`：导出队友交付包到 `report/exports/smartplace_handoff.zip`。
+- `export_handoff_package.ps1`：导出轻量材料包到 `report/exports/smartplace_handoff.zip`，不含 raw 数据和模型权重。
+- `export_full_project_package.ps1`：导出项目运行包到 `report/exports/smartplace_project_no_dataset.zip`，包含源码、模型、external 和证据材料；默认不含 4.6GB OPA raw 数据集。
 
 ## 当前成果
 
@@ -73,6 +75,7 @@ SmartPlace/
 ## 文档入口
 
 - [report/README.md](report/README.md)：队友写报告、做 PPT、录屏时优先看这里。
+- [HANDOFF_FULL_PROJECT.md](HANDOFF_FULL_PROJECT.md)：项目交付包说明，解释打包内容、未打包内容和队友到手后的操作。
 - [docs/ROADMAP.md](docs/ROADMAP.md)：项目定位、完成状态和剩余材料任务。
 - [docs/API.md](docs/API.md)：接口约定。
 - [docs/model_plan.md](docs/model_plan.md)：模型与实验细节。

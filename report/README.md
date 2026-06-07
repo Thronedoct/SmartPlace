@@ -151,3 +151,17 @@ report/exports/smartplace_handoff.zip
 ```
 
 导出包故意不包含 raw 数据、模型权重、external 源码、虚拟环境和本地依赖缓存。
+
+如果队友需要自己运行项目，而不是只写材料，使用项目运行包：
+
+```powershell
+.\scripts\export_full_project_package.ps1
+```
+
+项目运行包位于：
+
+```text
+report/exports/smartplace_project_no_dataset.zip
+```
+
+默认包包含源码、模型权重、external 参考源码和本地模型依赖缓存，但不包含 4.6GB OPA raw 数据集。详细说明见根目录 `HANDOFF_FULL_PROJECT.md`。

@@ -46,7 +46,8 @@ Web 工作台
 - 解释热力图：`report/screenshots/explainability/`
 - Web 最终截图：`report/screenshots/web/`
 - 队友交接索引：`report/README.md`
-- 交付包导出：`.\scripts\export_handoff_package.ps1`
+- 轻量材料包导出：`.\scripts\export_handoff_package.ps1`
+- 完整项目包导出：`.\scripts\export_full_project_package.ps1`
 
 ## 当前不做
 
@@ -74,6 +75,14 @@ AI 辅助说明
 .\scripts\verify_handoff_assets.ps1 -RequireVideos
 .\scripts\export_handoff_package.ps1 -RequireVideos
 ```
+
+如果队友需要自己运行完整项目，导出完整项目包：
+
+```powershell
+.\scripts\export_full_project_package.ps1
+```
+
+默认包会包含源码、模型权重、external 参考源码和本地模型依赖缓存，但不包含 4.6GB OPA raw 数据集；说明见 `HANDOFF_FULL_PROJECT.md`。
 
 ## 验证与 GitHub 流程
 
