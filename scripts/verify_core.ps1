@@ -74,6 +74,10 @@ Invoke-VerifyStep "PowerShell script syntax check" {
   }
 }
 
+Invoke-VerifyStep "Handoff artifact presence check" {
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify_handoff_assets.ps1
+}
+
 if (-not $SkipEvidenceSummary) {
   Invoke-VerifyStep "Evidence summary refresh" {
     python experiments/opa_baseline/run_evidence_summary.py
