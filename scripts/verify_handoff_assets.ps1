@@ -29,6 +29,8 @@ $requiredFiles = @(
   "report/screenshots/web/web_demo_desktop.png",
   "report/screenshots/web/web_demo_presentation.png",
   "report/screenshots/web/web_demo_mobile.png",
+  "start_demo.ps1",
+  "stop_demo.ps1",
   "scripts/start_demo_server.ps1",
   "scripts/stop_demo_server.ps1",
   "scripts/capture_web_demo.ps1",

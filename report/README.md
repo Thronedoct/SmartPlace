@@ -25,7 +25,7 @@ Do not present Android as an active deliverable. `OPAAndroidDemoSimp/` is only a
 Run the backend in the stable live-demo mode:
 
 ```powershell
-.\scripts\start_demo_server.ps1
+.\start_demo.ps1
 ```
 
 To find the `study` environment Python path on a teammate machine:
@@ -37,13 +37,13 @@ conda run -n study python -c "import sys; print(sys.executable)"
 If auto-detection does not find the model Python, pass it explicitly:
 
 ```powershell
-.\scripts\start_demo_server.ps1 -ModelPython '<path-to-study-conda-env-python.exe>'
+.\start_demo.ps1 -ModelPython '<path-to-study-conda-env-python.exe>'
 ```
 
 Stop the background server after recording:
 
 ```powershell
-.\scripts\stop_demo_server.ps1
+.\stop_demo.ps1
 ```
 
 Open:
