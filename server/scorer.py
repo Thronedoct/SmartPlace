@@ -80,8 +80,8 @@ def score_candidate_template(
 ) -> ScoreResult:
     """Score a generated candidate placeholder.
 
-    Phase 0 still uses predefined candidate scores, but the call goes through
-    the scorer boundary so real OPA/libcom scoring can replace it later.
+    Mock mode uses predefined candidate scores while preserving the same scorer
+    boundary used by the SimOPA modes.
     """
     started = time.perf_counter()
     selected_mode = resolve_scorer_mode(mode)
