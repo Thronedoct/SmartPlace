@@ -5,7 +5,7 @@ export function exportRecommendation(format, { responsePayload, activeDemoCase, 
     const payload = {
       exported_at: new Date().toISOString(),
       demo_case: activeDemoCase,
-      confidence,
+      confidence: confidence || null,
       recommendation: responsePayload,
     };
     downloadBlob(
@@ -16,11 +16,12 @@ export function exportRecommendation(format, { responsePayload, activeDemoCase, 
     return;
   }
 
-  const rows = responsePayload.candidates.map((candidate) => ({
+  const candidates = Array.isArray(responsePayload.candidates) ? responsePayload.candidates : [];
+  const rows = candidates.map((candidate) => ({
     request_id: responsePayload.request_id,
     model_version: responsePayload.model_version,
     runtime_ms: responsePayload.runtime_ms,
-    confidence_label: confidence.label,
+    confidence_label: confidence?.label || "",
     rank: candidate.rank,
     score: candidate.score,
     tier: candidate.tier,

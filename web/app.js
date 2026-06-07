@@ -122,14 +122,14 @@ async function runRecommendation(event) {
 
   setLoading(true);
   try {
-    state.responsePayload = await requestRecommendation({
+    state.responsePayload = normalizeRecommendationPayload(await requestRecommendation({
       backgroundFile,
       foregroundFile,
       maskFile,
       candidateCount: ui.candidateCount.value,
       foregroundScale: ui.foregroundScale.value,
       mode: ui.scorerMode.value,
-    });
+    }));
     state.activeIndex = state.responsePayload.best_index || 0;
     renderResults();
   } catch (error) {
@@ -175,9 +175,12 @@ function renderResults() {
   ui.requestMeta.textContent = payload.request_id;
   ui.stageTitle.textContent = "本地推荐结果";
   ui.serviceStatus.textContent = ui.scorerMode.value === "auto" ? state.serviceLabel : ui.scorerMode.value;
-  setExportEnabled(true);
+  setExportEnabled(payload.candidates.length > 0);
 
   ui.candidateList.innerHTML = "";
+  if (!payload.candidates.length) {
+    ui.candidateList.innerHTML = "<li class=\"empty-result\">本次响应没有返回候选结果。</li>";
+  }
   payload.candidates.forEach((candidate, index) => {
     ui.candidateList.appendChild(createCandidateItem(candidate, index));
   });
@@ -268,6 +271,60 @@ function renderDemoCases() {
     button.addEventListener("click", () => loadDemoCase(demoCase));
     ui.demoCaseList.appendChild(button);
   });
+}
+
+function normalizeRecommendationPayload(payload) {
+  const candidates = Array.isArray(payload?.candidates)
+    ? payload.candidates.map(normalizeCandidate)
+    : [];
+  const bestIndex = toSafeNumber(payload?.best_index, 0);
+  return {
+    request_id: String(payload?.request_id || "request-unavailable"),
+    model_version: String(payload?.model_version || "unknown-model"),
+    coord_type: String(payload?.coord_type || "normalized_xywh"),
+    runtime_ms: Math.max(0, Math.round(toSafeNumber(payload?.runtime_ms, 0))),
+    image_width: Math.max(0, Math.round(toSafeNumber(payload?.image_width, 0))),
+    image_height: Math.max(0, Math.round(toSafeNumber(payload?.image_height, 0))),
+    best_index: clampNumber(bestIndex, 0, Math.max(candidates.length - 1, 0)),
+    candidates,
+  };
+}
+
+function normalizeCandidate(candidate, index) {
+  const score = clampNumber(toSafeNumber(candidate?.score, 0), 0, 1);
+  const tier = String(candidate?.tier || tierFromScore(score));
+  return {
+    rank: Math.max(1, Math.round(toSafeNumber(candidate?.rank, index + 1))),
+    x: clampNumber(toSafeNumber(candidate?.x, 0), 0, 1),
+    y: clampNumber(toSafeNumber(candidate?.y, 0), 0, 1),
+    w: clampNumber(toSafeNumber(candidate?.w, 0), 0, 1),
+    h: clampNumber(toSafeNumber(candidate?.h, 0), 0, 1),
+    score,
+    tier,
+    label: String(candidate?.label || labelFromTier(tier)),
+    reason: String(candidate?.reason || "模型返回候选，但未提供解释。"),
+  };
+}
+
+function tierFromScore(score) {
+  if (score >= 0.75) return "recommended";
+  if (score >= 0.45) return "acceptable";
+  return "rejected";
+}
+
+function labelFromTier(tier) {
+  if (tier === "recommended") return "推荐";
+  if (tier === "acceptable") return "可接受";
+  return "不推荐";
+}
+
+function toSafeNumber(value, fallback) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(max, Math.max(min, value));
 }
 
 async function loadDemoCase(demoCase) {

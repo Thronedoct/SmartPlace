@@ -7,20 +7,21 @@ export function renderCandidateOverlay({
   foregroundUrl,
 }) {
   overlayLayer.innerHTML = "";
-  if (!responsePayload || !backgroundPreview.naturalWidth || !backgroundPreview.naturalHeight) return;
+  const candidates = Array.isArray(responsePayload?.candidates) ? responsePayload.candidates : [];
+  if (!candidates.length || !backgroundPreview.naturalWidth || !backgroundPreview.naturalHeight) return;
 
   const rect = getRenderedImageRect(stage, backgroundPreview);
-  responsePayload.candidates.forEach((candidate, index) => {
+  candidates.forEach((candidate, index) => {
     const box = document.createElement("div");
-    box.className = `candidate-box ${candidate.tier}${index === activeIndex ? " active" : ""}`;
-    box.style.left = `${rect.left + candidate.x * rect.width}px`;
-    box.style.top = `${rect.top + candidate.y * rect.height}px`;
-    box.style.width = `${candidate.w * rect.width}px`;
-    box.style.height = `${candidate.h * rect.height}px`;
+    box.className = `candidate-box ${candidate.tier || "rejected"}${index === activeIndex ? " active" : ""}`;
+    box.style.left = `${rect.left + safeNumber(candidate.x) * rect.width}px`;
+    box.style.top = `${rect.top + safeNumber(candidate.y) * rect.height}px`;
+    box.style.width = `${safeNumber(candidate.w) * rect.width}px`;
+    box.style.height = `${safeNumber(candidate.h) * rect.height}px`;
 
     const label = document.createElement("span");
     label.className = "box-label";
-    label.textContent = `#${candidate.rank} ${Math.round(candidate.score * 100)}`;
+    label.textContent = `#${candidate.rank || index + 1} ${Math.round(safeNumber(candidate.score) * 100)}`;
     box.appendChild(label);
 
     if (foregroundUrl) {
@@ -31,6 +32,11 @@ export function renderCandidateOverlay({
     }
     overlayLayer.appendChild(box);
   });
+}
+
+function safeNumber(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : 0;
 }
 
 function getRenderedImageRect(stage, backgroundPreview) {

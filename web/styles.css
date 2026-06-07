@@ -509,6 +509,15 @@ select:focus-visible,
   transition: border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
 }
 
+.empty-result {
+  padding: 12px;
+  background: var(--bg-subtle);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .candidate-item:hover {
   border-color: var(--line-strong);
 }
