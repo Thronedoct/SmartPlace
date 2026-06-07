@@ -9,78 +9,129 @@
   </head>
   <body>
     <main class="app-shell">
-      <aside class="control-pane">
-        <div class="brand-row">
+      <aside class="control-pane" aria-label="输入与模式设置">
+        <header class="brand-row">
           <span class="mark">SP</span>
           <div>
             <h1>SmartPlace</h1>
             <p>本地物体放置推理工作台</p>
           </div>
+        </header>
+
+        <div class="service-strip" aria-label="服务状态">
+          <span>Scorer</span>
+          <strong id="service-status">local</strong>
         </div>
 
         <form id="recommend-form" class="control-form">
-          <label class="file-field">
-            <span>背景图</span>
-            <input id="background-input" name="background" type="file" accept="image/*" />
-            <small id="background-source" class="file-source">未选择</small>
-          </label>
+          <section class="tool-section">
+            <div class="section-heading">
+              <h2>输入图像</h2>
+            </div>
 
-          <label class="file-field">
-            <span>前景物体</span>
-            <input id="foreground-input" name="foreground" type="file" accept="image/*" />
-            <small id="foreground-source" class="file-source">未选择</small>
-          </label>
-
-          <label class="file-field">
-            <span>Mask</span>
-            <input id="mask-input" name="mask" type="file" accept="image/*" />
-            <small id="mask-source" class="file-source">可选</small>
-          </label>
-
-          <div class="field-grid">
-            <label>
-              <span>候选数</span>
-              <select id="candidate-count" name="candidate_count">
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="8">8</option>
-              </select>
+            <label class="file-field">
+              <span>背景图</span>
+              <input id="background-input" name="background" type="file" accept="image/*" />
+              <small id="background-source" class="file-source">未选择</small>
             </label>
 
-            <label>
+            <label class="file-field">
+              <span>前景物体</span>
+              <input id="foreground-input" name="foreground" type="file" accept="image/*" />
+              <small id="foreground-source" class="file-source">未选择</small>
+            </label>
+
+            <label class="file-field">
+              <span>Mask</span>
+              <input id="mask-input" name="mask" type="file" accept="image/*" />
+              <small id="mask-source" class="file-source">可选</small>
+            </label>
+          </section>
+
+          <section class="tool-section">
+            <div class="section-heading">
+              <h2>推理设置</h2>
+              <span id="scale-value">25%</span>
+            </div>
+
+            <div class="control-grid">
+              <label>
+                <span>候选数</span>
+                <select id="candidate-count" name="candidate_count">
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="8">8</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Scorer</span>
+                <select id="scorer-mode" name="mode">
+                  <option value="auto">Auto</option>
+                  <option value="mock">Mock</option>
+                  <option value="simopa">SimOPA</option>
+                  <option value="simopa-lite">SimOPA Lite</option>
+                  <option value="simopa-worker">SimOPA Worker</option>
+                  <option value="simopa-lite-worker">SimOPA Lite Worker</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="range-field">
               <span>前景比例</span>
               <input id="foreground-scale" name="foreground_scale" type="range" min="0.10" max="0.70" step="0.01" value="0.25" />
             </label>
-          </div>
 
-          <label class="mode-field">
-            <span>Scorer</span>
-            <select id="scorer-mode" name="mode">
-              <option value="auto">Auto</option>
-              <option value="mock">Mock</option>
-              <option value="simopa">SimOPA</option>
-              <option value="simopa-lite">SimOPA Lite</option>
-              <option value="simopa-worker">SimOPA Worker</option>
-            </select>
-          </label>
-
-          <div class="scale-row">
-            <span id="scale-value">25%</span>
-            <span id="service-status">local</span>
-          </div>
-
-          <button type="submit" class="primary-action">运行本地推荐</button>
+            <button type="submit" class="primary-action">运行本地推荐</button>
+          </section>
         </form>
 
         <section class="demo-panel" aria-label="内置演示案例">
           <div class="section-heading">
-            <h2>Demo cases</h2>
+            <h2>内置案例</h2>
             <span id="demo-case-status">loading</span>
           </div>
           <div id="demo-case-list" class="demo-case-list"></div>
-          <p id="demo-case-note" class="demo-case-note">选择内置案例后会自动载入背景、前景和 mask。</p>
+          <p id="demo-case-note" class="demo-case-note">选择案例后会自动载入背景、前景和 mask。</p>
         </section>
+      </aside>
 
+      <section class="workspace" aria-label="图像预览">
+        <div class="stage-toolbar">
+          <div>
+            <span class="eyebrow">Preview</span>
+            <h2 id="stage-title">选择图片后查看推荐位置</h2>
+          </div>
+          <div class="stage-actions">
+            <div id="model-badge" class="model-badge">mock-v0</div>
+            <button id="presentation-toggle" type="button" class="presentation-toggle" aria-pressed="false">
+              演示模式
+            </button>
+          </div>
+        </div>
+
+        <div id="stage" class="stage">
+          <img id="background-preview" src="/samples/composite_1.jpg" alt="背景预览" />
+          <div id="overlay-layer" class="overlay-layer"></div>
+        </div>
+
+        <div class="evidence-row" aria-label="运行证据">
+          <div>
+            <span>coord</span>
+            <strong id="coord-type">normalized_xywh</strong>
+          </div>
+          <div>
+            <span>runtime</span>
+            <strong id="runtime">-- ms</strong>
+          </div>
+          <div>
+            <span>image</span>
+            <strong id="image-size">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <aside class="inspector-pane" aria-label="结果与可信度">
         <section class="result-list" aria-label="候选结果">
           <div class="section-heading">
             <h2>Top candidates</h2>
@@ -104,43 +155,8 @@
           <div id="case-links" class="case-links"></div>
         </section>
       </aside>
-
-      <section class="workspace">
-        <div class="stage-toolbar">
-          <div>
-            <span class="eyebrow">Preview</span>
-            <h2 id="stage-title">选择图片后查看推荐位置</h2>
-          </div>
-          <div class="stage-actions">
-            <div id="model-badge" class="model-badge">mock-v0</div>
-            <button id="presentation-toggle" type="button" class="presentation-toggle" aria-pressed="false">
-              演示模式
-            </button>
-          </div>
-        </div>
-
-        <div id="stage" class="stage">
-          <img id="background-preview" src="/samples/composite_1.jpg" alt="背景预览" />
-          <div id="overlay-layer" class="overlay-layer"></div>
-        </div>
-
-        <div class="evidence-row">
-          <div>
-            <span>coord</span>
-            <strong id="coord-type">normalized_xywh</strong>
-          </div>
-          <div>
-            <span>runtime</span>
-            <strong id="runtime">-- ms</strong>
-          </div>
-          <div>
-            <span>image</span>
-            <strong id="image-size">--</strong>
-          </div>
-        </div>
-      </section>
     </main>
 
-    <script src="/web/app.js" defer></script>
+    <script type="module" src="/web/app.js"></script>
   </body>
 </html>
