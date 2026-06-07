@@ -88,3 +88,4 @@
 | V024 | LightOPA tiny 轻量模型训练 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\lightopa\train_lightopa_tiny.py` | 通过 | 4 通道 tiny CNN，参数量 79,425；2,000 条 train、500 条 val；最佳 epoch=3，验证 accuracy=0.65，ROC-AUC=0.6761，平均验证推理 12.36ms/sample。 |
 | V025 | LightOPA residual 轻量模型训练 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\lightopa\train_lightopa_residual.py` | 通过 | 4 通道 residual CNN，参数量 1,113,377；3,000 条 train、600 条 val；最佳 epoch=2，验证 accuracy=0.6717，ROC-AUC=0.7084，平均验证推理 11.50ms/sample。 |
 | V026 | 交付前核心验证脚本 | `.\scripts\verify_core.ps1` | 通过 | 一条命令覆盖后端单测、Python 编译、Web 模块语法、证据汇总刷新、旧阶段口径扫描和 Git whitespace 检查。 |
+| V027 | 演示服务启停脚本 | `.\scripts\start_demo_server.ps1 -Scorer mock -Port 8765` / `.\scripts\stop_demo_server.ps1` | 通过 | 沙箱外 mock 模式启动后 `/api/health` 返回 200，随后 stop 脚本成功停止进程；用于验证队友录屏前的服务启动入口。 |

@@ -58,6 +58,12 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m uvicorn server.app:app --host 127.0.0.1 --port 8000
 ```
 
+推荐课堂演示启动方式：
+
+```powershell
+.\scripts\start_demo_server.ps1
+```
+
 运行真实 SimOPA scorer：
 
 ```powershell
