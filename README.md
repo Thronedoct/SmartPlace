@@ -64,6 +64,12 @@ python -m venv .venv
 .\scripts\start_demo_server.ps1
 ```
 
+生成最终 Web 截图：
+
+```powershell
+.\scripts\capture_web_demo.ps1
+```
+
 运行真实 SimOPA scorer：
 
 ```powershell

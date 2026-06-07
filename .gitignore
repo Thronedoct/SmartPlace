@@ -20,6 +20,7 @@ local.properties
 
 # Project outputs
 .playwright-mcp/
+.playwright-cli/
 .server.pid
 .tmp-uvicorn.*.log
 server.out.log
