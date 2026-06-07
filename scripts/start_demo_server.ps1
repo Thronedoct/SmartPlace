@@ -79,4 +79,4 @@ try {
 }
 
 Write-Host "Open http://${HostName}:$Port/"
-Write-Host "Stop with .\scripts\stop_demo_server.ps1"
+Write-Host "Stop with .\stop_demo.ps1"

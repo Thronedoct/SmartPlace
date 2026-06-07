@@ -59,7 +59,7 @@ Invoke-VerifyStep "Web JavaScript syntax check" {
 
 Invoke-VerifyStep "PowerShell script syntax check" {
   $scriptErrors = @()
-  foreach ($file in Get-ChildItem -Path "scripts" -Filter "*.ps1") {
+  foreach ($file in Get-ChildItem -Path ".", "scripts" -Filter "*.ps1") {
     $tokens = $null
     $parseErrors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null

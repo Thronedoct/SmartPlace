@@ -61,7 +61,13 @@ python -m venv .venv
 推荐课堂演示启动方式：
 
 ```powershell
-.\scripts\start_demo_server.ps1
+.\start_demo.ps1
+```
+
+停止演示服务：
+
+```powershell
+.\stop_demo.ps1
 ```
 
 生成最终 Web 截图：
