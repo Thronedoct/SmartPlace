@@ -28,7 +28,14 @@ $requiredFiles = @(
   "report/logs/lightopa_residual_training.txt",
   "report/screenshots/web/web_demo_desktop.png",
   "report/screenshots/web/web_demo_presentation.png",
-  "report/screenshots/web/web_demo_mobile.png"
+  "report/screenshots/web/web_demo_mobile.png",
+  "scripts/start_demo_server.ps1",
+  "scripts/stop_demo_server.ps1",
+  "scripts/capture_web_demo.ps1",
+  "scripts/export_handoff_package.ps1",
+  "scripts/verify_core.ps1",
+  "scripts/verify_handoff_assets.ps1",
+  "scripts/verify_repo_hygiene.ps1"
 )
 
 $requiredDirs = @(
