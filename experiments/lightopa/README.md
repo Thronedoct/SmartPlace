@@ -12,8 +12,8 @@ composite RGB image + foreground mask -> 4 x 128 x 128 tensor
 Run:
 
 ```powershell
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\lightopa\train_lightopa_tiny.py
-& 'D:\DevTools\Anaconda\envs\study\python.exe' experiments\lightopa\train_lightopa_residual.py
+& '<model-python>' experiments\lightopa\train_lightopa_tiny.py
+& '<model-python>' experiments\lightopa\train_lightopa_residual.py
 python experiments\lightopa\compare_lightopa_models.py
 ```
 

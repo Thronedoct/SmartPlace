@@ -26,11 +26,11 @@ Web 工作台
 .\start_demo.ps1
 ```
 
-如果队友机器上自动找不到 `study` 环境里的 Python：
+如果队友机器上自动找不到 模型环境里的 Python：
 
 ```powershell
-conda run -n study python -c "import sys; print(sys.executable)"
-.\start_demo.ps1 -ModelPython "<path-to-study-conda-env-python.exe>"
+conda run -n <model-env> python -c "import sys; print(sys.executable)"
+.\start_demo.ps1 -ModelPython "<path-to-model-python.exe>"
 ```
 
 打开：
@@ -50,6 +50,8 @@ http://127.0.0.1:8000/
 7. 切换 `演示模式`。
 8. 再用 `opa_test_002` 或 `opa_test_059` 简短展示边界/拒绝案例。
 9. 录屏结束后运行 `.\stop_demo.ps1`。
+
+内置案例图片已经单独打包在 `assets/demo_cases/`，不依赖完整 OPA raw 数据集。
 
 ## 最重要的表格
 
@@ -164,4 +166,4 @@ report/exports/smartplace_handoff.zip
 report/exports/smartplace_project_no_dataset.zip
 ```
 
-默认包包含源码、模型权重、external 参考源码和本地模型依赖缓存，但不包含 4.6GB OPA raw 数据集。详细说明见根目录 `HANDOFF_FULL_PROJECT.md`。
+默认包包含源码、模型权重、external 参考源码、本地模型依赖缓存和 5 组内置 demo 小图，但不包含 4.6GB OPA raw 数据集。详细说明见根目录 `HANDOFF_FULL_PROJECT.md`。

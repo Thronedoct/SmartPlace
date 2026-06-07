@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from server.demo_assets import DEMO_CASE_IDS, demo_case_available, resolve_demo_asset
 from server.recommender import build_mock_recommendation, detect_image_size, select_candidates_for_scoring
 from server.scorer import get_scorer_status, score_candidate_template, score_composite
 
@@ -67,6 +68,14 @@ class RecommenderTest(unittest.TestCase):
         self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite", 8)), 8)
         self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-lite-worker", 3)), 6)
         self.assertEqual(len(select_candidates_for_scoring(candidates, "simopa-worker", 3)), 12)
+
+    def test_packaged_demo_cases_are_available_without_raw_dataset_summary(self) -> None:
+        for case_id in DEMO_CASE_IDS:
+            self.assertTrue(demo_case_available(case_id, {}), case_id)
+            for asset_name in ("background", "foreground", "mask"):
+                asset_path = resolve_demo_asset(case_id, asset_name, {})
+                self.assertIsNotNone(asset_path, f"{case_id}/{asset_name}")
+                self.assertTrue(asset_path.is_file(), f"{case_id}/{asset_name}")
 
 
 if __name__ == "__main__":

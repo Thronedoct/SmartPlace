@@ -11,6 +11,7 @@ Set-Location $repoRoot
 
 $pythonFiles = @(
   "server/app.py",
+  "server/demo_assets.py",
   "server/mock_stdlib.py",
   "server/recommender.py",
   "server/scorer.py",
@@ -82,6 +83,10 @@ Invoke-VerifyStep "Repository hygiene check" {
   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify_repo_hygiene.ps1
 }
 
+Invoke-VerifyStep "Project package preflight" {
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\export_full_project_package.ps1 -ListOnly
+}
+
 if (-not $SkipEvidenceSummary) {
   Invoke-VerifyStep "Evidence summary refresh" {
     python experiments/opa_baseline/run_evidence_summary.py
@@ -103,7 +108,12 @@ if (-not $SkipStaleScan) {
       "NEXT_ROUTE.md",
       "PHASE0_STATUS.md",
       "HIGH_SCORE_ROUTE.md",
-      "WORKFLOW.md"
+      "WORKFLOW.md",
+      "D:\\DevTools",
+      ("envs\\stu" + "dy"),
+      ("conda run -n stu" + "dy"),
+      ("RTX 40" + "70"),
+      ("cu" + "129")
     )
     $patterns = $stalePatterns -join "|"
     $scanTargets = @("README.md", "docs", "experiments", "server", "web", "report", "OPAAndroidDemoSimp") |
@@ -111,7 +121,7 @@ if (-not $SkipStaleScan) {
     if (-not $scanTargets) {
       throw "Stale wording scan has no existing targets."
     }
-    $matches = & rg -n -S --glob "!report/exports/**" $patterns @scanTargets
+    $matches = & rg -n -S --glob "!report/exports/**" --glob "!scripts/verify_core.ps1" $patterns @scanTargets
     if ($LASTEXITCODE -eq 0) {
       $matches | ForEach-Object { Write-Host $_ }
       throw "Stale wording scan found outdated project wording."

@@ -1,0 +1,12 @@
+﻿# SmartPlace model-side helper dependencies.
+#
+# Install PyTorch and torchvision for your machine first. Choose the correct
+# CUDA or CPU build from the official PyTorch installation instructions.
+#
+# After PyTorch is ready, these packages are enough for the bundled SimOPA
+# helper scripts and LightOPA experiments.
+einops==0.8.2
+easydict==1.13
+tensorboardX==2.6.5
+torchsummary==1.5.1
+

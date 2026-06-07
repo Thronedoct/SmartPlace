@@ -23,6 +23,7 @@ Web 工作台
 ### 应用闭环
 
 - Web 工作台已完成：上传/内置案例、候选框、Top 3、JSON/CSV 导出、可信度提示、解释图入口、演示模式。
+- 5 组内置案例已抽到 `assets/demo_cases/`，项目运行包无需携带完整 OPA raw 数据集也能加载案例。
 - FastAPI 后端已完成：`/api/health`、`/api/place/recommend`、`/api/demo/cases`。
 - Scorer 模式已完成：`mock`、`simopa`、`simopa-lite`、`simopa-worker`、`simopa-lite-worker`。
 - 最终演示模式：`.\start_demo.ps1` 启动 `simopa-worker`，访问 `http://127.0.0.1:8000/`。

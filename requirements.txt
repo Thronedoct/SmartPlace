@@ -1,0 +1,5 @@
+# SmartPlace Web/FastAPI runtime.
+# Install this into the lightweight app environment used by start_demo.ps1.
+fastapi>=0.111
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9

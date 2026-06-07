@@ -41,8 +41,11 @@ New-Item -ItemType Directory -Force -Path $packagePath | Out-Null
 $copyItems = @(
   "README.md",
   "HANDOFF_FULL_PROJECT.md",
+  "requirements.txt",
+  "requirements-model.txt",
   "start_demo.ps1",
   "stop_demo.ps1",
+  "assets/demo_cases",
   "docs",
   "report/README.md",
   "report/tables",

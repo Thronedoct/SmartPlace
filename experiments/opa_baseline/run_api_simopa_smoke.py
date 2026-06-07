@@ -12,12 +12,8 @@ import urllib.request
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-MODEL_PYTHON = Path(
-    os.getenv(
-        "SMARTPLACE_MODEL_PYTHON",
-        r"D:\DevTools\Anaconda\envs\study\python.exe",
-    )
-)
+MODEL_PYTHON_TEXT = os.getenv("SMARTPLACE_MODEL_PYTHON", "").strip()
+MODEL_PYTHON = Path(MODEL_PYTHON_TEXT) if MODEL_PYTHON_TEXT else None
 PORT = int(os.getenv("SMARTPLACE_API_SMOKE_PORT", "8011"))
 MODE = os.getenv("SMARTPLACE_API_SMOKE_MODE", "simopa").strip().lower() or "simopa"
 CASE_ID = "opa_test_001"
@@ -52,7 +48,12 @@ def main() -> None:
 
 
 def ensure_inputs() -> None:
-    missing = [path for path in (MODEL_PYTHON, BACKGROUND, FOREGROUND, MASK) if not path.exists()]
+    required_paths = [BACKGROUND, FOREGROUND, MASK]
+    if MODE != "mock":
+        if MODEL_PYTHON is None:
+            raise FileNotFoundError("SMARTPLACE_MODEL_PYTHON must be set for non-mock API smoke.")
+        required_paths.append(MODEL_PYTHON)
+    missing = [path for path in required_paths if not path.exists()]
     if missing:
         formatted = "\n".join(str(path) for path in missing)
         raise FileNotFoundError(f"Missing required smoke input:\n{formatted}")
@@ -99,7 +100,8 @@ def normalized_environment() -> dict[str, str]:
     env = {key: value for key, value in os.environ.items() if key.upper() != "PATH"}
     env["Path"] = os.environ.get("Path") or os.environ.get("PATH", "")
     env["SMARTPLACE_SCORER"] = MODE
-    env["SMARTPLACE_MODEL_PYTHON"] = str(MODEL_PYTHON)
+    if MODEL_PYTHON is not None:
+        env["SMARTPLACE_MODEL_PYTHON"] = str(MODEL_PYTHON)
     env["SMARTPLACE_SIMOPA_DEVICE"] = os.getenv("SMARTPLACE_SIMOPA_DEVICE", "auto")
     return env
 

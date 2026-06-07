@@ -28,7 +28,35 @@ http://127.0.0.1:8000/
 
 ```powershell
 .\start_demo.ps1 -Scorer mock
-.\start_demo.ps1 -ModelPython "D:\DevTools\Anaconda\envs\study\python.exe"
+.\start_demo.ps1 -ModelPython "<model-python>"
+```
+
+## 运行环境
+
+项目有两个 Python 环境概念：
+
+| 环境 | 用途 | 安装 |
+|---|---|---|
+| App 环境 | FastAPI 后端、Web 页面、mock 模式、验证脚本 | `python -m pip install -r requirements.txt` |
+| Model 环境 | `simopa-worker` 真实模型推理、LightOPA 实验 | 先安装 PyTorch/torchvision，再安装 `requirements-model.txt` |
+
+推荐做法：
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+模型环境推荐使用自定义 conda 环境。先按队友机器的 CUDA/CPU 情况从 PyTorch 官网选择安装 PyTorch 和 torchvision，再运行：
+
+```powershell
+conda run -n <model-env> python -m pip install -r requirements-model.txt
+```
+
+无 GPU 或模型环境未配置时，可以先用 mock 模式打开页面：
+
+```powershell
+.\start_demo.ps1 -Scorer mock
 ```
 
 ## 交付命令
@@ -48,6 +76,7 @@ http://127.0.0.1:8000/
 ## 当前成果
 
 - Web 工作台：浅色三栏界面、内置案例、Top 3 候选框、JSON/CSV 导出、可信度提示、解释图入口、演示模式。
+- 内置案例：5 组代表案例已单独放在 `assets/demo_cases/`，无须携带完整 OPA raw 数据集也能加载。
 - 后端服务：FastAPI 推荐接口，支持 `mock`、`simopa`、`simopa-lite`、`simopa-worker`、`simopa-lite-worker`。
 - 模型证据：真实 SimOPA、100 组候选排序、RGB/mask ablation、分数校准、IoU 去重、鲁棒性、遮挡解释。
 - 性能证据：`simopa-lite` 候选预算对比、`simopa-worker` 常驻模型加速对比。
@@ -66,7 +95,7 @@ SmartPlace/
 |-- report/                 # 表格、日志、截图、交接索引和导出包
 |-- docs/                   # API、路线、模型计划、测试记录
 |-- scripts/                # 验证、截图、导出等交付脚本
-|-- assets/                 # OPA split 和数据说明，raw 数据不提交
+|-- assets/                 # 打包 demo cases、OPA split 和数据说明，raw 数据不提交
 |-- models/                 # 权重说明，权重文件不提交
 |-- external/               # 外部源码说明，源码目录不提交
 `-- OPAAndroidDemoSimp/     # 课程 Android 参考 Demo，归档参考
