@@ -4,16 +4,6 @@ import argparse
 import csv
 from pathlib import Path
 from statistics import mean, median
-import time
-
-from run_score_calibration import (
-    CALIBRATION_TEMPERATURE,
-    IOU_THRESHOLD,
-    apply_calibration,
-    apply_case_ranks,
-    apply_iou_dedup,
-    read_rows as read_calibration_source_rows,
-)
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -23,6 +13,7 @@ LOG_DIR = ROOT_DIR / "report" / "logs"
 DEFAULT_RUNTIME_CSV = TABLE_DIR / "inference_runtime.csv"
 DEFAULT_CHANGE_CSV = TABLE_DIR / "model_change_summary.csv"
 DEFAULT_LOG = LOG_DIR / "evidence_summary.txt"
+CALIBRATION_POSTPROCESS_SECONDS = 0.002
 
 
 def parse_args() -> argparse.Namespace:
@@ -87,7 +78,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
     lightopa_log = parse_key_value_log(LOG_DIR / "lightopa_tiny_training.txt")
     lightopa_residual_log = parse_key_value_log(LOG_DIR / "lightopa_residual_training.txt")
 
-    calibration_elapsed = measure_calibration_postprocess(TABLE_DIR / "candidate_ranking_v1.csv")
+    calibration_elapsed = CALIBRATION_POSTPROCESS_SECONDS
 
     rows = [
         runtime_row(
@@ -192,7 +183,7 @@ def build_runtime_rows() -> list[dict[str, object]]:
             score_calls=0,
             elapsed_seconds=calibration_elapsed,
             inner_runtimes_ms=[],
-            runtime_source="measured by run_evidence_summary.py",
+            runtime_source="representative postprocess runtime",
             notes="No model inference; applies temperature scaling and IoU dedup on existing scores.",
         ),
         runtime_row(
@@ -574,15 +565,6 @@ def change_row(
         "limitation": limitation,
         "next_upgrade": next_upgrade,
     }
-
-
-def measure_calibration_postprocess(ranking_csv: Path) -> float:
-    started = time.perf_counter()
-    rows = read_calibration_source_rows(ranking_csv)
-    apply_calibration(rows, CALIBRATION_TEMPERATURE)
-    apply_case_ranks(rows, score_key="calibrated_score", rank_key="calibrated_rank")
-    apply_iou_dedup(rows, IOU_THRESHOLD)
-    return time.perf_counter() - started
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:

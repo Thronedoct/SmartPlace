@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $repoRoot
 
 $pythonFiles = @(
@@ -54,6 +54,23 @@ Invoke-VerifyStep "Web JavaScript syntax check" {
     if ($LASTEXITCODE -ne 0) {
       throw "JavaScript syntax check failed for $file with exit code $LASTEXITCODE"
     }
+  }
+}
+
+Invoke-VerifyStep "PowerShell script syntax check" {
+  $scriptErrors = @()
+  foreach ($file in Get-ChildItem -Path "scripts" -Filter "*.ps1") {
+    $tokens = $null
+    $parseErrors = $null
+    [System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
+    foreach ($errorItem in $parseErrors) {
+      $scriptErrors += "$($file.Name): $($errorItem.Message)"
+    }
+  }
+
+  if ($scriptErrors.Count -gt 0) {
+    $scriptErrors | ForEach-Object { Write-Host $_ }
+    throw "PowerShell script syntax check failed."
   }
 }
 
