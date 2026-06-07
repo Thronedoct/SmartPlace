@@ -10,6 +10,7 @@ Set-Location $repoRoot
 
 $requiredFiles = @(
   "report/README.md",
+  "HANDOFF_FULL_PROJECT.md",
   "report/tables/model_change_summary.csv",
   "report/tables/inference_runtime.csv",
   "report/tables/candidate_ranking_v2_100.csv",
@@ -35,6 +36,7 @@ $requiredFiles = @(
   "scripts/stop_demo_server.ps1",
   "scripts/capture_web_demo.ps1",
   "scripts/export_handoff_package.ps1",
+  "scripts/export_full_project_package.ps1",
   "scripts/verify_core.ps1",
   "scripts/verify_handoff_assets.ps1",
   "scripts/verify_repo_hygiene.ps1"

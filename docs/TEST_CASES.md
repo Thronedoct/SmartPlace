@@ -93,3 +93,4 @@
 | V029 | Web 最终演示截图 | `.\scripts\capture_web_demo.ps1` | 通过 | `simopa-worker` 模式下加载内置案例、运行推荐、确认 Top 3 和导出按钮，生成桌面、演示模式和移动端截图到 `report/screenshots/web/`。 |
 | V030 | 仓库卫生检查 | `.\scripts\verify_repo_hygiene.ps1` | 通过 | 检查本地临时产物、被误提交的权重/raw 数据/external 源码和超过 2MB 的跟踪文件；配合 `.editorconfig` 与 `.gitattributes` 固定换行和二进制规则。 |
 | V031 | 队友交付包导出 | `.\scripts\export_handoff_package.ps1` | 通过 | 在已忽略的 `report/exports/` 中生成交付文件夹和 zip，包含文档索引、关键表格、日志、截图和演示/验证脚本，不包含 raw 数据、模型权重、external 源码和本地依赖缓存。 |
+| V032 | 项目运行包导出 | `.\scripts\export_full_project_package.ps1` | 通过 | 在已忽略的 `report/exports/` 中生成项目文件夹和 tar，包含源码、report 证据、模型权重、external 参考源码和 `.model-packages/`；默认不包含 OPA raw 数据、Git 历史、虚拟环境、缓存和旧导出包。 |
