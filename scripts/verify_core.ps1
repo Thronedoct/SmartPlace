@@ -52,7 +52,7 @@ Invoke-VerifyStep "Web JavaScript syntax check" {
   foreach ($file in $webFiles) {
     node --check $file
     if ($LASTEXITCODE -ne 0) {
-      exit $LASTEXITCODE
+      throw "JavaScript syntax check failed for $file with exit code $LASTEXITCODE"
     }
   }
 }
@@ -81,7 +81,11 @@ if (-not $SkipStaleScan) {
       "WORKFLOW.md"
     )
     $patterns = $stalePatterns -join "|"
-    $scanTargets = @("README.md", "docs", "experiments", "server", "web", "report", "OPAAndroidDemoSimp")
+    $scanTargets = @("README.md", "docs", "experiments", "server", "web", "report", "OPAAndroidDemoSimp") |
+      Where-Object { Test-Path $_ }
+    if (-not $scanTargets) {
+      throw "Stale wording scan has no existing targets."
+    }
     $matches = & rg -n $patterns @scanTargets -S
     if ($LASTEXITCODE -eq 0) {
       $matches | ForEach-Object { Write-Host $_ }
