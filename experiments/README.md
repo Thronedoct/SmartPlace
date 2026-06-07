@@ -34,10 +34,7 @@ For final verification, use this order instead of rerunning every historical
 experiment:
 
 ```powershell
-python experiments\opa_baseline\run_evidence_summary.py
-python -m unittest server.test_recommender
-python -m py_compile server/app.py server/mock_stdlib.py server/recommender.py server/scorer.py
-node --check web/app.js
+.\scripts\verify_core.ps1
 ```
 
 GPU-heavy experiments are documented in `experiments/opa_baseline/README.md` and

@@ -87,3 +87,4 @@
 | V023 | 100 组 OPA worker 候选排序扩展评测 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\opa_baseline\run_candidate_ranking.py --positive-count 50 --negative-count 50 --scorer-mode simopa-worker ...` | 通过 | 100 组、1300 条候选；正例 44/50 的 OPA 标注位置进入 Top 3，负例 50/50 低分拒绝；耗时 42.1s。 |
 | V024 | LightOPA tiny 轻量模型训练 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\lightopa\train_lightopa_tiny.py` | 通过 | 4 通道 tiny CNN，参数量 79,425；2,000 条 train、500 条 val；最佳 epoch=3，验证 accuracy=0.65，ROC-AUC=0.6761，平均验证推理 12.36ms/sample。 |
 | V025 | LightOPA residual 轻量模型训练 | `D:\DevTools\Anaconda\envs\study\python.exe experiments\lightopa\train_lightopa_residual.py` | 通过 | 4 通道 residual CNN，参数量 1,113,377；3,000 条 train、600 条 val；最佳 epoch=2，验证 accuracy=0.6717，ROC-AUC=0.7084，平均验证推理 11.50ms/sample。 |
+| V026 | 交付前核心验证脚本 | `.\scripts\verify_core.ps1` | 通过 | 一条命令覆盖后端单测、Python 编译、Web 模块语法、证据汇总刷新、旧阶段口径扫描和 Git whitespace 检查。 |
