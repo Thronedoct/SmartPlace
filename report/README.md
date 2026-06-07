@@ -155,6 +155,7 @@ Before handing the project to teammates, run:
 ```
 
 This is the lightweight final check. It does not rerun GPU-heavy ranking, occlusion, robustness, or LightOPA training jobs unless those artifacts are being regenerated.
+It also checks repository hygiene, including common temporary files, raw dataset/model artifacts, and unexpectedly large tracked files.
 
 After the materials team records the demo video, run the handoff asset check with video files required:
 
