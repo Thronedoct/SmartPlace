@@ -29,6 +29,7 @@ SmartPlace/
 |-- server/                  # FastAPI 后端推理服务
 |-- docs/                    # 路线、接口、模型计划、测试记录
 |-- web/                     # Web 演示工作台
+|-- scripts/                 # 交付前核心验证脚本
 |-- assets/                  # 测试图片和共享素材
 |-- report/                  # 报告、PPT、截图、录屏材料
 `-- README.md
@@ -90,13 +91,13 @@ $env:SMARTPLACE_SIMOPA_DEVICE='auto'
 curl http://127.0.0.1:8000/api/health
 ```
 
-运行后端单元检查：
+运行交付前核心检查：
 
-```bash
-python -m unittest server.test_recommender
-python -m py_compile server/app.py server/mock_stdlib.py server/recommender.py server/scorer.py
-.\.venv\Scripts\python.exe experiments\opa_baseline\run_api_simopa_smoke.py
+```powershell
+.\scripts\verify_core.ps1
 ```
+
+该脚本会覆盖后端单测、Python 编译、Web 模块语法、证据汇总刷新、旧阶段口径扫描和 Git whitespace 检查。真实 SimOPA API smoke 仍按需单独运行，避免每次检查都启动重模型。
 
 Web 工作台访问：
 

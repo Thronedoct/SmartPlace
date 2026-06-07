@@ -126,3 +126,13 @@ member contribution statement
 ```
 
 Engineering evidence is already available in scripts, tables, logs, and screenshots. The final material work should focus on narration, formatting, and recording.
+
+## Final Verification
+
+Before handing the project to teammates, run:
+
+```powershell
+.\scripts\verify_core.ps1
+```
+
+This is the lightweight final check. It does not rerun GPU-heavy ranking, occlusion, robustness, or LightOPA training jobs unless those artifacts are being regenerated.

@@ -129,7 +129,7 @@ SmartPlace 选择课程方向 A：智能物体放置与合成图质量评价。
 2. **去除过时物**：清理旧 pid、临时日志、过时 smoke 输出、无引用的测试占位文件；权重、raw 数据、external 源码继续不进 Git。
 3. **脚本可读性**：统一实验脚本命名、参数说明和输出路径；让队友可以按 README 重跑核心证据，而不是猜命令。
 4. **文档收敛**：保留当前五个长期文档，不再扩散；把过时的“下一步”改成实际状态，避免报告引用错信息。
-5. **最终验证清单**：形成一套固定命令，覆盖后端单测、Python 编译、前端语法、核心实验汇总、Web smoke。
+5. **最终验证清单**：已新增 `scripts/verify_core.ps1`，覆盖后端单测、Python 编译、前端语法、核心实验汇总、旧口径扫描和 whitespace 检查；Web smoke 继续按需用 Playwright/浏览器单独验收。
 
 ### S4 队友可交付包
 
@@ -234,9 +234,7 @@ gh auth status
 合并前至少检查：
 
 ```powershell
-python -m unittest server.test_recommender
-python -m py_compile server/app.py server/recommender.py server/scorer.py
-node --check web/app.js
+.\scripts\verify_core.ps1
 ```
 
 模型实验 PR 还要附对应脚本命令和 `report/` 输出表。
