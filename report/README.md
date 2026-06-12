@@ -55,6 +55,8 @@ http://127.0.0.1:8000/
 
 ## 最重要的表格
 
+模型侧答辩速查：`report/MODEL_DEFENSE_QA.md`。里面整理了模型工作、关键数字和老师可能追问的问题。
+
 | 文件 | 报告里怎么用 |
 |---|---|
 | `report/tables/model_change_summary.csv` | 统一说明 14 项已完成的模型/工程改动。 |
