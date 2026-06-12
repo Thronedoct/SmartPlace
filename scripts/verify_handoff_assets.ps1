@@ -10,6 +10,7 @@ Set-Location $repoRoot
 
 $requiredFiles = @(
   "report/README.md",
+  "report/MODEL_DEFENSE_QA.md",
   "HANDOFF_FULL_PROJECT.md",
   "requirements.txt",
   "requirements-model.txt",
