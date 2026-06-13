@@ -115,6 +115,69 @@ def build_mock_recommendation(
     }
 
 
+def build_manual_placement_score(
+    *,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    background_bytes: bytes,
+    foreground_bytes: bytes,
+    mask_bytes: bytes | None = None,
+    scorer_mode: str | None = None,
+    started_at: float | None = None,
+) -> dict:
+    started = time.perf_counter() if started_at is None else started_at
+    width, height = detect_image_size(background_bytes)
+    selected_scorer_mode = resolve_scorer_mode(scorer_mode)
+    box_width = clamp_float(w, 0.05, 0.8)
+    box_height = clamp_float(h, 0.05, 0.8)
+    box_x = clamp_float(x, 0.0, max(0.0, 1.0 - box_width))
+    box_y = clamp_float(y, 0.0, max(0.0, 1.0 - box_height))
+    candidate = {
+        "rank": 1,
+        "x": box_x,
+        "y": box_y,
+        "w": box_width,
+        "h": box_height,
+        "base_score": manual_mock_score(box_x, box_y, box_width, box_height),
+        "base_reason": "User-selected manual placement.",
+    }
+    score_result = score_candidate_boxes(
+        background_bytes=background_bytes,
+        foreground_bytes=foreground_bytes,
+        mask_bytes=mask_bytes,
+        candidates=[candidate],
+        mode=selected_scorer_mode,
+    )[0]
+    tier, label = score_to_tier(score_result.score)
+
+    return {
+        "request_id": f"manual-{selected_scorer_mode}-{uuid.uuid4().hex[:12]}",
+        "model_version": score_result.model_version,
+        "coord_type": "normalized_xywh",
+        "runtime_ms": max(1, round((time.perf_counter() - started) * 1000)),
+        "image_width": width,
+        "image_height": height,
+        "best_index": 0,
+        "candidates": [
+            {
+                "rank": 1,
+                "x": box_x,
+                "y": box_y,
+                "w": box_width,
+                "h": box_height,
+                "score": score_result.score,
+                "tier": tier,
+                "label": label,
+                "reason": build_manual_reason(score_result.mode, score_result.score),
+                "preview_url": None,
+                "heatmap_url": None,
+            }
+        ],
+    }
+
+
 def build_candidate_pool(
     *,
     background_size: tuple[int, int],
@@ -247,6 +310,27 @@ def build_reason(mode: str, score: float, mock_reason: str) -> str:
     if mode == "simopa-lite-worker":
         return f"SimOPA Lite Worker: candidate scored {score:.2f} with persistent reduced-budget scoring."
     return f"SimOPA: candidate scored {score:.2f} by RGB+mask placement assessment."
+
+
+def build_manual_reason(mode: str, score: float) -> str:
+    if mode == "mock":
+        return f"Mock: manual placement scored {score:.2f}."
+    if mode == "simopa-worker":
+        return f"SimOPA Worker: manual placement scored {score:.2f}."
+    if mode == "simopa-lite-worker":
+        return f"SimOPA Lite Worker: manual placement scored {score:.2f}."
+    if mode == "simopa-lite":
+        return f"SimOPA Lite: manual placement scored {score:.2f}."
+    return f"SimOPA: manual placement scored {score:.2f}."
+
+
+def manual_mock_score(x: float, y: float, w: float, h: float) -> float:
+    center_x = x + w / 2
+    bottom = y + h
+    center_penalty = abs(center_x - 0.5) * 0.25
+    height_penalty = abs(bottom - 0.82) * 0.45
+    edge_penalty = 0.15 if x <= 0.02 or x + w >= 0.98 else 0.0
+    return clamp_float(0.88 - center_penalty - height_penalty - edge_penalty, 0.05, 0.95)
 
 
 def _detect_jpeg_size(data: bytes) -> tuple[int, int] | None:

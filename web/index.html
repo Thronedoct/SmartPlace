@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SmartPlace Local</title>
     <link rel="icon" href="/web/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/web/styles.css" />
+    <link rel="stylesheet" href="/web/styles.css?v=manual-placement-2" />
   </head>
   <body>
     <main class="app-shell">
@@ -54,8 +54,17 @@
               <span id="scale-value">25%</span>
             </div>
 
+            <div class="workflow-toggle" role="group" aria-label="放置模式">
+              <button id="auto-mode" type="button" class="workflow-option active" aria-pressed="true">
+                自动推荐
+              </button>
+              <button id="manual-mode" type="button" class="workflow-option" aria-pressed="false">
+                手动放置
+              </button>
+            </div>
+
             <div class="control-grid">
-              <label>
+              <label id="candidate-count-field">
                 <span>候选数</span>
                 <select id="candidate-count" name="candidate_count">
                   <option value="3">3</option>
@@ -82,7 +91,7 @@
               <input id="foreground-scale" name="foreground_scale" type="range" min="0.10" max="0.70" step="0.01" value="0.25" />
             </label>
 
-            <button type="submit" class="primary-action">运行本地推荐</button>
+            <button id="run-action" type="submit" class="primary-action">运行本地推荐</button>
           </section>
         </form>
 
@@ -113,6 +122,7 @@
         <div id="stage" class="stage">
           <img id="background-preview" src="/samples/composite_1.jpg" alt="背景预览" />
           <div id="overlay-layer" class="overlay-layer"></div>
+          <div id="manual-placement-layer" class="manual-placement-layer" hidden></div>
         </div>
 
         <div class="evidence-row" aria-label="运行证据">
@@ -157,6 +167,6 @@
       </aside>
     </main>
 
-    <script type="module" src="/web/app.js"></script>
+    <script type="module" src="/web/app.js?v=manual-placement-3"></script>
   </body>
 </html>

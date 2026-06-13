@@ -3,7 +3,12 @@ from __future__ import annotations
 import unittest
 
 from server.demo_assets import DEMO_CASE_IDS, demo_case_available, resolve_demo_asset
-from server.recommender import build_mock_recommendation, detect_image_size, select_candidates_for_scoring
+from server.recommender import (
+    build_manual_placement_score,
+    build_mock_recommendation,
+    detect_image_size,
+    select_candidates_for_scoring,
+)
 from server.scorer import get_scorer_status, score_candidate_template, score_composite
 
 
@@ -54,6 +59,25 @@ class RecommenderTest(unittest.TestCase):
         self.assertEqual(composite_score.model_version, "mock-v0")
         self.assertGreaterEqual(composite_score.score, 0.0)
         self.assertLessEqual(composite_score.score, 1.0)
+
+    def test_manual_placement_score_clamps_box_and_returns_one_candidate(self) -> None:
+        payload = build_manual_placement_score(
+            x=0.9,
+            y=0.9,
+            w=0.3,
+            h=0.25,
+            background_bytes=b"",
+            foreground_bytes=b"",
+            scorer_mode="mock",
+        )
+
+        self.assertEqual(len(payload["candidates"]), 1)
+        candidate = payload["candidates"][0]
+        self.assertAlmostEqual(candidate["x"], 0.7)
+        self.assertAlmostEqual(candidate["y"], 0.75)
+        self.assertAlmostEqual(candidate["w"], 0.3)
+        self.assertAlmostEqual(candidate["h"], 0.25)
+        self.assertTrue(payload["request_id"].startswith("manual-mock-"))
 
     def test_simopa_lite_status_and_candidate_budget(self) -> None:
         status = get_scorer_status("simopa-lite")

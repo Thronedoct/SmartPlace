@@ -2,12 +2,14 @@ import {
   fetchDemoCases,
   fetchHealth,
   fileFromUrl,
+  requestPlacementScore,
   requestRecommendation,
-} from "./modules/api.js";
-import { analyzeConfidence } from "./modules/confidence.js";
-import { exportRecommendation } from "./modules/download.js";
-import { buildForegroundPreviewUrl } from "./modules/image-preview.js";
-import { renderCandidateOverlay } from "./modules/overlay.js";
+} from "./modules/api.js?v=manual-placement-3";
+import { analyzeConfidence } from "./modules/confidence.js?v=manual-placement-3";
+import { exportRecommendation } from "./modules/download.js?v=manual-placement-3";
+import { buildForegroundPreviewUrl } from "./modules/image-preview.js?v=manual-placement-3";
+import { createManualPlacementController } from "./modules/manual-placement.js?v=manual-placement-3";
+import { renderCandidateOverlay } from "./modules/overlay.js?v=manual-placement-3";
 
 const ui = {
   form: document.querySelector("#recommend-form"),
@@ -18,15 +20,20 @@ const ui = {
   foregroundSource: document.querySelector("#foreground-source"),
   maskSource: document.querySelector("#mask-source"),
   candidateCount: document.querySelector("#candidate-count"),
+  candidateCountField: document.querySelector("#candidate-count-field"),
   foregroundScale: document.querySelector("#foreground-scale"),
   scorerMode: document.querySelector("#scorer-mode"),
   scaleValue: document.querySelector("#scale-value"),
+  autoModeButton: document.querySelector("#auto-mode"),
+  manualModeButton: document.querySelector("#manual-mode"),
+  runAction: document.querySelector("#run-action"),
   serviceStatus: document.querySelector("#service-status"),
   demoCaseStatus: document.querySelector("#demo-case-status"),
   demoCaseList: document.querySelector("#demo-case-list"),
   demoCaseNote: document.querySelector("#demo-case-note"),
   backgroundPreview: document.querySelector("#background-preview"),
   overlayLayer: document.querySelector("#overlay-layer"),
+  manualPlacementLayer: document.querySelector("#manual-placement-layer"),
   candidateList: document.querySelector("#candidate-list"),
   requestMeta: document.querySelector("#request-meta"),
   exportJsonButton: document.querySelector("#export-json"),
@@ -50,6 +57,7 @@ const state = {
   foregroundUrl: null,
   serviceLabel: "local",
   serviceMode: "mock",
+  workflowMode: "auto",
   demoCases: [],
   activeDemoCase: null,
   demoFiles: {
@@ -58,6 +66,13 @@ const state = {
     mask: null,
   },
 };
+
+const manualPlacement = createManualPlacementController({
+  stage: ui.stage,
+  backgroundPreview: ui.backgroundPreview,
+  layer: ui.manualPlacementLayer,
+  onPlacementChange: handleManualPlacementChange,
+});
 
 init();
 
@@ -70,8 +85,14 @@ function init() {
 function bindEvents() {
   ui.foregroundScale.addEventListener("input", () => {
     ui.scaleValue.textContent = `${Math.round(Number(ui.foregroundScale.value) * 100)}%`;
+    if (state.workflowMode === "manual") {
+      manualPlacement.setScale(ui.foregroundScale.value);
+      invalidateManualScore();
+    }
   });
 
+  ui.autoModeButton.addEventListener("click", () => setWorkflowMode("auto"));
+  ui.manualModeButton.addEventListener("click", () => setWorkflowMode("manual"));
   ui.backgroundInput.addEventListener("change", () => {
     const file = ui.backgroundInput.files[0];
     if (!file) return;
@@ -112,6 +133,11 @@ function bindEvents() {
 
 async function runRecommendation(event) {
   event.preventDefault();
+  if (state.workflowMode === "manual") {
+    await runManualPlacementScore();
+    return;
+  }
+
   const backgroundFile = getActiveFile("background");
   const foregroundFile = getActiveFile("foreground");
   const maskFile = getActiveFile("mask");
@@ -133,20 +159,62 @@ async function runRecommendation(event) {
     state.activeIndex = state.responsePayload.best_index || 0;
     renderResults();
   } catch (error) {
-    ui.serviceStatus.textContent = "error";
-    ui.requestMeta.textContent = error.message;
+    showRequestError(error, false);
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function runManualPlacementScore() {
+  const backgroundFile = getActiveFile("background");
+  const foregroundFile = getActiveFile("foreground");
+  const maskFile = getActiveFile("mask");
+  if (!backgroundFile || !foregroundFile) {
+    ui.requestMeta.textContent = "请选择背景图和前景物体，或加载内置案例";
+    return;
+  }
+
+  setLoading(true);
+  try {
+    state.responsePayload = normalizeRecommendationPayload(await requestPlacementScore({
+      backgroundFile,
+      foregroundFile,
+      maskFile,
+      placement: manualPlacement.getPlacement(),
+      mode: ui.scorerMode.value,
+    }));
+    state.activeIndex = 0;
+    renderResults();
+  } catch (error) {
+    showRequestError(error, true);
   } finally {
     setLoading(false);
   }
 }
 
 function setLoading(isLoading) {
-  ui.form.querySelector(".primary-action").disabled = isLoading;
+  ui.runAction.disabled = isLoading;
+  ui.runAction.textContent = isLoading
+    ? (state.workflowMode === "manual" ? "正在评分..." : "正在推荐...")
+    : (state.workflowMode === "manual" ? "评估当前位置" : "运行本地推荐");
   ui.presentationToggle.disabled = isLoading;
   ui.demoCaseList.querySelectorAll("button").forEach((button) => {
     button.disabled = isLoading || button.dataset.available !== "true";
   });
   ui.serviceStatus.textContent = isLoading ? "running" : state.serviceLabel;
+}
+
+function showRequestError(error, isManual) {
+  const message = error?.message || "请求失败";
+  ui.serviceStatus.textContent = "error";
+  ui.requestMeta.textContent = message;
+  ui.stageTitle.textContent = isManual ? "当前位置评分失败" : "推荐失败";
+  ui.confidenceTier.textContent = "错误";
+  ui.confidenceTier.className = "rejected";
+  ui.confidenceList.innerHTML = "";
+  const item = document.createElement("li");
+  item.textContent = `${message}。请确认后端已重启并包含最新接口。`;
+  ui.confidenceList.appendChild(item);
 }
 
 function resetResults(title) {
@@ -173,7 +241,8 @@ function renderResults() {
   ui.runtime.textContent = `${payload.runtime_ms} ms`;
   ui.imageSize.textContent = `${payload.image_width} x ${payload.image_height}`;
   ui.requestMeta.textContent = payload.request_id;
-  ui.stageTitle.textContent = "本地推荐结果";
+  ui.stageTitle.textContent =
+    state.workflowMode === "manual" ? "手动位置评分" : "本地推荐结果";
   ui.serviceStatus.textContent = ui.scorerMode.value === "auto" ? state.serviceLabel : ui.scorerMode.value;
   setExportEnabled(payload.candidates.length > 0);
 
@@ -355,6 +424,7 @@ async function loadDemoCase(demoCase) {
     await setForegroundPreview(foregroundFile, maskFile);
     ui.foregroundScale.value = Math.min(Number(ui.foregroundScale.max), demoCase.foreground_scale).toFixed(2);
     ui.scaleValue.textContent = `${Math.round(Number(ui.foregroundScale.value) * 100)}%`;
+    manualPlacement.setScale(ui.foregroundScale.value);
     ui.candidateCount.value = String(demoCase.candidate_count || 3);
     ui.scorerMode.value = "auto";
     ui.backgroundSource.textContent = `${demoCase.case_id} background`;
@@ -383,6 +453,44 @@ function togglePresentationMode() {
   window.setTimeout(renderOverlay, 180);
 }
 
+function setWorkflowMode(mode) {
+  if (mode !== "auto" && mode !== "manual") return;
+  state.workflowMode = mode;
+  const isManual = mode === "manual";
+  document.body.classList.toggle("manual-mode", isManual);
+  ui.autoModeButton.classList.toggle("active", !isManual);
+  ui.manualModeButton.classList.toggle("active", isManual);
+  ui.autoModeButton.setAttribute("aria-pressed", String(!isManual));
+  ui.manualModeButton.setAttribute("aria-pressed", String(isManual));
+  ui.runAction.textContent = isManual ? "评估当前位置" : "运行本地推荐";
+  manualPlacement.setEnabled(isManual);
+  resetResults(isManual ? "手动放置模式" : "自动推荐模式");
+  renderOverlay();
+}
+
+function handleManualPlacementChange(placement, meta) {
+  if (Number.isFinite(meta?.scale)) {
+    const scale = clampNumber(meta.scale, 0.1, 0.7);
+    ui.foregroundScale.value = scale.toFixed(2);
+    ui.scaleValue.textContent = `${Math.round(scale * 100)}%`;
+  }
+  if (state.workflowMode === "manual" && meta?.phase === "end") {
+    invalidateManualScore();
+  }
+}
+
+function invalidateManualScore() {
+  if (state.workflowMode !== "manual" || !state.responsePayload) return;
+  state.responsePayload = null;
+  ui.candidateList.innerHTML = "";
+  ui.requestMeta.textContent = "当前位置尚未评分";
+  ui.runtime.textContent = "-- ms";
+  ui.confidenceTier.textContent = "待运行";
+  ui.confidenceTier.className = "";
+  ui.confidenceList.innerHTML = "<li>点击“评估当前位置”获取真实模型分数。</li>";
+  setExportEnabled(false);
+}
+
 function getActiveFile(kind) {
   if (kind === "background") return ui.backgroundInput.files[0] || state.demoFiles.background;
   if (kind === "foreground") return ui.foregroundInput.files[0] || state.demoFiles.foreground;
@@ -398,6 +506,7 @@ function setBackgroundPreview(file) {
 async function setForegroundPreview(file, maskFile = null) {
   if (state.foregroundUrl) URL.revokeObjectURL(state.foregroundUrl);
   state.foregroundUrl = await buildForegroundPreviewUrl(file, maskFile);
+  manualPlacement.setForeground(state.foregroundUrl);
   renderOverlay();
 }
 
@@ -445,6 +554,11 @@ function exportCurrentResult(format) {
 }
 
 function renderOverlay() {
+  if (state.workflowMode === "manual") {
+    ui.overlayLayer.innerHTML = "";
+    manualPlacement.render();
+    return;
+  }
   renderCandidateOverlay({
     overlayLayer: ui.overlayLayer,
     backgroundPreview: ui.backgroundPreview,
