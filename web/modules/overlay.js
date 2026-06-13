@@ -39,7 +39,7 @@ function safeNumber(value) {
   return Number.isFinite(number) ? number : 0;
 }
 
-function getRenderedImageRect(stage, backgroundPreview) {
+export function getRenderedImageRect(stage, backgroundPreview) {
   const stageWidth = stage.clientWidth;
   const stageHeight = stage.clientHeight;
   const imageRatio = backgroundPreview.naturalWidth / backgroundPreview.naturalHeight;

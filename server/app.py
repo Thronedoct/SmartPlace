@@ -5,7 +5,7 @@ from pathlib import Path
 import time
 from typing import Annotated
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -18,7 +18,11 @@ try:
         optional_demo_url,
         resolve_demo_asset,
     )
-    from server.recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
+    from server.recommender import (
+        DEFAULT_MODEL_VERSION,
+        build_manual_placement_score,
+        build_mock_recommendation,
+    )
     from server.scorer import DEFAULT_SCORER_MODE, get_scorer_status
 except ModuleNotFoundError:
     from demo_assets import (
@@ -28,7 +32,11 @@ except ModuleNotFoundError:
         optional_demo_url,
         resolve_demo_asset,
     )
-    from recommender import DEFAULT_MODEL_VERSION, build_mock_recommendation
+    from recommender import (
+        DEFAULT_MODEL_VERSION,
+        build_manual_placement_score,
+        build_mock_recommendation,
+    )
     from scorer import DEFAULT_SCORER_MODE, get_scorer_status
 
 MODEL_VERSION = DEFAULT_MODEL_VERSION
@@ -49,6 +57,14 @@ if WEB_DIR.exists():
 
 if SAMPLES_DIR.exists():
     app.mount("/samples", StaticFiles(directory=SAMPLES_DIR), name="samples")
+
+
+@app.middleware("http")
+async def disable_local_web_cache(request: Request, call_next):
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/web/"):
+        response.headers["Cache-Control"] = "no-store, max-age=0"
+    return response
 
 
 class Candidate(BaseModel):
@@ -208,6 +224,41 @@ async def recommend_place(
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
     return RecommendResponse(**recommendation)
+
+
+@app.post("/api/place/score", response_model=RecommendResponse)
+async def score_manual_placement(
+    background: Annotated[UploadFile, File(description="Background image")],
+    foreground: Annotated[UploadFile, File(description="Foreground object image")],
+    mask: Annotated[UploadFile | None, File(description="Optional foreground mask")] = None,
+    x: Annotated[float, Form(ge=0.0, le=1.0)] = 0.35,
+    y: Annotated[float, Form(ge=0.0, le=1.0)] = 0.35,
+    w: Annotated[float, Form(gt=0.0, le=0.8)] = 0.25,
+    h: Annotated[float, Form(gt=0.0, le=0.8)] = 0.25,
+    mode: Annotated[str, Form()] = "auto",
+) -> RecommendResponse:
+    started = time.perf_counter()
+    background_bytes = await background.read()
+    foreground_bytes = await foreground.read()
+    mask_bytes = await mask.read() if mask is not None else None
+    scorer_mode = DEFAULT_SCORER_MODE if mode == "auto" else mode
+
+    try:
+        result = build_manual_placement_score(
+            x=x,
+            y=y,
+            w=w,
+            h=h,
+            background_bytes=background_bytes,
+            foreground_bytes=foreground_bytes,
+            mask_bytes=mask_bytes,
+            scorer_mode=scorer_mode,
+            started_at=started,
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    return RecommendResponse(**result)
 
 
 def read_csv_by_key(path: Path, key: str) -> dict[str, dict[str, str]]:

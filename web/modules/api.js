@@ -36,6 +36,33 @@ export async function requestRecommendation({
   return response.json();
 }
 
+export async function requestPlacementScore({
+  backgroundFile,
+  foregroundFile,
+  maskFile,
+  placement,
+  mode,
+}) {
+  const data = new FormData();
+  data.append("background", backgroundFile);
+  data.append("foreground", foregroundFile);
+  if (maskFile) data.append("mask", maskFile);
+  data.append("x", placement.x);
+  data.append("y", placement.y);
+  data.append("w", placement.w);
+  data.append("h", placement.h);
+  data.append("mode", mode);
+
+  const response = await fetch("/api/place/score", {
+    method: "POST",
+    body: data,
+  });
+  if (!response.ok) {
+    throw new Error(await buildErrorMessage(response));
+  }
+  return response.json();
+}
+
 export async function fileFromUrl(url, filename) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`${url} HTTP ${response.status}`);
